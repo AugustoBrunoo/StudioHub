@@ -1,8 +1,6 @@
-import { BiLogoWhatsapp, BiLogoGithub, BiLogoInstagram } from "react-icons/bi";
-
-const Footer = () => {
+export default function Footer() {
     return (
-        <footer id="contato" className="py-16 border-t border-white/5 px-8">
+        <footer id="contato" className="py-12 border-t border-white/5 px-8 glass !border-b-0 !border-x-0">
             <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
                 <div className="flex items-center gap-3">
                     <div className="logo-box shadow-[0_0_15px_rgba(212,175,55,0.4)]">
@@ -24,22 +22,15 @@ const Footer = () => {
                         STUDIO<span className="gradient-text">HUB</span>
                     </div>
                 </div>
-                <p className="text-gray-500 text-sm">© 2026 StudioHub</p>
+                <p className="text-gray-500 text-sm">© 2026 StudioHub. Todos os direitos reservados.</p>
 
-                <div className="flex justify-center gap-4">
-                    <div className="w-10 h-10 glass rounded-xl flex items-center justify-center text-gray-400 hover:text-green-500 transition cursor-pointer text-xl border border-transparent hover:border-green-500/30">
-                        <BiLogoWhatsapp />
-                    </div>
-                    <div className="w-10 h-10 glass rounded-xl flex items-center justify-center text-gray-400 hover:text-white transition cursor-pointer text-xl border border-transparent hover:border-white/30">
-                        <BiLogoGithub />
-                    </div>
-                    <div className="w-10 h-10 glass rounded-xl flex items-center justify-center text-gray-400 hover:text-pink-500 transition cursor-pointer text-xl border border-transparent hover:border-pink-500/30">
-                        <BiLogoInstagram />
-                    </div>
+                <div className="flex flex-col items-center justify-center gap-2">
+                    <span className="text-gray-500 text-[10px] uppercase tracking-[0.2em] font-bold">Powered By</span>
+                    <a href="https://nodasolucoes.dev" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">
+                        <img src="/logos/logoNoda-nobackground.png" alt="Noda" className="h-20 object-contain" />
+                    </a>
                 </div>
             </div>
         </footer>
     );
-};
-
-export default Footer;
+}
