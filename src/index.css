@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@property --a {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
 :root {
   --bg: #0a0a0a;
   --fg: #f5f5f5;
@@ -115,18 +121,28 @@ body {
   align-items: center;
   justify-content: center;
   font-weight: 600;
-  transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
-  will-change: transform;
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.25s ease, background-color 0.25s ease, color 0.25s ease;
+  cursor: pointer;
+  user-select: none;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn:active {
+  transform: translateY(0) scale(0.98);
 }
 
 .btn-gold {
   background: linear-gradient(135deg, #d4af37, #f1c40f);
   color: #0a0a0a;
-  box-shadow: 0 8px 30px -8px rgba(212, 175, 55, 0.6);
+  box-shadow: 0 8px 24px -6px rgba(212, 175, 55, 0.5);
 }
 
 .btn-gold:hover {
-  box-shadow: 0 12px 40px -6px rgba(212, 175, 55, 0.8);
+  box-shadow: 0 12px 32px -4px rgba(212, 175, 55, 0.7);
+  filter: brightness(1.04);
 }
 
 .eyebrow {
@@ -217,7 +233,403 @@ svg.i {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .gt {
+  .gt,
+  .bg::before,
+  .bg::after,
+  .pro::before {
     animation: none;
   }
 }
+
+/* Navlink Entrar transition between top and scrolled states */
+#nav-login {
+  color: #ffffff;
+  transition: color 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.3s ease;
+}
+
+#nav-login:hover {
+  color: #ffffff;
+}
+
+#nav.scrolled #nav-login {
+  color: #9ca3af; /* text-gray-400 */
+}
+
+#nav.scrolled #nav-login:hover {
+  color: #ffffff;
+}
+
+/* Fundo simples: brilhos dourados suaves + grade fina */
+.bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: #0a0a0a;
+}
+
+.bg::before,
+.bg::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(110px);
+  animation: drift 22s ease-in-out infinite alternate;
+}
+
+.bg::before {
+  width: 760px;
+  height: 760px;
+  left: 50%;
+  top: -260px;
+  margin-left: -380px;
+  background: rgba(212, 175, 55, 0.13);
+}
+
+.bg::after {
+  width: 520px;
+  height: 520px;
+  right: -160px;
+  bottom: -120px;
+  background: rgba(241, 196, 15, 0.06);
+  animation-delay: -9s;
+}
+
+.grid-bg {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(ellipse at 50% 20%, #000 0, transparent 70%);
+  mask-image: radial-gradient(ellipse at 50% 20%, #000 0, transparent 70%);
+}
+
+@keyframes drift {
+  to {
+    transform: translate3d(60px, 40px, 0) scale(1.12);
+  }
+}
+
+/* GradientText (React Bits) */
+.gtx {
+  position: relative;
+  display: inline-block;
+  isolation: isolate;
+}
+
+.gtx-c,
+.gtx-g {
+  background-image: var(--g);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gtx-c {
+  display: inline-block;
+}
+
+.gtx-g {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  filter: blur(0.3em) saturate(1.4);
+  opacity: var(--glow, 0);
+  pointer-events: none;
+  user-select: none;
+}
+
+.btn-ghost {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.btn-ghost:hover {
+  background: #ffffff;
+  color: #0a0a0a;
+}
+
+/* Plan Cards with Spotlight effect */
+.plan {
+  position: relative;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.4s, background 0.4s;
+}
+
+.plan::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.4s;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), rgba(212, 175, 55, 0.13), transparent 60%);
+  pointer-events: none;
+}
+
+.plan:hover {
+  transform: translateY(-8px);
+  border-color: rgba(212, 175, 55, 0.32);
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.plan:hover::after {
+  opacity: 1;
+}
+
+/* Pro Plan rotating conic border */
+.pro {
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 30px 80px -30px rgba(212, 175, 55, 0.3);
+  border-color: transparent;
+}
+
+.pro::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(
+    from var(--a),
+    rgba(212, 175, 55, 0.15),
+    #f1c40f,
+    rgba(212, 175, 55, 0.15) 40%,
+    rgba(212, 175, 55, 0.15) 60%,
+    #d4af37,
+    rgba(212, 175, 55, 0.15)
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  animation: spin 7s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes spin {
+  to {
+    --a: 360deg;
+  }
+}
+
+@media (min-width: 1024px) {
+  .pro {
+    transform: scale(1.04);
+    z-index: 10;
+  }
+  .pro:hover {
+    transform: scale(1.04) translateY(-8px);
+  }
+}
+
+.badge {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border-radius: 99px;
+  color: #0a0a0a;
+  background: linear-gradient(90deg, #d4af37, #f1c40f);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.35);
+}
+
+.wb {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 7px;
+  background: rgba(34, 197, 94, 0.1);
+  color: #22c55e;
+  border: 1px solid rgba(34, 197, 94, 0.22);
+}
+
+.wb.gold {
+  background: rgba(212, 175, 55, 0.1);
+  color: #d4af37;
+  border-color: rgba(212, 175, 55, 0.25);
+}
+
+.rule {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.45), transparent);
+}
+
+/* Authentication Card & Controls (matching login.html) */
+.auth-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.035);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.7), 0 0 80px -40px rgba(212, 175, 55, 0.25);
+}
+
+.auth-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(
+    from var(--a),
+    rgba(255, 255, 255, 0.07),
+    rgba(212, 175, 55, 0.8),
+    rgba(255, 255, 255, 0.07) 30%,
+    rgba(255, 255, 255, 0.07) 65%,
+    rgba(241, 196, 15, 0.6),
+    rgba(255, 255, 255, 0.07)
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  animation: spin 9s linear infinite;
+  pointer-events: none;
+}
+
+.auth-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), rgba(212, 175, 55, 0.1), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+}
+
+.auth-card:hover::after {
+  opacity: 1;
+}
+
+.auth-inp {
+  width: 100%;
+  padding: 1rem 3rem 1rem 3rem;
+  border-radius: 1rem;
+  font-size: 0.9rem;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+.auth-inp::placeholder {
+  color: #4b5563;
+}
+
+.auth-inp:focus {
+  outline: none;
+  border-color: rgba(212, 175, 55, 0.7);
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.09), 0 0 24px rgba(212, 175, 55, 0.08);
+}
+
+.auth-lbl {
+  display: block;
+  margin: 0 0 0.5rem 0.25rem;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #6b7280;
+}
+
+.auth-btn {
+  position: relative;
+  overflow: hidden;
+  font-weight: 700;
+  color: #0a0a0a;
+  background: linear-gradient(135deg, #d4af37, #f1c40f);
+  box-shadow: 0 12px 34px -10px rgba(212, 175, 55, 0.65);
+  transition: transform 0.3s, box-shadow 0.3s, opacity 0.3s;
+  will-change: transform;
+}
+
+.auth-btn:hover {
+  box-shadow: 0 16px 44px -8px rgba(212, 175, 55, 0.85);
+}
+
+.auth-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.55) 50%, transparent 70%);
+  transform: translateX(-120%);
+  transition: transform 0.8s;
+}
+
+.auth-btn:hover::after {
+  transform: translateX(120%);
+}
+
+.auth-chk {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.04);
+  display: grid;
+  place-content: center;
+  cursor: pointer;
+  transition: background 0.25s, border-color 0.25s;
+}
+
+.auth-chk::after {
+  content: "";
+  width: 9px;
+  height: 5px;
+  border-left: 2px solid #0a0a0a;
+  border-bottom: 2px solid #0a0a0a;
+  transform: rotate(-45deg) scale(0) translateY(-1px);
+  transition: transform 0.2s;
+}
+
+.auth-chk:checked {
+  background: linear-gradient(135deg, #d4af37, #f1c40f);
+  border-color: transparent;
+}
+
+.auth-chk:checked::after {
+  transform: rotate(-45deg) scale(1) translateY(-1px);
+}
+
+.auth-chk:focus-visible {
+  outline: 2px solid rgba(212, 175, 55, 0.6);
+  outline-offset: 2px;
+}
+
+.auth-back {
+  transition: transform 0.3s, color 0.3s;
+}
+
+.auth-back:hover {
+  color: #ffffff;
+  transform: translateX(-5px);
+}
+
+@keyframes rot {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spin {
+  animation: rot 0.8s linear infinite;
+}
+
+
+

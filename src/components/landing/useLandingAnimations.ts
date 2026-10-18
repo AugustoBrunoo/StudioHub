@@ -15,6 +15,20 @@ export function useLandingAnimations(containerRef: RefObject<HTMLDivElement | nu
       const prog = document.getElementById('prog');
 
       // Scroll progress bar & Navbar glass background transformation
+      const updateNavbar = () => {
+        if (!nav) return;
+        const on = window.scrollY > 40;
+        nav.classList.toggle('scrolled', on);
+        nav.style.background = on ? 'rgba(10,10,10,.65)' : 'transparent';
+        nav.style.backdropFilter = on ? 'blur(16px)' : 'none';
+        nav.style.borderBottom = on
+          ? '1px solid rgba(255,255,255,.06)'
+          : '1px solid transparent';
+      };
+
+      // Set initial state based on current scroll position
+      updateNavbar();
+
       ScrollTrigger.create({
         start: 0,
         end: 'max',
@@ -22,14 +36,7 @@ export function useLandingAnimations(containerRef: RefObject<HTMLDivElement | nu
           if (prog) {
             prog.style.transform = `scaleX(${s.progress})`;
           }
-          if (nav) {
-            const on = window.scrollY > 40;
-            nav.style.background = on ? 'rgba(10,10,10,.65)' : 'transparent';
-            nav.style.backdropFilter = on ? 'blur(16px)' : 'none';
-            nav.style.borderBottom = on
-              ? '1px solid rgba(255,255,255,.06)'
-              : '1px solid transparent';
-          }
+          updateNavbar();
         },
       });
 
@@ -129,29 +136,6 @@ export function useLandingAnimations(containerRef: RefObject<HTMLDivElement | nu
       cards.forEach((c) => {
         c.addEventListener('pointermove', handlePointerMove);
       });
-
-      // Magnetic button physics (.mag)
-      if (window.matchMedia('(hover:hover)').matches) {
-        const magnets = document.querySelectorAll<HTMLElement>('.mag');
-        magnets.forEach((el) => {
-          const xTo = gsap.quickTo(el, 'x', { duration: 0.5, ease: 'power3' });
-          const yTo = gsap.quickTo(el, 'y', { duration: 0.5, ease: 'power3' });
-
-          const onMove = (e: PointerEvent) => {
-            const b = el.getBoundingClientRect();
-            xTo((e.clientX - b.left - b.width / 2) * 0.25);
-            yTo((e.clientY - b.top - b.height / 2) * 0.35);
-          };
-
-          const onLeave = () => {
-            xTo(0);
-            yTo(0);
-          };
-
-          el.addEventListener('pointermove', onMove);
-          el.addEventListener('pointerleave', onLeave);
-        });
-      }
     }, containerRef);
 
     return () => {

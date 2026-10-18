@@ -1,4 +1,4 @@
-import { LandingIcon } from './LandingIcons';
+import { LandingIcon, WhatsAppIcon } from './LandingIcons';
 
 interface DifferentialPoint {
   step: string;
@@ -29,23 +29,25 @@ const points: DifferentialPoint[] = [
 
 export function LandingDifferential() {
   return (
-    <section id="diferencial" className="panel py-32 px-6 lg:px-8 overflow-hidden">
-      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16">
+    <section id="diferencial" className="panel py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-8 overflow-hidden">
+      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
         {/* Left Column (Content & Steps) */}
-        <div className="lg:w-1/2 rl">
-          <span className="eyebrow mb-5 block">Exclusividade StudioHub</span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-10 leading-[1.08]">
+        <div className="lg:w-1/2 w-full rl">
+          <span className="eyebrow mb-3 sm:mb-5 block text-[10px] sm:text-[11px]">
+            Exclusividade StudioHub
+          </span>
+          <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 sm:mb-10 leading-[1.12]">
             Mediação de conflitos <span className="gt">automatizada.</span>
           </h2>
-          <div className="space-y-8">
+          <div className="space-y-6 sm:space-y-8">
             {points.map((p) => (
-              <div key={p.step} className="flex gap-5">
-                <div className="shrink-0 w-10 h-10 rounded-full btn-gold flex items-center justify-center font-bold">
+              <div key={p.step} className="flex gap-3.5 sm:gap-5 items-start">
+                <div className="shrink-0 w-8 h-8 sm:w-10 sm:h-10 rounded-full btn-gold flex items-center justify-center font-bold text-xs sm:text-base mt-0.5">
                   {p.step}
                 </div>
                 <div>
-                  <h4 className="text-lg font-semibold mb-1">{p.title}</h4>
-                  <p className="text-gray-400 leading-relaxed">{p.description}</p>
+                  <h4 className="text-base sm:text-lg font-semibold mb-1 text-white">{p.title}</h4>
+                  <p className="text-gray-400 text-xs sm:text-sm leading-relaxed">{p.description}</p>
                 </div>
               </div>
             ))}
@@ -53,29 +55,30 @@ export function LandingDifferential() {
         </div>
 
         {/* Right Column (Simulated Live Chat Interface) */}
-        <div className="lg:w-1/2 w-full relative rr">
-          <div className="absolute inset-0 m-auto w-[110%] h-[110%] -left-[5%] -top-[5%] bg-[#d4af37]/10 rounded-full blur-[90px]" />
-          <div className="glass relative p-6 md:p-8 rounded-[2.5rem] border-[#d4af37]/20 shadow-2xl bg-[#0a0a0a]/80">
+        <div className="lg:w-1/2 w-full relative rr mt-4 lg:mt-0">
+          <div className="absolute inset-0 m-auto w-full h-full bg-[#d4af37]/10 rounded-full blur-[70px] sm:blur-[90px] pointer-events-none" />
+          <div className="glass relative p-4 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl md:rounded-[2.5rem] border-[#d4af37]/20 shadow-2xl bg-[#0a0a0a]/85 backdrop-blur-xl">
             {/* Chat Header */}
-            <div className="flex items-center gap-4 mb-8 border-b border-white/10 pb-4">
-              <div className="w-12 h-12 rounded-full bg-green-500/15 flex items-center justify-center text-green-500 text-xl">
-                <LandingIcon name="chat" />
+            <div className="flex items-center gap-3 sm:gap-4 mb-5 sm:mb-8 border-b border-white/10 pb-3 sm:pb-4">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-green-500/15 flex items-center justify-center text-green-500 text-lg sm:text-xl shrink-0">
+                <WhatsAppIcon size={24} className="text-green-500" />
               </div>
-              <div>
-                <p className="text-xs text-gray-400 font-semibold uppercase tracking-widest">
+              <div className="min-w-0">
+                <p className="text-[10px] sm:text-xs text-gray-400 font-semibold uppercase tracking-wider sm:tracking-widest truncate">
                   Assistente Virtual da Clínica
                 </p>
-                <div className="flex items-center gap-2 mt-1">
-                  <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                  <p className="text-sm font-semibold">Online &amp; Otimizando</p>
+                <div className="flex items-center gap-2 mt-0.5">
+                  <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse shrink-0" />
+                  <p className="text-xs sm:text-sm font-semibold text-white">Online &amp; Otimizando</p>
                 </div>
               </div>
             </div>
 
             {/* Chat Messages */}
-            <div className="space-y-5 flex flex-col" id="chat">
-              <div className="msg bg-white/5 p-5 rounded-3xl rounded-tl-none max-w-[85%] border border-white/5 self-start">
-                <p className="text-sm leading-relaxed text-gray-200">
+            <div className="space-y-3.5 sm:space-y-5 flex flex-col" id="chat">
+              {/* Message 1 (Incoming) */}
+              <div className="msg bg-white/5 p-3.5 sm:p-5 rounded-2xl sm:rounded-3xl rounded-tl-none max-w-[94%] sm:max-w-[85%] border border-white/5 self-start shadow-sm">
+                <p className="text-xs sm:text-sm leading-relaxed text-gray-200">
                   Olá, Marcos! Tivemos uma emergência clínica que necessita do horário de{' '}
                   <b className="text-[#d4af37]">Terça às 14h</b>. Você aceitaria reagendar sua
                   consulta de rotina para Quarta às 10h e ganhar{' '}
@@ -83,17 +86,19 @@ export function LandingDifferential() {
                 </p>
               </div>
 
-              <div className="msg btn-gold p-4 rounded-3xl rounded-tr-none max-w-[80%] font-semibold self-end">
-                <p className="text-sm">
+              {/* Message 2 (Outgoing) */}
+              <div className="msg btn-gold p-3 sm:p-4 rounded-2xl sm:rounded-3xl rounded-tr-none max-w-[90%] sm:max-w-[80%] font-semibold self-end shadow-md">
+                <p className="text-xs sm:text-sm">
                   Sem problemas! Pode mudar para a Quarta-feira, fica bom pra mim também.
                 </p>
               </div>
 
-              <div className="msg bg-white/5 p-4 rounded-3xl rounded-tl-none max-w-[85%] border border-white/5 self-start flex items-center gap-3">
-                <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center shrink-0 text-black text-sm">
+              {/* Message 3 (System Response) */}
+              <div className="msg bg-white/5 p-3 sm:p-4 rounded-2xl sm:rounded-3xl rounded-tl-none max-w-[94%] sm:max-w-[85%] border border-white/5 self-start flex items-start sm:items-center gap-2.5 sm:gap-3 shadow-sm">
+                <div className="w-5 h-5 sm:w-6 sm:h-6 bg-green-500 rounded-full flex items-center justify-center shrink-0 text-black text-xs sm:text-sm mt-0.5 sm:mt-0">
                   <LandingIcon name="ok" style={{ strokeWidth: 3 }} />
                 </div>
-                <p className="text-sm font-medium text-gray-200">
+                <p className="text-xs sm:text-sm font-medium text-gray-200 leading-relaxed">
                   Perfeito! Sua consulta foi remarcada e sua prioridade futura está salva no sistema.
                   Agradecemos a compreensão!
                 </p>

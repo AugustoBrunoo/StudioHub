@@ -1,7 +1,8 @@
-import { useRef } from 'react';
+import { useState, useRef } from 'react';
 import {
   GrainientBackground,
   LandingNavbar,
+  LandingMobileMenu,
   LandingHero,
   LandingFeatures,
   LandingHowItWorks,
@@ -14,6 +15,7 @@ import {
 
 export function HomePage() {
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   // Hook managing all ScrollTrigger, GSAP timelines, spotlights, and magnetic buttons
   useLandingAnimations(containerRef);
@@ -23,8 +25,17 @@ export function HomePage() {
       {/* Dynamic Background with WebGL2 Grainient Shader */}
       <GrainientBackground />
 
-      {/* Navigation Header (Logo + Entrar & Ver Planos somente) */}
-      <LandingNavbar />
+      {/* Navigation Header (Logo + Entrar & Ver Planos on desktop, Hamburger on mobile) */}
+      <LandingNavbar
+        menuOpen={menuOpen}
+        onToggleMenu={() => setMenuOpen((prev) => !prev)}
+      />
+
+      {/* Mobile Drawer Menu */}
+      <LandingMobileMenu
+        isOpen={menuOpen}
+        onClose={() => setMenuOpen(false)}
+      />
 
       {/* Hero Section */}
       <LandingHero />

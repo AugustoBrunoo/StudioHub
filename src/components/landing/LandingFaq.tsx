@@ -37,39 +37,43 @@ export function LandingFaq() {
   };
 
   return (
-    <section id="faq" className="panel py-28 px-6 border-t border-white/5">
+    <section id="faq" className="panel py-16 sm:py-24 lg:py-28 px-4 sm:px-6 border-t border-white/5">
       <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-14 rv">
-          <h2 className="text-3xl md:text-5xl font-semibold tracking-tight mb-4">
+        <div className="text-center mb-10 sm:mb-14 rv">
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-semibold tracking-tight mb-3 sm:mb-4">
             Dúvidas Frequentes
           </h2>
-          <p className="text-gray-400">Transparência total sobre o funcionamento da plataforma.</p>
+          <p className="text-gray-400 text-sm sm:text-base">Transparência total sobre o funcionamento da plataforma.</p>
         </div>
 
-        <div className="space-y-4 rv" id="faqs">
+        <div className="space-y-3.5 sm:space-y-4 rv" id="faqs">
           {faqs.map((faq, i) => {
             const isOpen = openIndex === i;
             return (
               <div
                 key={i}
-                className={`faq glass rounded-2xl overflow-hidden transition-colors ${
+                className={`faq glass rounded-xl sm:rounded-2xl overflow-hidden transition-colors ${
                   isOpen ? 'on' : ''
                 }`}
               >
                 <button
                   type="button"
                   onClick={() => toggle(i)}
-                  className="w-full px-6 py-5 text-left flex justify-between items-center gap-4"
+                  className="w-full px-4 sm:px-6 py-4 sm:py-5 text-left flex justify-between items-center gap-3 sm:gap-4"
                 >
-                  <span className="font-semibold text-lg">{faq.question}</span>
+                  <span className="font-semibold text-sm sm:text-lg text-white leading-snug">
+                    {faq.question}
+                  </span>
                   <LandingIcon
                     name="plus"
-                    className="ico text-[#d4af37] text-xl shrink-0 transition-transform duration-300"
+                    className="ico text-[#d4af37] text-lg sm:text-xl shrink-0 transition-transform duration-300"
                   />
                 </button>
                 <div className="faq-a">
                   <div>
-                    <p className="px-6 pb-6 text-gray-400 text-sm leading-relaxed">{faq.answer}</p>
+                    <p className="px-4 sm:px-6 pb-4 sm:pb-6 text-gray-400 text-xs sm:text-sm leading-relaxed">
+                      {faq.answer}
+                    </p>
                   </div>
                 </div>
               </div>

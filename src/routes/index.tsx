@@ -25,10 +25,18 @@ import { NotFoundPage } from '@/pages/errors/NotFoundPage';
 import { UnauthorizedPage } from '@/pages/errors/UnauthorizedPage';
 
 export const router = createBrowserRouter([
-  // Standalone Landing Page (100% faithful to prototype)
+  // Standalone Marketing & Auth Pages (100% faithful to prototypes)
   {
     path: '/',
     element: <HomePage />,
+  },
+  {
+    path: '/planos',
+    element: <PricingPage />,
+  },
+  {
+    path: '/login',
+    element: <LoginPage />,
   },
 
   // Other Public Institutional Pages
@@ -36,24 +44,16 @@ export const router = createBrowserRouter([
     element: <PublicLayout />,
     children: [
       {
-        path: 'planos',
-        element: <PricingPage />,
-      },
-      {
         path: 'sobre',
         element: <AboutPage />,
       },
     ],
   },
 
-  // Auth Routes (Login / Register)
+  // Other Auth Routes
   {
     element: <AuthLayout />,
     children: [
-      {
-        path: 'login',
-        element: <LoginPage />,
-      },
       {
         path: 'cadastro',
         element: <RegisterPage />,
