@@ -40,19 +40,45 @@ export function useLandingAnimations(containerRef: RefObject<HTMLDivElement | nu
         },
       });
 
+      // Ensure nav is fully visible immediately
+      if (nav) {
+        gsap.set(nav, { opacity: 1, y: 0 });
+      }
+
       // Hero entrance animation timeline
       const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
       if (nav) {
-        tl.from(nav, { y: -60, opacity: 0, duration: 1.1 });
+        tl.fromTo(
+          nav,
+          { y: -24, opacity: 0.2 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.7,
+            ease: 'power3.out',
+            clearProps: 'transform,opacity',
+          }
+        );
       }
 
-      tl.from(
+      tl.fromTo(
         '#hero h1 .line > span',
-        { yPercent: 110, duration: 1.4, stagger: 0.15 },
-        0.2
+        { yPercent: 110 },
+        { yPercent: 0, duration: 1.2, stagger: 0.15, clearProps: 'transform' },
+        0.1
       )
-        .from('.hp', { y: 24, opacity: 0, duration: 1.1, stagger: 0.15 }, 0.7)
-        .from('#cue', { scaleY: 0, transformOrigin: 'top', duration: 1 }, 1.2);
+        .fromTo(
+          '.hp',
+          { y: 24, opacity: 0 },
+          { y: 0, opacity: 1, duration: 1, stagger: 0.15, clearProps: 'transform,opacity' },
+          0.4
+        )
+        .fromTo(
+          '#cue',
+          { scaleY: 0 },
+          { scaleY: 1, transformOrigin: 'top', duration: 1, clearProps: 'transform' },
+          0.9
+        );
 
       // Hero scroll scrub parallax
       gsap.to('#hero', {
@@ -75,6 +101,7 @@ export function useLandingAnimations(containerRef: RefObject<HTMLDivElement | nu
           opacity: 0,
           duration: 1.1,
           ease: 'power3.out',
+          clearProps: 'opacity,y,transform',
         });
       });
 
@@ -85,6 +112,7 @@ export function useLandingAnimations(containerRef: RefObject<HTMLDivElement | nu
         opacity: 0,
         duration: 1.3,
         ease: 'power3.out',
+        clearProps: 'opacity,x,transform',
       });
 
       gsap.from('.rr', {
@@ -93,6 +121,7 @@ export function useLandingAnimations(containerRef: RefObject<HTMLDivElement | nu
         opacity: 0,
         duration: 1.3,
         ease: 'power3.out',
+        clearProps: 'opacity,x,transform',
       });
 
       // Step cards and connection rail
@@ -103,6 +132,7 @@ export function useLandingAnimations(containerRef: RefObject<HTMLDivElement | nu
         duration: 1,
         stagger: 0.22,
         ease: 'power3.out',
+        clearProps: 'opacity,y,transform',
       });
 
       gsap.from('#rail', {
@@ -110,6 +140,7 @@ export function useLandingAnimations(containerRef: RefObject<HTMLDivElement | nu
         scaleX: 0,
         duration: 1.8,
         ease: 'power3.inOut',
+        clearProps: 'transform',
       });
 
       // Interactive chat messages reveal
@@ -122,6 +153,7 @@ export function useLandingAnimations(containerRef: RefObject<HTMLDivElement | nu
         stagger: 0.9,
         delay: 0.6,
         ease: 'back.out(1.4)',
+        clearProps: 'opacity,y,transform',
       });
 
       // Pointermove spotlight on cards

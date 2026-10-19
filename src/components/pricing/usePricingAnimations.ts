@@ -37,17 +37,38 @@ export function usePricingAnimations(containerRef: RefObject<HTMLDivElement | nu
         },
       });
 
+      // Ensure nav is fully visible immediately
+      if (nav) {
+        gsap.set(nav, { opacity: 1, y: 0 });
+      }
+
       // 2. Hero entrance timeline
       const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
       if (nav) {
-        tl.from(nav, { y: -50, opacity: 0, duration: 1 });
+        tl.fromTo(
+          nav,
+          { y: -20, opacity: 0.2 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.7,
+            ease: 'power3.out',
+            clearProps: 'transform,opacity',
+          }
+        );
       }
 
-      tl.from(
+      tl.fromTo(
         '.hl',
-        { y: 36, opacity: 0, filter: 'blur(8px)', duration: 1.2, stagger: 0.16 },
+        { y: 36, opacity: 0, filter: 'blur(8px)' },
+        { y: 0, opacity: 1, filter: 'blur(0px)', duration: 1.2, stagger: 0.16, clearProps: 'transform,opacity,filter' },
         0.15
-      ).from('.hp', { y: 20, opacity: 0, duration: 1, stagger: 0.12 }, 0.6);
+      ).fromTo(
+        '.hp',
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1, stagger: 0.12, clearProps: 'transform,opacity' },
+        0.6
+      );
 
       // 3. Plan cards staggered entrance (.rc)
       gsap.from('.rc', {

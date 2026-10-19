@@ -9,6 +9,7 @@ import {
   usePricingAnimations,
 } from '@/components/pricing';
 import { LandingFooter } from '@/components/landing/LandingFooter';
+import { Seo } from '@/components/common/Seo';
 
 export function PricingPage() {
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -21,6 +22,11 @@ export function PricingPage() {
       ref={containerRef}
       className="relative min-h-screen text-[#f5f5f5] overflow-x-hidden w-full selection:bg-[#d4af37]/30 selection:text-white"
     >
+      <Seo
+        title="Planos e Preços | StudioHub • Noda Solutions"
+        description="Conheça os planos Solo e Empresarial do StudioHub. Gestão completa para o seu estúdio desenvolvida por Augusto Bruno Menezes Silva para a Noda Solutions."
+        canonicalUrl="https://studiohub.nodasolucoes.dev/planos"
+      />
       {/* Dynamic Golden Ambient Background (visible at z-0) */}
       <PricingBackground />
 

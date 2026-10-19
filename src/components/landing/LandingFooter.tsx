@@ -1,6 +1,8 @@
 import { StudioHubLogo, LandingIcon, WhatsAppIcon } from './LandingIcons';
 import { NodaLogo } from '@/components/common/NodaLogo';
 
+const CURRENT_YEAR = new Date().getFullYear();
+
 export function LandingFooter() {
   return (
     <footer id="contato" className="bg-[#0a0a0a]/90 border-t border-white/5 py-10 sm:py-12 px-4 sm:px-6">
@@ -17,12 +19,12 @@ export function LandingFooter() {
           </div>
           <span className="hidden sm:inline text-gray-700">•</span>
           <p className="text-gray-500 text-xs leading-relaxed">
-            © {new Date().getFullYear()} StudioHub. Todos os direitos reservados. O StudioHub é um produto oficial da{' '}
+            © {CURRENT_YEAR} StudioHub. Todos os direitos reservados. O StudioHub é um produto oficial da{' '}
             <a
               href="https://nodasolucoes.dev"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-400 hover:text-white transition-colors underline underline-offset-2"
+              className="text-gray-400 hover:text-white transition-colors underline underline-offset-2 font-medium"
             >
               Noda Solutions
             </a>

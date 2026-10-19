@@ -163,6 +163,14 @@ export function LandingMobileMenu({ isOpen, onClose }: LandingMobileMenuProps) {
         <div className="h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent my-3" />
 
         <Link
+          to="/sobre"
+          onClick={onClose}
+          className="text-xs uppercase tracking-widest font-semibold text-gray-400 hover:text-white transition-colors py-2"
+        >
+          Sobre o StudioHub & Noda
+        </Link>
+
+        <Link
           to="/login"
           onClick={onClose}
           className="text-xs uppercase tracking-widest font-semibold text-[#d4af37] hover:text-[#f1c40f] transition-colors py-2"

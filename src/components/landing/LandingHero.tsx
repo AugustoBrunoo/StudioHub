@@ -19,7 +19,7 @@ export function LandingHero() {
         </p>
         <div className="hp flex flex-col sm:flex-row gap-3 sm:gap-4 items-center justify-center w-full max-w-sm sm:max-w-lg">
           <Link
-            to="/precos"
+            to="/planos"
             className="btn btn-gold px-6 sm:px-10 py-3.5 sm:py-4 rounded-xl text-base sm:text-lg w-full sm:w-auto whitespace-nowrap hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 shadow-lg text-center"
           >
             Ver Planos

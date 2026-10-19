@@ -4,6 +4,9 @@ import gsap from 'gsap';
 import { StudioHubLogo, LandingIcon } from '@/components/landing/LandingIcons';
 import { PricingBackground } from '@/components/pricing/PricingBackground';
 import { useAuth } from '@/hooks/useAuth';
+import { Seo } from '@/components/common/Seo';
+
+const CURRENT_YEAR = new Date().getFullYear();
 
 export function LoginPage() {
   const { login } = useAuth();
@@ -93,6 +96,12 @@ export function LoginPage() {
       ref={containerRef}
       className="min-h-screen min-h-[100dvh] w-full flex items-center justify-center relative text-[#f5f5f5] overflow-x-hidden selection:bg-[#d4af37]/30 selection:text-white"
     >
+      <Seo
+        title="Entrar | StudioHub • Noda Solutions"
+        description="Acesse o StudioHub para gerenciar seu estúdio com inteligência. Desenvolvido por Augusto Bruno Menezes Silva para Noda Solutions."
+        canonicalUrl="https://studiohub.nodasolucoes.dev/login"
+      />
+
       {/* Dynamic Golden Ambient Background */}
       <PricingBackground />
 
@@ -233,7 +242,7 @@ export function LoginPage() {
         </div>
 
         <p className="rt text-center mt-6 sm:mt-8 text-[10px] text-gray-600 uppercase tracking-[.3em]">
-          StudioHub Engine &copy; 2026
+          StudioHub Engine &copy; {CURRENT_YEAR} • Noda Solutions
         </p>
       </main>
     </div>

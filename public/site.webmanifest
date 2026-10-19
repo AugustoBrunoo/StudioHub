@@ -1,6 +1,13 @@
 {
-  "name": "StudioHub",
+  "name": "StudioHub - Gestão Inteligente para Estúdios",
   "short_name": "StudioHub",
+  "description": "Plataforma de gestão de agenda e estúdios desenvolvida por Augusto Bruno Menezes Silva para a Noda Solutions.",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
+  "categories": ["business", "productivity", "utilities"],
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",
@@ -14,8 +21,5 @@
       "type": "image/png",
       "purpose": "maskable"
     }
-  ],
-  "theme_color": "#000000",
-  "background_color": "#000000",
-  "display": "standalone"
+  ]
 }

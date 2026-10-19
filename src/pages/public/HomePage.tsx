@@ -12,6 +12,7 @@ import {
   LandingFooter,
   useLandingAnimations,
 } from '@/components/landing';
+import { Seo } from '@/components/common/Seo';
 
 export function HomePage() {
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -22,6 +23,13 @@ export function HomePage() {
 
   return (
     <div ref={containerRef} className="relative min-h-screen text-[#f5f5f5]">
+      {/* Dynamic SEO Meta Manager */}
+      <Seo
+        title="StudioHub | Gestão Inteligente para Estúdios • Noda Solutions"
+        description="StudioHub é a plataforma definitiva de gestão de agenda, finanças e clientes para estúdios de beleza e bem-estar. Criada e desenvolvida pela Noda Solutions."
+        canonicalUrl="https://studiohub.nodasolucoes.dev/"
+      />
+
       {/* Dynamic Background with WebGL2 Grainient Shader */}
       <GrainientBackground />
 

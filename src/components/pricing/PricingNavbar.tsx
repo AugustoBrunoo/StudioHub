@@ -6,7 +6,7 @@ export function PricingNavbar() {
   return (
     <nav
       id="nav"
-      className="fixed top-0 inset-x-0 z-[100] px-4 sm:px-8 lg:px-10 py-3.5 sm:py-4 flex justify-between items-center transition-all duration-500"
+      className="fixed top-0 inset-x-0 z-[100] px-4 sm:px-8 lg:px-10 py-3.5 sm:py-4 flex justify-between items-center opacity-100 transition-[background-color,border-color,backdrop-filter,box-shadow] duration-500"
       style={{ paddingTop: 'calc(0.85rem + env(safe-area-inset-top,0px))' }}
     >
       {/* Left: StudioHub Brand Logo */}

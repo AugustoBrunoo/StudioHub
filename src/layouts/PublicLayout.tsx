@@ -3,6 +3,8 @@ import { Sparkles, ArrowRight, LogIn, LayoutDashboard } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { useAuth } from '@/hooks/useAuth';
 
+const CURRENT_YEAR = new Date().getFullYear();
+
 export function PublicLayout() {
   const location = useLocation();
   const { isAuthenticated } = useAuth();
@@ -44,11 +46,10 @@ export function PublicLayout() {
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`px-4 py-1.5 rounded-full text-xs font-medium transition-all duration-200 ${
-                    isActive
-                      ? 'bg-slate-800 text-white shadow-sm'
-                      : 'text-slate-400 hover:text-slate-200 hover:bg-slate-850'
-                  }`}
+                  className={`px-4 py-1.5 rounded-full text-xs font-medium transition-all duration-200 ${isActive
+                    ? 'bg-slate-800 text-white shadow-sm'
+                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-850'
+                    }`}
                 >
                   {link.label}
                 </Link>
@@ -139,7 +140,7 @@ export function PublicLayout() {
         </div>
 
         <div className="max-w-7xl mx-auto px-6 pt-8 mt-8 border-t border-slate-900 text-center text-xs text-slate-500">
-          © {new Date().getFullYear()} StudioHub. Todos os direitos reservados.
+          © {CURRENT_YEAR} StudioHub. Todos os direitos reservados.
         </div>
       </footer>
     </div>

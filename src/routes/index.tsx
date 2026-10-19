@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, ScrollRestoration, Outlet } from 'react-router-dom';
 import { PublicLayout } from '@/layouts/PublicLayout';
 import { AuthLayout } from '@/layouts/AuthLayout';
 import { DashboardLayout } from '@/layouts/DashboardLayout';
@@ -25,13 +25,25 @@ import { NotFoundPage } from '@/pages/errors/NotFoundPage';
 import { UnauthorizedPage } from '@/pages/errors/UnauthorizedPage';
 
 export const router = createBrowserRouter([
-  // Standalone Marketing & Auth Pages (100% faithful to prototypes)
   {
-    path: '/',
-    element: <HomePage />,
-  },
+    element: (
+      <>
+        <ScrollRestoration />
+        <Outlet />
+      </>
+    ),
+    children: [
+      // Standalone Marketing & Auth Pages (100% faithful to prototypes)
+      {
+        path: '/',
+        element: <HomePage />,
+      },
   {
     path: '/planos',
+    element: <PricingPage />,
+  },
+  {
+    path: '/precos',
     element: <PricingPage />,
   },
   {
@@ -97,17 +109,19 @@ export const router = createBrowserRouter([
     ],
   },
 
-  // Error Pages
-  {
-    path: '/unauthorized',
-    element: <UnauthorizedPage />,
-  },
-  {
-    path: '/404',
-    element: <NotFoundPage />,
-  },
-  {
-    path: '*',
-    element: <NotFoundPage />,
-  },
+    // Error Pages
+    {
+      path: '/unauthorized',
+      element: <UnauthorizedPage />,
+    },
+    {
+      path: '/404',
+      element: <NotFoundPage />,
+    },
+    {
+      path: '*',
+      element: <NotFoundPage />,
+    },
+  ],
+},
 ]);

@@ -2,17 +2,152 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StudioHub | Gestão Inteligente para Estúdios • Noda Solutions</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="StudioHub é a plataforma definitiva de gestão de agenda, finanças e clientes para estúdios de beleza e bem-estar. Criada e desenvolvida por Augusto Bruno Menezes Silva pela Noda Solutions." />
+    <meta name="keywords" content="StudioHub, Studio Hub, Noda Solutions, Augusto Bruno Menezes Silva, gestão de estúdios, agendamento salão de beleza, barbearia, estética, software SaaS, automação whatsapp, nodasolucoes, plataforma para estúdios, gestão de agendamentos" />
+    <meta name="author" content="Augusto Bruno Menezes Silva" />
+    <meta name="creator" content="Augusto Bruno Menezes Silva" />
+    <meta name="publisher" content="Noda Solutions" />
+    <meta name="copyright" content="Noda Solutions & Augusto Bruno Menezes Silva" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow" />
+    <meta name="application-name" content="StudioHub" />
+    <meta name="apple-mobile-web-app-title" content="StudioHub" />
+    <meta name="theme-color" content="#0a0a0a" />
+    <link rel="canonical" href="https://studiohub.nodasolucoes.dev/" />
+
+    <!-- Open Graph / Facebook / WhatsApp / LinkedIn -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:url" content="https://studiohub.nodasolucoes.dev/" />
+    <meta property="og:site_name" content="StudioHub | Noda Solutions" />
+    <meta property="og:title" content="StudioHub | Gestão Inteligente para Estúdios • Noda Solutions" />
+    <meta property="og:description" content="Sua agenda no piloto automático. Plataforma inovadora de gestão desenvolvida por Augusto Bruno Menezes Silva pela Noda Solutions." />
+    <meta property="og:image" content="https://studiohub.nodasolucoes.dev/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="StudioHub - Sistema de Gestão por Noda Solutions e Augusto Bruno Menezes Silva" />
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="StudioHub | Gestão Inteligente para Estúdios • Noda Solutions" />
+    <meta name="twitter:description" content="Sua agenda no piloto automático. Plataforma desenvolvida por Augusto Bruno Menezes Silva pela Noda Solutions." />
+    <meta name="twitter:image" content="https://studiohub.nodasolucoes.dev/og-image.png" />
+    <meta name="twitter:creator" content="@AugustoBrunoo" />
+
+    <!-- Favicons & Icons -->
     <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <meta name="apple-mobile-web-app-title" content="StudioHub" />
     <link rel="manifest" href="/site.webmanifest" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- DNS Prefetch & Preconnect for Fast Performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <title>StudioHub</title>
+
+    <!-- JSON-LD Structured Data (Schema.org Graph: Organization, Person, SoftwareApplication, WebSite) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://nodasolucoes.dev/#organization",
+          "name": "Noda Solutions",
+          "alternateName": ["Noda Soluções", "Noda"],
+          "url": "https://nodasolucoes.dev",
+          "logo": "https://studiohub.nodasolucoes.dev/favicon-96x96.png",
+          "founder": {
+            "@id": "https://nodasolucoes.dev/#augusto-bruno"
+          },
+          "sameAs": [
+            "https://github.com/AugustoBrunoo",
+            "https://nodasolucoes.dev"
+          ],
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "customer service",
+            "availableLanguage": "Portuguese"
+          }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://nodasolucoes.dev/#augusto-bruno",
+          "name": "Augusto Bruno Menezes Silva",
+          "alternateName": ["Augusto Bruno", "Augusto Bruno Menezes"],
+          "jobTitle": "Fundador & Engenheiro de Software",
+          "worksFor": {
+            "@id": "https://nodasolucoes.dev/#organization"
+          },
+          "url": "https://github.com/AugustoBrunoo",
+          "sameAs": [
+            "https://github.com/AugustoBrunoo"
+          ],
+          "knowsAbout": [
+            "StudioHub",
+            "Noda Solutions",
+            "SaaS Architecture",
+            "Engenharia de Software",
+            "Gestão de Estúdios de Beleza"
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://studiohub.nodasolucoes.dev/#software",
+          "name": "StudioHub",
+          "alternateName": ["Studio Hub", "StudioHub por Noda Solutions", "StudioHub Gestão"],
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web, iOS, Android, Windows, macOS",
+          "url": "https://studiohub.nodasolucoes.dev",
+          "description": "A gestão de agenda e finanças mais inteligente para Estúdios de Beleza e Bem-Estar. Desenvolvido por Augusto Bruno Menezes Silva pela Noda Solutions.",
+          "author": {
+            "@id": "https://nodasolucoes.dev/#organization"
+          },
+          "creator": {
+            "@id": "https://nodasolucoes.dev/#augusto-bruno"
+          },
+          "publisher": {
+            "@id": "https://nodasolucoes.dev/#organization"
+          },
+          "offers": [
+            {
+              "@type": "Offer",
+              "name": "Plano Solo",
+              "price": "34.90",
+              "priceCurrency": "BRL",
+              "availability": "https://schema.org/InStock"
+            },
+            {
+              "@type": "Offer",
+              "name": "Plano Empresarial",
+              "price": "69.90",
+              "priceCurrency": "BRL",
+              "availability": "https://schema.org/InStock"
+            }
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://studiohub.nodasolucoes.dev/#website",
+          "url": "https://studiohub.nodasolucoes.dev",
+          "name": "StudioHub",
+          "alternateName": "StudioHub por Noda Solutions",
+          "inLanguage": "pt-BR",
+          "publisher": {
+            "@id": "https://nodasolucoes.dev/#organization"
+          },
+          "creator": {
+            "@id": "https://nodasolucoes.dev/#augusto-bruno"
+          }
+        }
+      ]
+    }
+    </script>
   </head>
   <body class="bg-slate-950 text-slate-100 antialiased min-h-screen selection:bg-brand-500 selection:text-white">
     <div id="root"></div>

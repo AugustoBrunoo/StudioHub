@@ -1,0 +1,13 @@
+# StudioHub Robots.txt
+# Desenvolvido por Augusto Bruno Menezes Silva para Noda Solutions
+# https://studiohub.nodasolucoes.dev
+
+User-agent: *
+Allow: /
+Disallow: /dashboard/
+Disallow: /unauthorized
+Disallow: /404
+
+# Sitemaps
+Sitemap: https://studiohub.nodasolucoes.dev/sitemap.xml
+Host: https://studiohub.nodasolucoes.dev
