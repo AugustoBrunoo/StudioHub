@@ -1,6 +1,5 @@
 import { createBrowserRouter, ScrollRestoration, Outlet } from 'react-router-dom';
 import { PublicLayout } from '@/layouts/PublicLayout';
-import { AuthLayout } from '@/layouts/AuthLayout';
 import { DashboardLayout } from '@/layouts/DashboardLayout';
 import { ProtectedRoute } from '@/routes/ProtectedRoute';
 
@@ -38,40 +37,37 @@ export const router = createBrowserRouter([
         path: '/',
         element: <HomePage />,
       },
-  {
-    path: '/planos',
-    element: <PricingPage />,
-  },
-  {
-    path: '/precos',
-    element: <PricingPage />,
-  },
-  {
-    path: '/login',
-    element: <LoginPage />,
-  },
-
-  // Other Public Institutional Pages
-  {
-    element: <PublicLayout />,
-    children: [
       {
-        path: 'sobre',
-        element: <AboutPage />,
+        path: '/planos',
+        element: <PricingPage />,
       },
-    ],
-  },
-
-  // Other Auth Routes
-  {
-    element: <AuthLayout />,
-    children: [
       {
-        path: 'cadastro',
+        path: '/precos',
+        element: <PricingPage />,
+      },
+      {
+        path: '/login',
+        element: <LoginPage />,
+      },
+      {
+        path: '/cadastro',
         element: <RegisterPage />,
       },
-    ],
-  },
+      {
+        path: '/registro',
+        element: <RegisterPage />,
+      },
+
+      // Other Public Institutional Pages
+      {
+        element: <PublicLayout />,
+        children: [
+          {
+            path: 'sobre',
+            element: <AboutPage />,
+          },
+        ],
+      },
 
   // Protected App & Dashboard Routes
   {

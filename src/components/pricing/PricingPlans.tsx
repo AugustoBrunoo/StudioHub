@@ -23,6 +23,20 @@ export function PricingPlans() {
               <span className="text-gray-500 text-xs sm:text-sm font-semibold">,00/mês</span>
             </div>
 
+            <div className="trial mb-6 sm:mb-8">
+              <span className="trial-icon">
+                <LandingIcon name="gift" />
+              </span>
+              <div className="relative leading-tight">
+                <p className="text-sm sm:text-base font-bold text-white">
+                  <span className="gt">7 dias grátis</span> para testar
+                </p>
+                <p className="text-[11px] sm:text-xs text-gray-400 mt-0.5">
+                  Experimente o sistema completo antes de assinar.
+                </p>
+              </div>
+            </div>
+
             <div className="flex flex-col gap-5 sm:gap-6">
               <ul className="space-y-3 sm:space-y-4 text-xs sm:text-sm">
                 <li className="flex gap-3 text-gray-300">
@@ -63,6 +77,9 @@ export function PricingPlans() {
           >
             Começar Solo
           </Link>
+          <p className="mt-3 text-center text-[11px] text-gray-500 tracking-wide">
+            7 dias grátis · depois R$ 97,00/mês
+          </p>
         </div>
 
         {/* Plan 2: Empresarial (Sob Demanda do Empresário) */}
@@ -95,6 +112,20 @@ export function PricingPlans() {
               <p className="text-[11px] sm:text-xs text-gray-400 mt-1.5 leading-relaxed">
                 Valores ajustados à quantidade de profissionais e recursos utilizados.
               </p>
+            </div>
+
+            <div className="trial mb-6 sm:mb-8">
+              <span className="trial-icon">
+                <LandingIcon name="gift" />
+              </span>
+              <div className="relative leading-tight">
+                <p className="text-sm sm:text-base font-bold text-white">
+                  <span className="gt">7 dias grátis</span> para testar
+                </p>
+                <p className="text-[11px] sm:text-xs text-gray-400 mt-0.5">
+                  Valide o StudioHub com sua equipe antes de fechar.
+                </p>
+              </div>
             </div>
 
             <div className="flex flex-col gap-5 sm:gap-6">
@@ -159,6 +190,9 @@ export function PricingPlans() {
           >
             Fazer Orçamento
           </a>
+          <p className="mt-3 text-center text-[11px] text-gray-500 tracking-wide">
+            Inclui 7 dias grátis para toda a equipe
+          </p>
         </div>
       </div>
     </section>

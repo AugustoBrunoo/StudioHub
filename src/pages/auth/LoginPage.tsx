@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, type FormEvent } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
 import gsap from 'gsap';
 import { StudioHubLogo, LandingIcon } from '@/components/landing/LandingIcons';
 import { PricingBackground } from '@/components/pricing/PricingBackground';
@@ -31,7 +32,7 @@ export function LoginPage() {
       const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
       tl.from('.rt', { y: -16, opacity: 0, duration: 1 })
         .from('.rc', { y: 40, opacity: 0, scale: 0.96, duration: 1.3, ease: 'expo.out' }, 0)
-        .from('.lg', { y: 16, opacity: 0, duration: 1 }, 0.35)
+        .from('.brand-logo-wrap', { y: 16, opacity: 0, duration: 1 }, 0.35)
         .from('.rule', { scaleX: 0, duration: 1.1 }, 0.5)
         .from('h1, .card-sub', { y: 18, opacity: 0, duration: 1, stagger: 0.1 }, 0.55)
         .from('.ig', { y: 20, opacity: 0, duration: 0.9, stagger: 0.09, clearProps: 'opacity,y' }, 0.7);
@@ -94,7 +95,7 @@ export function LoginPage() {
   return (
     <div
       ref={containerRef}
-      className="min-h-screen min-h-[100dvh] w-full flex items-center justify-center relative text-[#f5f5f5] overflow-x-hidden selection:bg-[#d4af37]/30 selection:text-white"
+      className="min-h-screen min-h-[100dvh] w-full flex items-center justify-center relative text-[#f5f5f5] overflow-x-hidden p-4 sm:p-6 selection:bg-[#d4af37]/30 selection:text-white"
     >
       <Seo
         title="Entrar | StudioHub • Noda Solutions"
@@ -105,33 +106,34 @@ export function LoginPage() {
       {/* Dynamic Golden Ambient Background */}
       <PricingBackground />
 
-      {/* Floating Back to Home button */}
+      {/* Floating Back to Home button (consistent with system rounded-square glass style) */}
       <Link
         to="/"
-        className="auth-back rt fixed flex items-center gap-2 text-gray-500 font-semibold uppercase tracking-[.2em] text-xs z-20 hover:text-white transition-all"
-        style={{ top: 'calc(1.5rem + env(safe-area-inset-top,0px))', left: '1.5rem' }}
+        aria-label="Voltar para a página inicial"
+        title="Voltar para o início"
+        className="rt fixed z-20 w-10 h-10 rounded-xl glass border border-white/12 hover:border-[#d4af37]/50 hover:bg-[#d4af37]/10 flex items-center justify-center text-gray-300 hover:text-[#f1c40f] transition-all duration-300 shadow-sm group active:scale-95"
+        style={{ top: 'calc(1.25rem + env(safe-area-inset-top,0px))', left: '1.25rem' }}
       >
-        <LandingIcon name="arrow" className="text-lg" />
-        Voltar
+        <ArrowLeft className="w-5 h-5 text-gray-300 group-hover:text-[#f1c40f] transition-colors" />
       </Link>
 
       {/* Centered Login Card */}
-      <main className="w-full max-w-md px-4 sm:px-6 py-20 sm:py-24 relative z-10">
-        <div ref={cardRef} className="auth-card rc rounded-[2.25rem] sm:rounded-[2.5rem] p-7 sm:p-11">
+      <main className="w-full max-w-md relative z-10 py-2 sm:py-0">
+        <div ref={cardRef} className="auth-card rc rounded-[2rem] sm:rounded-[2.25rem] p-6 sm:p-9">
           {/* Header */}
-          <div className="text-center mb-8 sm:mb-9">
-            <div className="lg flex items-center justify-center gap-3 mb-6 sm:mb-8">
-              <span className="logo-box !w-9 !h-9 sm:!w-[38px] sm:!h-[38px]">
+          <div className="text-center mb-6 sm:mb-7">
+            <div className="brand-logo-wrap flex items-center justify-center gap-3 mb-4 sm:mb-5">
+              <span className="logo-box !w-8 !h-8 sm:!w-[34px] sm:!h-[34px]">
                 <StudioHubLogo id="login-brand-logo" />
               </span>
-              <span className="text-2xl font-extrabold tracking-tighter">
+              <span className="text-xl sm:text-2xl font-extrabold tracking-tighter">
                 STUDIO<span className="gt">HUB</span>
               </span>
             </div>
 
-            <div className="rule max-w-[9rem] mx-auto mb-6 sm:mb-8" />
+            <div className="rule max-w-[8rem] mx-auto mb-4 sm:mb-5" />
 
-            <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight mb-2 text-white">
+            <h1 className="text-xl sm:text-2xl font-extrabold tracking-tight mb-1 sm:mb-1.5 text-white">
               Olá! <span className="gt">Novamente.</span>
             </h1>
             <p className="card-sub text-gray-500 text-xs sm:text-sm">
@@ -140,7 +142,7 @@ export function LoginPage() {
           </div>
 
           {/* Form */}
-          <form id="loginForm" onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
+          <form id="loginForm" onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
             <div className="ig">
               <label className="auth-lbl" htmlFor="email">
                 E-mail
@@ -220,7 +222,7 @@ export function LoginPage() {
               ref={btnRef}
               type="submit"
               disabled={isSubmitting}
-              className="auth-btn btn mag ig w-full py-3.5 sm:py-4 rounded-xl sm:rounded-2xl text-xs sm:text-sm uppercase tracking-widest flex items-center justify-center gap-2 cursor-pointer disabled:opacity-75 disabled:pointer-events-none transition-all"
+              className="auth-btn btn mag ig w-full py-3.5 sm:py-3.5 rounded-xl sm:rounded-2xl text-xs sm:text-sm uppercase tracking-widest flex items-center justify-center gap-2 cursor-pointer disabled:opacity-75 disabled:pointer-events-none transition-all"
             >
               {isSubmitting ? (
                 <>
@@ -241,7 +243,7 @@ export function LoginPage() {
           </form>
         </div>
 
-        <p className="rt text-center mt-6 sm:mt-8 text-[10px] text-gray-600 uppercase tracking-[.3em]">
+        <p className="rt text-center mt-4 sm:mt-5 text-[10px] text-gray-600 uppercase tracking-[.3em]">
           StudioHub Engine &copy; {CURRENT_YEAR} • Noda Solutions
         </p>
       </main>

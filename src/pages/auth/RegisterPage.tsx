@@ -1,134 +1,143 @@
-import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { User, Mail, Lock, Building, ArrowRight } from 'lucide-react';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
-import { Input } from '@/components/ui/Input';
-import { useAuth } from '@/hooks/useAuth';
 import { Seo } from '@/components/common/Seo';
-import type { UserRole } from '@/types/user';
+import {
+  RegisterBackground,
+  RegisterNavbar,
+  RegisterStepper,
+  RegisterStepIdentity,
+  RegisterStepSchedule,
+  RegisterStepServices,
+  RegisterStepAntiNoShow,
+  RegisterStepConnection,
+  useRegisterWizard,
+} from '@/components/auth';
 
 export function RegisterPage() {
-  const { login, isLoading } = useAuth();
-  const navigate = useNavigate();
-
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [role, setRole] = useState<UserRole>('creator');
-  const [studioName, setStudioName] = useState('');
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    await login(email, role);
-    navigate('/dashboard');
-  };
+  const wizard = useRegisterWizard();
 
   return (
-    <>
+    <div className="relative min-h-screen text-[#f5f5f5] overflow-x-hidden w-full selection:bg-[#d4af37]/30 selection:text-white">
       <Seo
-        title="Criar Conta | StudioHub • Noda Solutions"
-        description="Cadastre-se no StudioHub. A plataforma mais avançada para gestão e agendamento de estúdios desenvolvida por Noda Solutions."
+        title="Criar Conta - Plano Solo | StudioHub • Noda Solutions"
+        description="Configure seu assistente inteligente no WhatsApp em 5 passos simples e comece a operar sua agenda no piloto automático."
         canonicalUrl="https://studiohub.nodasolucoes.dev/cadastro"
       />
-      <Card className="border-slate-800 shadow-2xl bg-slate-900/80 backdrop-blur-xl">
-        <CardHeader className="text-center">
-          <CardTitle className="text-2xl">Criar Conta no StudioHub</CardTitle>
-          <CardDescription>
-            Selecione seu perfil e comece a gerenciar ou reservar estúdios
-          </CardDescription>
-        </CardHeader>
 
-        <CardContent className="space-y-6">
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <Input
-              label="Nome Completo"
-              placeholder="Ex: Augusto Bruno"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              leftIcon={<User className="w-4 h-4" />}
-              required
-            />
+      {/* Static Home-style Silk Gradient Background (z-0, 0% CPU/GPU overhead) */}
+      <RegisterBackground />
 
-            <Input
-              label="Email"
-              type="email"
-              placeholder="seu@email.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              leftIcon={<Mail className="w-4 h-4" />}
-              required
-            />
+      {/* Foreground Content (z-10) */}
+      <div className="relative z-10 w-full flex flex-col items-center">
+        {/* Navigation Header */}
+        <RegisterNavbar />
 
-            {/* Role selector */}
-            <div className="space-y-1.5 text-left">
-              <label className="block text-xs font-medium text-slate-300">
-                Tipo de Perfil
-              </label>
-              <div className="grid grid-cols-2 gap-2">
-                <button
-                  type="button"
-                  onClick={() => setRole('creator')}
-                  className={`p-3 rounded-xl border text-left text-xs transition-all ${role === 'creator'
-                      ? 'border-emerald-500 bg-emerald-500/10 text-white font-medium'
-                      : 'border-slate-800 bg-slate-900 text-slate-400 hover:border-slate-700'
-                    }`}
-                >
-                  <div className="font-semibold text-slate-200">Produtor / Músico</div>
-                  <div className="text-[10px] text-slate-400 mt-0.5">Reservar e produzir</div>
-                </button>
+        {/* Main Wizard Area */}
+        <main className="w-full px-4 sm:px-6 pt-28 pb-16 flex flex-col items-center">
+          {/* Stepper Dots & Golden Progress Bar */}
+          <RegisterStepper
+            curStep={wizard.curStep}
+            onStepClick={wizard.goToStep}
+          />
 
-                <button
-                  type="button"
-                  onClick={() => setRole('studio_manager')}
-                  className={`p-3 rounded-xl border text-left text-xs transition-all ${role === 'studio_manager'
-                      ? 'border-emerald-500 bg-emerald-500/10 text-white font-medium'
-                      : 'border-slate-800 bg-slate-900 text-slate-400 hover:border-slate-700'
-                    }`}
-                >
-                  <div className="font-semibold text-slate-200">Gestor de Estúdio</div>
-                  <div className="text-[10px] text-slate-400 mt-0.5">Disponibilizar salas</div>
-                </button>
-              </div>
-            </div>
-
-            {role === 'studio_manager' && (
-              <Input
-                label="Nome do Estúdio / Produtora"
-                placeholder="Ex: Vintage Sound Lab"
-                value={studioName}
-                onChange={(e) => setStudioName(e.target.value)}
-                leftIcon={<Building className="w-4 h-4" />}
-                required
-              />
-            )}
-
-            <Input
-              label="Criar Senha"
-              type="password"
-              placeholder="Pelo menos 8 caracteres"
-              leftIcon={<Lock className="w-4 h-4" />}
-              required
-            />
-
-            <Button
-              type="submit"
-              variant="primary"
-              className="w-full mt-2"
-              isLoading={isLoading}
-              rightIcon={<ArrowRight className="w-4 h-4" />}
+          {/* Dynamic Card Stage */}
+          <div id="stage" className="w-full max-w-2xl relative">
+            <div
+              ref={wizard.cardRef}
+              onPointerMove={wizard.handleCardPointerMove}
+              className="lg p-7 sm:p-10 step"
             >
-              Concluir Cadastro
-            </Button>
-          </form>
+              {/* Passo 1: Identidade */}
+              {wizard.curStep === 0 && (
+                <RegisterStepIdentity
+                  shop={wizard.shop}
+                  setShop={wizard.setShop}
+                  shopBad={wizard.shopBad}
+                  setShopBad={wizard.setShopBad}
+                  owner={wizard.owner}
+                  setOwner={wizard.setOwner}
+                  ownerBad={wizard.ownerBad}
+                  setOwnerBad={wizard.setOwnerBad}
+                  wpp={wizard.wpp}
+                  handleWppChange={wizard.handleWppChange}
+                  wppBad={wizard.wppBad}
+                  onContinue={wizard.nextStep}
+                />
+              )}
 
-          <div className="text-center text-xs text-slate-400 pt-2 border-t border-slate-800">
-            Já possui conta?{' '}
-            <Link to="/login" className="text-emerald-400 font-semibold hover:underline">
-              Fazer login
-            </Link>
+              {/* Passo 2: Horários */}
+              {wizard.curStep === 1 && (
+                <RegisterStepSchedule
+                  selectedDays={wizard.selectedDays}
+                  toggleDay={wizard.toggleDay}
+                  daysBad={wizard.daysBad}
+                  openTime={wizard.openTime}
+                  setOpenTime={wizard.setOpenTime}
+                  closeTime={wizard.closeTime}
+                  setCloseTime={wizard.setCloseTime}
+                  hasLunch={wizard.hasLunch}
+                  setHasLunch={wizard.setHasLunch}
+                  lunchStart={wizard.lunchStart}
+                  setLunchStart={wizard.setLunchStart}
+                  lunchEnd={wizard.lunchEnd}
+                  setLunchEnd={wizard.setLunchEnd}
+                  leadTime={wizard.leadTime}
+                  setLeadTime={wizard.setLeadTime}
+                  daysSummary={wizard.daysSummary}
+                  onBack={wizard.prevStep}
+                  onContinue={wizard.nextStep}
+                />
+              )}
+
+              {/* Passo 3: Serviços */}
+              {wizard.curStep === 2 && (
+                <RegisterStepServices
+                  services={wizard.services}
+                  servicesBad={wizard.servicesBad}
+                  addService={wizard.addService}
+                  removeService={wizard.removeService}
+                  updateService={wizard.updateService}
+                  onBack={wizard.prevStep}
+                  onContinue={wizard.nextStep}
+                />
+              )}
+
+              {/* Passo 4: Anti-falta */}
+              {wizard.curStep === 3 && (
+                <RegisterStepAntiNoShow
+                  shop={wizard.shop}
+                  reminderTime={wizard.reminderTime}
+                  setReminderTime={wizard.setReminderTime}
+                  cancelTime={wizard.cancelTime}
+                  setCancelTime={wizard.setCancelTime}
+                  onBack={wizard.prevStep}
+                  onContinue={wizard.nextStep}
+                />
+              )}
+
+              {/* Passo 5: Conexão */}
+              {wizard.curStep === 4 && (
+                <RegisterStepConnection
+                  shop={wizard.shop}
+                  wpp={wizard.wpp}
+                  isConnected={wizard.isConnected}
+                  qrBoxRef={wizard.qrBoxRef}
+                  qrCanvasRef={wizard.qrCanvasRef}
+                  scanRef={wizard.scanRef}
+                  okRef={wizard.okRef}
+                  checkRingRef={wizard.checkRingRef}
+                  checkTickRef={wizard.checkTickRef}
+                  goBtnRef={wizard.goBtnRef}
+                  handleSimulate={wizard.handleSimulate}
+                  onBack={wizard.prevStep}
+                />
+              )}
+            </div>
           </div>
-        </CardContent>
-      </Card>
-    </>
+
+          <p className="mt-8 text-[10px] text-gray-500 uppercase tracking-[.3em]">
+            StudioHub Engine &copy; 2026
+          </p>
+        </main>
+      </div>
+    </div>
   );
 }

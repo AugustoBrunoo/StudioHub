@@ -1,0 +1,127 @@
+interface RegisterStepIdentityProps {
+  shop: string;
+  setShop: (value: string) => void;
+  shopBad: boolean;
+  setShopBad: (bad: boolean) => void;
+  owner: string;
+  setOwner: (value: string) => void;
+  ownerBad: boolean;
+  setOwnerBad: (bad: boolean) => void;
+  wpp: string;
+  handleWppChange: (val: string) => void;
+  wppBad: boolean;
+  onContinue: () => void;
+}
+
+export function RegisterStepIdentity({
+  shop,
+  setShop,
+  shopBad,
+  setShopBad,
+  owner,
+  setOwner,
+  ownerBad,
+  setOwnerBad,
+  wpp,
+  handleWppChange,
+  wppBad,
+  onContinue,
+}: RegisterStepIdentityProps) {
+  return (
+    <div>
+      <div className="mb-8">
+        <span className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[.26em] text-[#d4af37] mb-4">
+          <span className="w-6 h-px bg-[#d4af37]" />
+          Plano Solo · Passo 1 de 5
+        </span>
+        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight leading-[1.1] mb-3">
+          Bem-vindo ao <span className="gt">StudioHub</span>
+        </h1>
+        <p className="text-gray-400 leading-relaxed text-sm sm:text-base">
+          Identidade e Conexão: esses dados personalizam a experiência do cliente final no WhatsApp.
+        </p>
+      </div>
+
+      <div className="space-y-6">
+        {/* Studio / Shop Name */}
+        <div className="f">
+          <label className="lbl" htmlFor="shop">
+            Qual o nome da sua barbearia / estúdio?
+          </label>
+          <input
+            id="shop"
+            className={`inp gl ${shopBad ? 'bad' : ''}`}
+            placeholder="Ex: Studio Navalha de Ouro"
+            value={shop}
+            onChange={(e) => {
+              setShop(e.target.value);
+              if (shopBad) setShopBad(false);
+            }}
+            autoComplete="organization"
+          />
+        </div>
+
+        {/* Owner Name */}
+        <div className="f">
+          <label className="lbl" htmlFor="owner">
+            Como você gosta de ser chamado?
+          </label>
+          <input
+            id="owner"
+            className={`inp gl ${ownerBad ? 'bad' : ''}`}
+            placeholder="Ex: João"
+            value={owner}
+            onChange={(e) => {
+              setOwner(e.target.value);
+              if (ownerBad) setOwnerBad(false);
+            }}
+            autoComplete="given-name"
+          />
+        </div>
+
+        {/* WhatsApp Phone */}
+        <div className="f">
+          <label className="lbl" htmlFor="wpp">
+            Qual o número de WhatsApp que o robô vai controlar?
+          </label>
+          <input
+            id="wpp"
+            className={`inp gl ${wppBad ? 'bad' : ''}`}
+            inputMode="tel"
+            placeholder="(21) 99999-9999"
+            maxLength={15}
+            value={wpp}
+            onChange={(e) => handleWppChange(e.target.value)}
+            autoComplete="tel"
+          />
+          <p className="hint">Esse número será vinculado ao seu assistente no último passo.</p>
+        </div>
+
+        {/* Live Client Perspective Bubble */}
+        <div className="f gl bubble rounded-2xl">
+          <p className="text-[10px] uppercase tracking-[.2em] text-gray-500 font-semibold mb-1.5">
+            Como o cliente verá
+          </p>
+          <p id="pv1">
+            Olá! Você está no WhatsApp do <b className="text-[#f1c40f]">{shop || 'Studio'}</b>, com o assistente de{' '}
+            <b className="text-[#f1c40f]">{owner || 'você'}</b>.
+          </p>
+        </div>
+      </div>
+
+      {/* Navigation Buttons */}
+      <div className="flex justify-end mt-9">
+        <button
+          type="button"
+          onClick={onContinue}
+          className="btn btn-gold mag px-8 py-4 rounded-2xl nx flex items-center gap-2"
+        >
+          <span>Continuar</span>
+          <svg className="i w-4 h-4" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  );
+}
