@@ -29,15 +29,15 @@ export function RegisterStepIdentity({
 }: RegisterStepIdentityProps) {
   return (
     <div>
-      <div className="mb-5 sm:mb-8">
-        <span className="inline-flex items-center gap-2 text-[10px] sm:text-[11px] font-semibold uppercase tracking-[.22em] sm:tracking-[.26em] text-[#d4af37] mb-2 sm:mb-4">
+      <div className="mb-5 sm:mb-8 text-center sm:text-left">
+        <span className="inline-flex items-center justify-center sm:justify-start gap-2 text-[10px] sm:text-[11px] font-semibold uppercase tracking-[.22em] sm:tracking-[.26em] text-[#d4af37] mb-2 sm:mb-4 mx-auto sm:mx-0">
           <span className="w-5 sm:w-6 h-px bg-[#d4af37]" />
           Plano Solo · Passo 1 de 5
         </span>
         <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight leading-[1.15] mb-2 sm:mb-3 text-white">
           Bem-vindo ao <span className="gt">StudioHub</span>
         </h1>
-        <p className="text-white/85 leading-relaxed text-xs sm:text-sm md:text-base">
+        <p className="text-white/85 leading-relaxed text-xs sm:text-sm md:text-base max-w-lg mx-auto sm:mx-0">
           Identidade e Conexão: esses dados personalizam a experiência do cliente final no WhatsApp.
         </p>
       </div>

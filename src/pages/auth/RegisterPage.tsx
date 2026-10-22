@@ -69,6 +69,16 @@ export function RegisterPage() {
                   setOpenTime={wizard.setOpenTime}
                   closeTime={wizard.closeTime}
                   setCloseTime={wizard.setCloseTime}
+                  hasCustomWeekend={wizard.hasCustomWeekend}
+                  setHasCustomWeekend={wizard.setHasCustomWeekend}
+                  saturdayOpen={wizard.saturdayOpen}
+                  setSaturdayOpen={wizard.setSaturdayOpen}
+                  saturdayClose={wizard.saturdayClose}
+                  setSaturdayClose={wizard.setSaturdayClose}
+                  sundayOpen={wizard.sundayOpen}
+                  setSundayOpen={wizard.setSundayOpen}
+                  sundayClose={wizard.sundayClose}
+                  setSundayClose={wizard.setSundayClose}
                   hasLunch={wizard.hasLunch}
                   setHasLunch={wizard.setHasLunch}
                   lunchStart={wizard.lunchStart}

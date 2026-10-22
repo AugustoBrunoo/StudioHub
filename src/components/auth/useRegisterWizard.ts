@@ -19,7 +19,12 @@ export function useRegisterWizard() {
   const [selectedDays, setSelectedDays] = useState<Set<number>>(new Set([2, 3, 4, 5, 6]));
   const [openTime, setOpenTime] = useState('09:00');
   const [closeTime, setCloseTime] = useState('19:00');
-  const [hasLunch, setHasLunch] = useState(true);
+  const [hasCustomWeekend, setHasCustomWeekend] = useState(false);
+  const [saturdayOpen, setSaturdayOpen] = useState('08:00');
+  const [saturdayClose, setSaturdayClose] = useState('17:00');
+  const [sundayOpen, setSundayOpen] = useState('09:00');
+  const [sundayClose, setSundayClose] = useState('14:00');
+  const [hasLunch, setHasLunch] = useState(false);
   const [lunchStart, setLunchStart] = useState('12:00');
   const [lunchEnd, setLunchEnd] = useState('13:00');
   const [leadTime, setLeadTime] = useState(60);
@@ -83,18 +88,52 @@ export function useRegisterWizard() {
     const ds = DAYS_ORDER.filter((d) => selectedDays.has(d));
     if (!ds.length) return 'Selecione ao menos um dia.';
 
-    const idx = ds.map((d) => DAYS_ORDER.indexOf(d));
-    const seq = idx.every((v, i) => i === 0 || v === idx[i - 1] + 1);
-    let t =
-      seq && ds.length > 2
-        ? `${DAYS_NAMES[ds[0]]} a ${DAYS_NAMES[ds[ds.length - 1]]}`
-        : ds.map((d) => DAYS_NAMES[d].slice(0, 3)).join(', ');
+    let t = '';
 
-    t += `, das ${openTime} às ${closeTime}`;
-    if (hasLunch) t += `. Pausa das ${lunchStart} às ${lunchEnd}`;
-    t += `. Antecedência mínima: ${leadTime ? formatMinutes(leadTime) : 'nenhuma'}.`;
-    return t;
-  }, [selectedDays, openTime, closeTime, hasLunch, lunchStart, lunchEnd, leadTime]);
+    if (hasCustomWeekend && (selectedDays.has(6) || selectedDays.has(0))) {
+      const weekdays = ds.filter((d) => d !== 6 && d !== 0);
+      if (weekdays.length > 0) {
+        const idx = weekdays.map((d) => DAYS_ORDER.indexOf(d));
+        const seq = idx.every((v, i) => i === 0 || v === idx[i - 1] + 1);
+        const wStr =
+          seq && weekdays.length > 2
+            ? `${DAYS_NAMES[weekdays[0]]} a ${DAYS_NAMES[weekdays[weekdays.length - 1]]}`
+            : weekdays.map((d) => DAYS_NAMES[d].slice(0, 3)).join(', ');
+        t += `${wStr}, das ${openTime} às ${closeTime}. `;
+      }
+      if (selectedDays.has(6)) {
+        t += `Sáb, das ${saturdayOpen} às ${saturdayClose}. `;
+      }
+      if (selectedDays.has(0)) {
+        t += `Dom, das ${sundayOpen} às ${sundayClose}. `;
+      }
+    } else {
+      const idx = ds.map((d) => DAYS_ORDER.indexOf(d));
+      const seq = idx.every((v, i) => i === 0 || v === idx[i - 1] + 1);
+      const daysStr =
+        seq && ds.length > 2
+          ? `${DAYS_NAMES[ds[0]]} a ${DAYS_NAMES[ds[ds.length - 1]]}`
+          : ds.map((d) => DAYS_NAMES[d].slice(0, 3)).join(', ');
+      t += `${daysStr}, das ${openTime} às ${closeTime}. `;
+    }
+
+    if (hasLunch) t += `Pausa das ${lunchStart} às ${lunchEnd}. `;
+    t += `Antecedência mínima: ${leadTime ? formatMinutes(leadTime) : 'nenhuma'}.`;
+    return t.trim();
+  }, [
+    selectedDays,
+    openTime,
+    closeTime,
+    hasCustomWeekend,
+    saturdayOpen,
+    saturdayClose,
+    sundayOpen,
+    sundayClose,
+    hasLunch,
+    lunchStart,
+    lunchEnd,
+    leadTime,
+  ]);
 
   // Add Service
   const addService = () => {
@@ -347,6 +386,16 @@ export function useRegisterWizard() {
     setOpenTime,
     closeTime,
     setCloseTime,
+    hasCustomWeekend,
+    setHasCustomWeekend,
+    saturdayOpen,
+    setSaturdayOpen,
+    saturdayClose,
+    setSaturdayClose,
+    sundayOpen,
+    setSundayOpen,
+    sundayClose,
+    setSundayClose,
     hasLunch,
     setHasLunch,
     lunchStart,
