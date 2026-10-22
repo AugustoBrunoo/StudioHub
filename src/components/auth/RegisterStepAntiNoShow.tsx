@@ -28,24 +28,24 @@ export function RegisterStepAntiNoShow({
 
   return (
     <div>
-      <div className="mb-8">
-        <span className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[.26em] text-[#d4af37] mb-4">
-          <span className="w-6 h-px bg-[#d4af37]" />
+      <div className="mb-5 sm:mb-8">
+        <span className="inline-flex items-center gap-2 text-[10px] sm:text-[11px] font-semibold uppercase tracking-[.22em] sm:tracking-[.26em] text-[#d4af37] mb-2 sm:mb-4">
+          <span className="w-5 sm:w-6 h-px bg-[#d4af37]" />
           Passo 4 de 5
         </span>
-        <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight leading-[1.1] mb-3 text-white">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight leading-[1.15] mb-2 sm:mb-3 text-white">
           Automação <span className="gt">anti-falta.</span>
         </h2>
-        <p className="text-white/85 leading-relaxed text-sm sm:text-base">
+        <p className="text-white/85 leading-relaxed text-xs sm:text-sm md:text-base">
           As regras do jogo: configurações finais para o assistente agir preventivamente.
         </p>
       </div>
 
-      <div className="space-y-7">
+      <div className="space-y-4 sm:space-y-7">
         {/* Reminder Timing */}
         <div className="f">
           <span className="lbl">Quanto tempo antes do corte o robô envia o lembrete?</span>
-          <div className="flex flex-wrap gap-2.5">
+          <div className="flex flex-wrap gap-1.5 sm:gap-2.5">
             {REMINDER_OPTIONS.map((opt) => (
               <button
                 key={opt.value}
@@ -60,11 +60,11 @@ export function RegisterStepAntiNoShow({
         </div>
 
         {/* Live Reminder Bubble Preview */}
-        <div className="f gl bubble rounded-2xl">
-          <p className="text-[10px] uppercase tracking-[.2em] text-white/60 font-semibold mb-1.5">
+        <div className="f gl bubble rounded-xl sm:rounded-2xl p-3.5 sm:p-4">
+          <p className="text-[10px] uppercase tracking-[.2em] text-white/60 font-semibold mb-1 sm:mb-1.5">
             Exemplo de lembrete
           </p>
-          <p id="pv4" className="text-white">
+          <p id="pv4" className="text-white text-xs sm:text-sm leading-relaxed">
             Olá! Lembrete: seu horário no <b className="text-[#f1c40f]">{shop || 'Studio'}</b> é{' '}
             {reminderWindow}. Responda <b>CANCELAR</b> se precisar desmarcar.
           </p>
@@ -73,7 +73,7 @@ export function RegisterStepAntiNoShow({
         {/* Cancellation Window */}
         <div className="f">
           <span className="lbl">Até quanto tempo antes o cliente pode cancelar pelo WhatsApp?</span>
-          <div className="flex flex-wrap gap-2.5">
+          <div className="flex flex-wrap gap-1.5 sm:gap-2.5">
             {CANCEL_OPTIONS.map((opt) => (
               <button
                 key={opt.value}
@@ -93,11 +93,11 @@ export function RegisterStepAntiNoShow({
       </div>
 
       {/* Navigation Buttons */}
-      <div className="flex justify-between mt-9">
+      <div className="flex justify-between items-center gap-2.5 sm:gap-4 mt-6 sm:mt-9">
         <button
           type="button"
           onClick={onBack}
-          className="btn btn-ghost px-7 py-4 rounded-2xl bk flex items-center gap-2"
+          className="btn btn-ghost px-4 sm:px-7 py-3 sm:py-4 rounded-xl sm:rounded-2xl text-xs sm:text-sm bk flex items-center justify-center gap-1.5 sm:gap-2"
         >
           <svg className="i w-4 h-4" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M19 12H5M12 19l-7-7 7-7" />
@@ -107,7 +107,7 @@ export function RegisterStepAntiNoShow({
         <button
           type="button"
           onClick={onContinue}
-          className="btn btn-gold px-8 py-4 rounded-2xl nx flex items-center gap-2"
+          className="btn btn-gold px-5 sm:px-8 py-3 sm:py-4 rounded-xl sm:rounded-2xl text-xs sm:text-sm nx flex items-center justify-center gap-1.5 sm:gap-2 font-semibold"
         >
           <span>Gerar QR Code</span>
           <svg className="i w-4 h-4" viewBox="0 0 24 24" aria-hidden="true">

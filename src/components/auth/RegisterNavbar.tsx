@@ -36,13 +36,6 @@ export function RegisterNavbar({
         aria-label="Navegação do cadastro"
         className="pointer-events-auto w-full max-w-2xl rounded-2xl glass border border-white/12 bg-[#0a0a0a]/90 backdrop-blur-2xl shadow-[0_12px_36px_rgba(0,0,0,0.65)] px-3.5 sm:px-5 py-2.5 sm:py-3 flex items-center justify-between gap-3 sm:gap-4 transition-all duration-300 relative overflow-hidden"
       >
-        {/* Subtle Progress Bar line at bottom edge of header */}
-        <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-white/[0.06]">
-          <div
-            className="h-full bg-gradient-to-r from-[#d4af37] via-[#f1c40f] to-[#d4af37] transition-all duration-500 ease-out shadow-[0_0_8px_rgba(212,175,55,0.8)]"
-            style={{ width: `${((curStep + 1) / 5) * 100}%` }}
-          />
-        </div>
 
         {/* Brand Logo (Left) */}
         <Link
@@ -52,9 +45,6 @@ export function RegisterNavbar({
         >
           <span className="logo-box !w-7 !h-7 sm:!w-8 sm:!h-8 !rounded-lg group-hover:scale-105 transition-transform">
             <StudioHubLogo id="reg-logo" />
-          </span>
-          <span className="text-base sm:text-lg font-extrabold tracking-tighter">
-            STUDIO<span className="gt">HUB</span>
           </span>
         </Link>
 
@@ -76,13 +66,12 @@ export function RegisterNavbar({
                   }}
                   disabled={!isDone}
                   title={`Passo ${stepIdx + 1}: ${name}${isCur ? ' (atual)' : isDone ? ' (concluído)' : ''}`}
-                  className={`relative flex items-center justify-center transition-all duration-300 ${
-                    isCur
-                      ? 'w-7 h-7 rounded-full bg-gradient-to-r from-[#d4af37] to-[#f1c40f] text-[#0a0a0a] font-extrabold text-xs shadow-[0_0_12px_rgba(212,175,55,0.65)] scale-105 cursor-default'
-                      : isDone
-                        ? 'w-6 h-6 rounded-full border border-[#d4af37]/60 text-[#d4af37] hover:border-[#f1c40f] hover:bg-[#d4af37]/10 cursor-pointer active:scale-95 text-[11px] font-bold'
-                        : 'w-6 h-6 rounded-full border border-white/10 text-white/30 bg-white/[0.02] text-[11px] cursor-default'
-                  }`}
+                  className={`relative flex items-center justify-center transition-all duration-300 ${isCur
+                    ? 'w-7 h-7 rounded-full bg-gradient-to-r from-[#d4af37] to-[#f1c40f] text-[#0a0a0a] font-extrabold text-xs shadow-[0_0_12px_rgba(212,175,55,0.65)] scale-105 cursor-default'
+                    : isDone
+                      ? 'w-6 h-6 rounded-full border border-[#d4af37]/60 text-[#d4af37] hover:border-[#f1c40f] hover:bg-[#d4af37]/10 cursor-pointer active:scale-95 text-[11px] font-bold'
+                      : 'w-6 h-6 rounded-full border border-white/10 text-white/30 bg-white/[0.02] text-[11px] cursor-default'
+                    }`}
                 >
                   {isDone ? (
                     <svg className="w-3.5 h-3.5 stroke-[3]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -96,11 +85,10 @@ export function RegisterNavbar({
                 {/* Connecting track line between step dots */}
                 {stepIdx < STEP_NAMES.length - 1 && (
                   <div
-                    className={`h-0.5 w-2.5 sm:w-3 md:w-4 rounded-full transition-all duration-500 ${
-                      stepIdx < curStep
-                        ? 'bg-gradient-to-r from-[#d4af37] to-[#f1c40f]'
-                        : 'bg-white/10'
-                    }`}
+                    className={`h-0.5 w-2.5 sm:w-3 md:w-4 rounded-full transition-all duration-500 ${stepIdx < curStep
+                      ? 'bg-gradient-to-r from-[#d4af37] to-[#f1c40f]'
+                      : 'bg-white/10'
+                      }`}
                   />
                 )}
               </div>
@@ -110,7 +98,6 @@ export function RegisterNavbar({
 
         {/* Mobile view (< sm): Current step badge with step number & name */}
         <div className="flex sm:hidden items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/[0.06] border border-white/10 select-none shrink-0 whitespace-nowrap">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#f1c40f] shadow-[0_0_6px_rgba(241,196,15,0.8)] animate-pulse" />
           <span className="text-[11px] font-bold text-white tracking-wide">
             <span className="text-[#f1c40f]">{curStep + 1}</span>
             <span className="text-white/40 font-normal">/5</span>

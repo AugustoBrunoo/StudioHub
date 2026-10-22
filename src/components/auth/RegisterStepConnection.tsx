@@ -34,12 +34,12 @@ export function RegisterStepConnection({
 
   return (
     <div>
-      <div className="mb-6 text-center">
-        <span className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[.26em] text-[#d4af37] mb-4">
-          <span className="w-6 h-px bg-[#d4af37]" />
+      <div className="mb-4 sm:mb-6 text-center">
+        <span className="inline-flex items-center gap-2 text-[10px] sm:text-[11px] font-semibold uppercase tracking-[.22em] sm:tracking-[.26em] text-[#d4af37] mb-2 sm:mb-4">
+          <span className="w-5 sm:w-6 h-px bg-[#d4af37]" />
           Passo 5 de 5
         </span>
-        <h2 id="t5" className="text-3xl sm:text-4xl font-extrabold tracking-tight leading-[1.1] mb-3 text-white">
+        <h2 id="t5" className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight leading-[1.15] mb-2 sm:mb-3 text-white">
           {isConnected ? (
             <>
               Tudo <span className="gt">pronto!</span>
@@ -50,7 +50,7 @@ export function RegisterStepConnection({
             </>
           )}
         </h2>
-        <p id="p5" className="text-white/85 leading-relaxed max-w-md mx-auto text-sm sm:text-base">
+        <p id="p5" className="text-white/85 leading-relaxed max-w-md mx-auto text-xs sm:text-sm md:text-base">
           {isConnected ? (
             `O StudioHub de ${shop || 'seu estúdio'} já está atendendo no WhatsApp.`
           ) : (
@@ -61,14 +61,14 @@ export function RegisterStepConnection({
         </p>
       </div>
 
-      <div className="flex flex-col md:flex-row items-center gap-8 justify-center">
+      <div className="flex flex-col md:flex-row items-center gap-5 sm:gap-8 justify-center">
         {/* QR Code Canvas Box */}
         <div className="relative shrink-0">
           <div className="absolute -inset-5 rounded-[2rem] bg-[#d4af37]/20 blur-2xl" />
           <div
             id="qrBox"
             ref={qrBoxRef}
-            className="relative bg-[#f5f5f5] p-4 rounded-3xl overflow-hidden shadow-2xl"
+            className="relative bg-[#f5f5f5] p-3 sm:p-4 rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl"
           >
             <canvas
               id="qr"
@@ -76,7 +76,7 @@ export function RegisterStepConnection({
               width={264}
               height={264}
               aria-label="QR Code para parear WhatsApp"
-              className="block w-[220px] h-[220px] sm:w-[240px] sm:h-[240px]"
+              className="block w-[180px] h-[180px] sm:w-[220px] sm:h-[220px]"
             />
             {!isConnected && <div className="scan" id="scan" ref={scanRef} />}
             <div
@@ -86,8 +86,8 @@ export function RegisterStepConnection({
                 }`}
             >
               <svg
-                width="96"
-                height="96"
+                width="80"
+                height="80"
                 viewBox="0 0 64 64"
                 fill="none"
                 stroke="#f1c40f"
@@ -95,6 +95,7 @@ export function RegisterStepConnection({
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 aria-hidden="true"
+                className="w-16 h-16 sm:w-20 sm:h-20"
               >
                 <circle ref={checkRingRef} className="ring" cx="32" cy="32" r="28" />
                 <path ref={checkTickRef} className="tick" d="M20 33l9 9 16-18" />
@@ -106,25 +107,25 @@ export function RegisterStepConnection({
         {/* Step Instructions */}
         <ol
           id="how"
-          className={`space-y-4 text-sm text-white max-w-[16rem] transition-opacity duration-500 ${isConnected ? 'opacity-35' : 'opacity-100'
+          className={`space-y-2.5 sm:space-y-4 text-xs sm:text-sm text-white max-w-full sm:max-w-[16rem] transition-opacity duration-500 ${isConnected ? 'opacity-35' : 'opacity-100'
             }`}
         >
-          <li className="flex gap-3">
-            <span className="w-6 h-6 rounded-full gl flex items-center justify-center text-[11px] font-bold text-[#d4af37] shrink-0">
+          <li className="flex gap-2.5 sm:gap-3">
+            <span className="w-5 h-5 sm:w-6 sm:h-6 rounded-full gl flex items-center justify-center text-[10px] sm:text-[11px] font-bold text-[#d4af37] shrink-0">
               1
             </span>
             <span>Abra o WhatsApp no celular do negócio.</span>
           </li>
-          <li className="flex gap-3">
-            <span className="w-6 h-6 rounded-full gl flex items-center justify-center text-[11px] font-bold text-[#d4af37] shrink-0">
+          <li className="flex gap-2.5 sm:gap-3">
+            <span className="w-5 h-5 sm:w-6 sm:h-6 rounded-full gl flex items-center justify-center text-[10px] sm:text-[11px] font-bold text-[#d4af37] shrink-0">
               2
             </span>
             <span>
               Toque em <b className="text-white">Aparelhos conectados</b>.
             </span>
           </li>
-          <li className="flex gap-3">
-            <span className="w-6 h-6 rounded-full gl flex items-center justify-center text-[11px] font-bold text-[#d4af37] shrink-0">
+          <li className="flex gap-2.5 sm:gap-3">
+            <span className="w-5 h-5 sm:w-6 sm:h-6 rounded-full gl flex items-center justify-center text-[10px] sm:text-[11px] font-bold text-[#d4af37] shrink-0">
               3
             </span>
             <span>
@@ -148,12 +149,12 @@ export function RegisterStepConnection({
       </div>
 
       {/* Navigation & Action Buttons */}
-      <div className="flex justify-between items-center mt-9 gap-3">
+      <div className="flex justify-between items-center gap-2.5 sm:gap-3 mt-6 sm:mt-9">
         {!isConnected && (
           <button
             type="button"
             onClick={onBack}
-            className="btn btn-ghost px-7 py-4 rounded-2xl bk flex items-center gap-2"
+            className="btn btn-ghost px-4 sm:px-7 py-3 sm:py-4 rounded-xl sm:rounded-2xl text-xs sm:text-sm bk flex items-center justify-center gap-1.5 sm:gap-2"
             id="bk5"
           >
             <svg className="i w-4 h-4" viewBox="0 0 24 24" aria-hidden="true">
@@ -163,13 +164,13 @@ export function RegisterStepConnection({
           </button>
         )}
 
-        <div className="flex gap-3 ml-auto">
+        <div className="flex gap-2 sm:gap-3 ml-auto">
           {!isConnected ? (
             <button
               type="button"
               id="sim"
               onClick={handleSimulate}
-              className="btn btn-ghost px-5 py-4 rounded-2xl text-sm font-semibold"
+              className="btn btn-ghost px-3.5 sm:px-5 py-3 sm:py-4 rounded-xl sm:rounded-2xl text-xs sm:text-sm font-semibold"
             >
               Simular conexão
             </button>
@@ -182,7 +183,7 @@ export function RegisterStepConnection({
                 e.preventDefault();
                 navigate('/dashboard');
               }}
-              className="btn btn-gold px-7 py-4 rounded-2xl flex items-center gap-2 font-bold"
+              className="btn btn-gold px-5 sm:px-7 py-3 sm:py-4 rounded-xl sm:rounded-2xl flex items-center justify-center gap-1.5 sm:gap-2 font-bold text-xs sm:text-sm"
             >
               <span>Ir para o painel</span>
               <svg className="i w-4 h-4" viewBox="0 0 24 24" aria-hidden="true">

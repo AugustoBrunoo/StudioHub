@@ -34,13 +34,12 @@ export function RegisterPage() {
         />
 
         {/* Main Wizard Area */}
-        <main className="w-full px-4 sm:px-6 pt-24 sm:pt-28 pb-16 flex flex-col items-center">
+        <main className="w-full px-3 sm:px-6 pt-20 sm:pt-24 md:pt-28 pb-12 sm:pb-16 flex flex-col items-center">
           {/* Dynamic Card Stage */}
           <div id="stage" className="w-full max-w-2xl relative">
             <div
               ref={wizard.cardRef}
-              onPointerMove={wizard.handleCardPointerMove}
-              className="lg p-7 sm:p-10 step text-white"
+              className="lg p-4 sm:p-7 md:p-10 step text-white rounded-2xl sm:rounded-[2rem]"
             >
               {/* Passo 1: Identidade */}
               {wizard.curStep === 0 && (

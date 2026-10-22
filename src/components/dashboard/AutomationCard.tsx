@@ -9,7 +9,7 @@ export function AutomationCard({ onClickConversations }: AutomationCardProps) {
     <button
       type="button"
       onClick={onClickConversations}
-      className="dash-card dash-lift w-full rise p-6 flex items-center gap-5 group text-left cursor-pointer transition-all"
+      className="card lift w-full rise p-6 flex items-center gap-5 group text-left cursor-pointer transition-all"
     >
       <div className="ibox">
         <DashboardIcon name="bot" />

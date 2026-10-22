@@ -1,7 +1,7 @@
 export function DashboardBackground() {
   return (
-    <div className="dash-bg" aria-hidden="true">
-      <div className="dash-grid-bg" />
+    <div className="bg pointer-events-none" aria-hidden="true">
+      <div className="grid-bg" />
     </div>
   );
 }

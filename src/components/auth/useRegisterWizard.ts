@@ -285,15 +285,6 @@ export function useRegisterWizard() {
     }
   };
 
-  // Pointermove spotlight on card
-  const handleCardPointerMove = (e: MouseEvent<HTMLDivElement>) => {
-    const card = cardRef.current;
-    if (!card) return;
-    const b = card.getBoundingClientRect();
-    card.style.setProperty('--mx', `${e.clientX - b.left}px`);
-    card.style.setProperty('--my', `${e.clientY - b.top}px`);
-  };
-
   // Redraw QR code if on step 4 and canvas changes
   useEffect(() => {
     if (curStep === 4) {
@@ -387,6 +378,5 @@ export function useRegisterWizard() {
     checkRingRef,
     checkTickRef,
     goBtnRef,
-    handleCardPointerMove,
   };
 }

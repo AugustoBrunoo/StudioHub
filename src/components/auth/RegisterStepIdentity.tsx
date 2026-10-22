@@ -29,20 +29,20 @@ export function RegisterStepIdentity({
 }: RegisterStepIdentityProps) {
   return (
     <div>
-      <div className="mb-8">
-        <span className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[.26em] text-[#d4af37] mb-4">
-          <span className="w-6 h-px bg-[#d4af37]" />
+      <div className="mb-5 sm:mb-8">
+        <span className="inline-flex items-center gap-2 text-[10px] sm:text-[11px] font-semibold uppercase tracking-[.22em] sm:tracking-[.26em] text-[#d4af37] mb-2 sm:mb-4">
+          <span className="w-5 sm:w-6 h-px bg-[#d4af37]" />
           Plano Solo · Passo 1 de 5
         </span>
-        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight leading-[1.1] mb-3 text-white">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight leading-[1.15] mb-2 sm:mb-3 text-white">
           Bem-vindo ao <span className="gt">StudioHub</span>
         </h1>
-        <p className="text-white/85 leading-relaxed text-sm sm:text-base">
+        <p className="text-white/85 leading-relaxed text-xs sm:text-sm md:text-base">
           Identidade e Conexão: esses dados personalizam a experiência do cliente final no WhatsApp.
         </p>
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-4 sm:space-y-6">
         {/* Studio / Shop Name */}
         <div className="f">
           <label className="lbl" htmlFor="shop">
@@ -98,11 +98,11 @@ export function RegisterStepIdentity({
         </div>
 
         {/* Live Client Perspective Bubble */}
-        <div className="f gl bubble rounded-2xl">
-          <p className="text-[10px] uppercase tracking-[.2em] text-white/60 font-semibold mb-1.5">
+        <div className="f gl bubble rounded-xl sm:rounded-2xl">
+          <p className="text-[10px] uppercase tracking-[.2em] text-white/60 font-semibold mb-1 sm:mb-1.5">
             Como o cliente verá
           </p>
-          <p id="pv1" className="text-white">
+          <p id="pv1" className="text-white text-xs sm:text-sm leading-relaxed">
             Olá! Você está no WhatsApp do <b className="text-[#f1c40f]">{shop || 'Studio'}</b>, com o assistente de{' '}
             <b className="text-[#f1c40f]">{owner || 'você'}</b>.
           </p>
@@ -110,11 +110,11 @@ export function RegisterStepIdentity({
       </div>
 
       {/* Navigation Buttons */}
-      <div className="flex justify-end mt-9">
+      <div className="flex justify-end mt-6 sm:mt-9">
         <button
           type="button"
           onClick={onContinue}
-          className="btn btn-gold px-8 py-4 rounded-2xl nx flex items-center gap-2"
+          className="btn btn-gold w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl nx flex items-center justify-center gap-2 text-sm sm:text-base"
         >
           <span>Continuar</span>
           <svg className="i w-4 h-4" viewBox="0 0 24 24" aria-hidden="true">

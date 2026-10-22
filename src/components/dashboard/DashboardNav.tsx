@@ -126,10 +126,8 @@ export function DashboardNav({ onShowToast }: DashboardNavProps) {
         <div
           ref={dropdownRef}
           id="dd"
-          className={`absolute right-0 mt-3 w-64 p-2 rounded-2xl border border-white/10 bg-[#111]/90 backdrop-blur-xl shadow-[0_30px_70px_-20px_rgba(0,0,0,0.9)] transition-all duration-300 origin-top-right z-50 ${
-            isDropdownOpen
-              ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto'
-              : 'opacity-0 -translate-y-2 scale-95 pointer-events-none'
+          className={`absolute right-0 mt-3 w-64 p-2 rounded-2xl border border-white/10 bg-[#111]/90 backdrop-blur-xl shadow-[0_30px_70px_-20px_rgba(0,0,0,0.9)] z-50 ${
+            isDropdownOpen ? 'on' : ''
           }`}
           role="menu"
         >

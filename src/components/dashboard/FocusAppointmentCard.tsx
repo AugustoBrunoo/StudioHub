@@ -60,7 +60,7 @@ export function FocusAppointmentCard({
   };
 
   return (
-    <article className="dash-card focus-card w-full rise p-7 sm:p-9 flex-1 flex flex-col">
+    <article className="card focus-card w-full rise p-7 sm:p-9 flex-1 flex flex-col">
       {/* Top Header */}
       <div className="flex items-start justify-between gap-4 mb-7">
         <div>

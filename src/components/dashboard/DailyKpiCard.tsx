@@ -54,7 +54,7 @@ export function DailyKpiCard({
   }, [agendados, atendidos, faltas]);
 
   return (
-    <article className="dash-card w-full rise p-6 sm:p-7">
+    <article className="card w-full rise p-6 sm:p-7">
       <div className="flex items-center justify-between mb-5">
         <span className="tag">Raio-X do dia</span>
         <button
@@ -77,9 +77,10 @@ export function DailyKpiCard({
           role="button"
           tabIndex={0}
         >
-          <DashboardIcon name="cal" className="i text-xl text-[#d4af37] mb-4" />
+          <DashboardIcon name="cal" className="text-xl text-[#d4af37] mb-4" />
           <p
             ref={kARef}
+            id="kA"
             data-v="0"
             className="text-4xl sm:text-5xl font-extrabold tracking-tighter tabular-nums text-white"
           >
@@ -97,9 +98,10 @@ export function DailyKpiCard({
           role="button"
           tabIndex={0}
         >
-          <DashboardIcon name="done" className="i text-xl text-green-400 mb-4" />
+          <DashboardIcon name="done" className="text-xl text-green-400 mb-4" />
           <p
             ref={kTRef}
+            id="kT"
             data-v="0"
             className="text-4xl sm:text-5xl font-extrabold tracking-tighter tabular-nums text-white"
           >
@@ -117,9 +119,10 @@ export function DailyKpiCard({
           role="button"
           tabIndex={0}
         >
-          <DashboardIcon name="userx" className="i text-xl text-red-400 mb-4" />
+          <DashboardIcon name="userx" className="text-xl text-red-400 mb-4" />
           <p
             ref={kFRef}
+            id="kF"
             data-v="0"
             className="text-4xl sm:text-5xl font-extrabold tracking-tighter tabular-nums text-white"
           >
@@ -135,13 +138,14 @@ export function DailyKpiCard({
       <div className="mt-5">
         <div className="flex justify-between text-xs text-gray-500 mb-2">
           <span>Progresso do dia</span>
-          <span className="tabular-nums text-white/90 font-medium">
+          <span id="pt" className="tabular-nums text-white/90 font-medium">
             {atendidos} de {agendados}
           </span>
         </div>
         <div className="h-1.5 rounded-full bg-white/10 overflow-hidden">
           <div
             ref={pbRef}
+            id="pb"
             className="h-full rounded-full bg-gradient-to-r from-[#d4af37] to-[#f1c40f] shadow-[0_0_12px_rgba(212,175,55,0.7)]"
             style={{ width: '0%' }}
           />

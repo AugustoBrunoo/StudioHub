@@ -38,7 +38,7 @@ export function QuickActionsCard({
   };
 
   return (
-    <article className="dash-card w-full rise p-6 sm:p-7 flex-1 flex flex-col">
+    <article className="card w-full rise p-6 sm:p-7 flex-1 flex flex-col">
       <div className="mb-5">
         <span className="tag">Ações rápidas</span>
       </div>
