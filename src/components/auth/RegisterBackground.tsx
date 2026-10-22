@@ -17,13 +17,13 @@ export function RegisterBackground() {
         }}
       />
 
-      {/* Subtle Ambient Golden Core Glow (centers lighting behind the wizard stage) */}
+      {/* Subtle Ambient Golden Glow (soft back-illumination around the card) */}
       <div
         className="absolute w-[800px] h-[550px] left-1/2 top-[35%] -translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-none"
         style={{
           background:
-            'radial-gradient(ellipse, rgba(212, 175, 55, 0.18) 0%, rgba(77, 58, 14, 0.08) 50%, transparent 75%)',
-          filter: 'blur(80px)',
+            'radial-gradient(ellipse, rgba(212, 175, 55, 0.08) 0%, rgba(77, 58, 14, 0.02) 50%, transparent 70%)',
+          filter: 'blur(90px)',
         }}
       />
 

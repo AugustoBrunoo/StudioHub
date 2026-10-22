@@ -2,7 +2,6 @@ import { Seo } from '@/components/common/Seo';
 import {
   RegisterBackground,
   RegisterNavbar,
-  RegisterStepper,
   RegisterStepIdentity,
   RegisterStepSchedule,
   RegisterStepServices,
@@ -22,28 +21,26 @@ export function RegisterPage() {
         canonicalUrl="https://studiohub.nodasolucoes.dev/cadastro"
       />
 
-      {/* Static Home-style Silk Gradient Background (z-0, 0% CPU/GPU overhead) */}
+      {/* Dynamic WebGL2 GhostFibers Background (z-0) */}
       <RegisterBackground />
 
       {/* Foreground Content (z-10) */}
       <div className="relative z-10 w-full flex flex-col items-center">
-        {/* Navigation Header */}
-        <RegisterNavbar />
+        {/* Navigation Header with Centered Steps & Actions */}
+        <RegisterNavbar
+          curStep={wizard.curStep}
+          onStepClick={wizard.goToStep}
+          onBackStep={wizard.prevStep}
+        />
 
         {/* Main Wizard Area */}
-        <main className="w-full px-4 sm:px-6 pt-28 pb-16 flex flex-col items-center">
-          {/* Stepper Dots & Golden Progress Bar */}
-          <RegisterStepper
-            curStep={wizard.curStep}
-            onStepClick={wizard.goToStep}
-          />
-
+        <main className="w-full px-4 sm:px-6 pt-24 sm:pt-28 pb-16 flex flex-col items-center">
           {/* Dynamic Card Stage */}
           <div id="stage" className="w-full max-w-2xl relative">
             <div
               ref={wizard.cardRef}
               onPointerMove={wizard.handleCardPointerMove}
-              className="lg p-7 sm:p-10 step"
+              className="lg p-7 sm:p-10 step text-white"
             >
               {/* Passo 1: Identidade */}
               {wizard.curStep === 0 && (

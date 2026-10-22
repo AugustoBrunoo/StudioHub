@@ -90,7 +90,7 @@ export function PricingPlans() {
             <div className="mb-6 sm:mb-8">
               <h3 className="text-2xl sm:text-3xl font-bold tracking-tight mb-2 text-white">Empresarial</h3>
               <p className="text-gray-400 text-xs sm:text-sm leading-relaxed">
-                Escala flexível de acordo com a quantidade demandada pelo seu negócio.
+                Para barbearias em crescimento que buscam o diferencial da Negociação Inteligente.
               </p>
             </div>
 
@@ -128,54 +128,29 @@ export function PricingPlans() {
               </div>
             </div>
 
-            <div className="flex flex-col gap-5 sm:gap-6">
-              <ul className="space-y-3 sm:space-y-4 text-xs sm:text-sm">
-                <li className="flex gap-3 text-white bg-[#d4af37]/10 p-2.5 sm:p-3 rounded-xl border border-[#d4af37]/20">
-                  <LandingIcon name="stars" className="text-[#d4af37] text-base mt-0.5 shrink-0" />
-                  <span className="leading-snug">
-                    <strong>Motor de Mediação IA:</strong> O bot negocia e remaneja conflitos de horário sozinho.
-                  </span>
-                </li>
-                <li className="flex gap-3 text-gray-300">
-                  <LandingIcon name="people" className="text-[#d4af37] text-base mt-0.5 shrink-0" />
-                  <span>
-                    <strong className="text-white">Agendas e Profissionais sob demanda</strong> (Ilimitado)
-                  </span>
-                </li>
-                <li className="flex gap-3 text-gray-300">
-                  <LandingIcon name="building" className="text-[#d4af37] text-base mt-0.5 shrink-0" />
-                  <span>Gestão de Múltiplas Unidades / Filiais e Departamentos</span>
-                </li>
-                <li className="flex gap-3 text-gray-300">
-                  <LandingIcon name="code" className="text-[#d4af37] text-base mt-0.5 shrink-0" />
-                  <span>Acesso completo à API e Integração com Prontuários Legados</span>
-                </li>
-                <li className="flex gap-3 text-gray-300">
-                  <LandingIcon name="repeat" className="text-[#d4af37] text-base mt-0.5 shrink-0" />
-                  <span>Lembretes de Retorno e Fidelização contínua de clientes</span>
-                </li>
-              </ul>
-
-              <div className="pt-4 border-t border-white/10">
-                <div className="flex items-center gap-2 mb-3">
-                  <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
-                    Gestão Financeira
-                  </p>
-                  <span className="wb gold text-[9px] sm:text-[10px]">
-                    <LandingIcon name="wallet" />
-                    EasyWallet Pro Completo
-                  </span>
-                </div>
-                <ul className="space-y-2.5 sm:space-y-3 text-xs sm:text-sm">
-                  <li className="flex gap-3 text-white font-medium">
-                    <LandingIcon name="pie" className="text-[#d4af37] text-base mt-0.5 shrink-0" />
+            <div className="flex flex-col gap-4 sm:gap-5">
+              <div>
+                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3 sm:mb-4">
+                  Funcionalidades:
+                </p>
+                <ul className="space-y-3 sm:space-y-4 text-xs sm:text-sm">
+                  <li className="flex gap-3 text-gray-300">
+                    <LandingIcon name="ok" className="text-[#d4af37] text-base mt-0.5 shrink-0" />
                     <span>
-                      <strong>Split Automático de Comissões</strong> (conforme regras do negócio).
+                      Tudo do plano <strong className="text-white">Essential</strong>.
                     </span>
                   </li>
                   <li className="flex gap-3 text-gray-300">
-                    <LandingIcon name="filebar" className="text-[#d4af37] text-base mt-0.5 shrink-0" />
-                    <span>Gestão de Despesas, DRE em tempo real e Emissão de Notas Fiscais.</span>
+                    <LandingIcon name="people" className="text-[#d4af37] text-base mt-0.5 shrink-0" />
+                    <span>
+                      Até <strong className="text-white">05 Perfis de Barbeiros</strong> simultâneos.
+                    </span>
+                  </li>
+                  <li className="flex gap-3 text-gray-300">
+                    <LandingIcon name="wallet" className="text-[#d4af37] text-base mt-0.5 shrink-0" />
+                    <span>
+                      Dashboard com Métricas de Faturamento e Ticket Médio detalhados (<strong className="text-white">EasyWallet</strong>).
+                    </span>
                   </li>
                 </ul>
               </div>

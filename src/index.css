@@ -159,7 +159,7 @@ body {
   transition: grid-template-rows 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-.faq-a > div {
+.faq-a>div {
   overflow: hidden;
 }
 
@@ -201,7 +201,7 @@ body {
   display: block;
 }
 
-.line > span {
+.line>span {
   display: inline-block;
 }
 
@@ -233,6 +233,7 @@ svg.i {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .gt,
   .bg::before,
   .bg::after,
@@ -258,7 +259,8 @@ svg.i {
 }
 
 #nav.scrolled #nav-login {
-  color: #9ca3af; /* text-gray-400 */
+  color: #9ca3af;
+  /* text-gray-400 */
 }
 
 #nav.scrolled #nav-login:hover {
@@ -399,15 +401,13 @@ svg.i {
   inset: -1px;
   border-radius: inherit;
   padding: 1px;
-  background: conic-gradient(
-    from var(--a),
-    rgba(212, 175, 55, 0.15),
-    #f1c40f,
-    rgba(212, 175, 55, 0.15) 40%,
-    rgba(212, 175, 55, 0.15) 60%,
-    #d4af37,
-    rgba(212, 175, 55, 0.15)
-  );
+  background: conic-gradient(from var(--a),
+      rgba(212, 175, 55, 0.15),
+      #f1c40f,
+      rgba(212, 175, 55, 0.15) 40%,
+      rgba(212, 175, 55, 0.15) 60%,
+      #d4af37,
+      rgba(212, 175, 55, 0.15));
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
@@ -426,6 +426,7 @@ svg.i {
     transform: scale(1.04);
     z-index: 10;
   }
+
   .pro:hover {
     transform: scale(1.04) translateY(-8px);
   }
@@ -512,10 +513,12 @@ svg.i {
 }
 
 @keyframes trial-sweep {
+
   0%,
   55% {
     transform: translateX(-120%);
   }
+
   100% {
     transform: translateX(120%);
   }
@@ -548,15 +551,13 @@ svg.i {
   inset: 0;
   border-radius: inherit;
   padding: 1px;
-  background: conic-gradient(
-    from var(--a),
-    rgba(255, 255, 255, 0.07),
-    rgba(212, 175, 55, 0.8),
-    rgba(255, 255, 255, 0.07) 30%,
-    rgba(255, 255, 255, 0.07) 65%,
-    rgba(241, 196, 15, 0.6),
-    rgba(255, 255, 255, 0.07)
-  );
+  background: conic-gradient(from var(--a),
+      rgba(255, 255, 255, 0.07),
+      rgba(212, 175, 55, 0.8),
+      rgba(255, 255, 255, 0.07) 30%,
+      rgba(255, 255, 255, 0.07) 65%,
+      rgba(241, 196, 15, 0.6),
+      rgba(255, 255, 255, 0.07));
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
@@ -591,7 +592,7 @@ svg.i {
 }
 
 .auth-inp::placeholder {
-  color: #4b5563;
+  color: rgba(255, 255, 255, 0.45);
 }
 
 .auth-inp:focus {
@@ -608,7 +609,7 @@ svg.i {
   font-weight: 600;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: #6b7280;
+  color: #ffffff;
 }
 
 .auth-btn {
@@ -706,14 +707,16 @@ svg.i {
 }
 
 /* Liquid glass card container */
+/* Liquid glass card container with obsidian black glass */
 .lg {
   position: relative;
   border-radius: 2rem;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.04) 45%, rgba(255, 255, 255, 0.08));
-  backdrop-filter: blur(26px) saturate(180%);
-  -webkit-backdrop-filter: blur(26px) saturate(180%);
+  background: rgba(10, 10, 10, 0.95);
+  backdrop-filter: blur(28px) saturate(190%);
+  -webkit-backdrop-filter: blur(28px) saturate(190%);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.4), inset 0 -1px 1px rgba(255, 255, 255, 0.06), inset 0 0 30px rgba(255, 255, 255, 0.04), 0 40px 90px -30px rgba(0, 0, 0, 0.75), 0 0 80px -40px rgba(212, 175, 55, 0.5);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.15), inset 0 0 32px rgba(0, 0, 0, 0.9), 0 40px 90px -30px rgba(0, 0, 0, 0.95), 0 0 80px -40px rgba(212, 175, 55, 0.35);
+  color: #ffffff;
 }
 
 .lg::before {
@@ -721,7 +724,7 @@ svg.i {
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: radial-gradient(520px circle at var(--mx, 30%) var(--my, 0%), rgba(255, 255, 255, 0.14), transparent 55%);
+  background: radial-gradient(520px circle at var(--mx, 30%) var(--my, 0%), rgba(212, 175, 55, 0.14), transparent 55%);
   pointer-events: none;
   transition: opacity 0.4s;
 }
@@ -732,7 +735,7 @@ svg.i {
   inset: 0;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.6), transparent 28%, transparent 68%, rgba(212, 175, 55, 0.55));
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.35), transparent 28%, transparent 68%, rgba(212, 175, 55, 0.5));
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
@@ -742,9 +745,10 @@ svg.i {
 .gl {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #ffffff;
 }
 
 .inp {
@@ -752,19 +756,21 @@ svg.i {
   padding: 0.95rem 1rem;
   border-radius: 1rem;
   font-size: 0.92rem;
-  color: #fff;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
 }
 
 .inp::placeholder {
-  color: #6b7280;
+  color: rgba(255, 255, 255, 0.45);
 }
 
 .inp:focus {
   outline: none;
   border-color: rgba(212, 175, 55, 0.75);
   background: rgba(255, 255, 255, 0.08);
-  box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1), 0 0 24px rgba(212, 175, 55, 0.1);
+  box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.12), 0 0 24px rgba(212, 175, 55, 0.12);
 }
 
 .inp.bad {
@@ -779,7 +785,7 @@ input[type="time"] {
 select.inp {
   appearance: none;
   -webkit-appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%239ca3af' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' viewBox='0 0 24 24'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' viewBox='0 0 24 24'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 0.9rem center;
   padding-right: 2.4rem;
@@ -797,13 +803,13 @@ select option {
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #9ca3af;
+  color: #ffffff;
 }
 
 .hint {
   margin: 0.5rem 0 0 0.2rem;
   font-size: 12px;
-  color: #6b7280;
+  color: rgba(255, 255, 255, 0.7);
   line-height: 1.5;
 }
 
@@ -815,7 +821,7 @@ select option {
   font-weight: 700;
   font-size: 0.85rem;
   letter-spacing: 0.04em;
-  color: #cbd5e1;
+  color: #ffffff;
   transition: transform 0.25s, background 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
 }
 
@@ -837,7 +843,7 @@ select option {
   border-radius: 99px;
   font-size: 0.84rem;
   font-weight: 600;
-  color: #cbd5e1;
+  color: #ffffff;
   transition: transform 0.25s, background 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
 }
 
@@ -883,7 +889,9 @@ select option {
   padding: 0.9rem 1.1rem;
   font-size: 0.85rem;
   line-height: 1.55;
-  color: #e5e7eb;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .svc {
@@ -905,7 +913,7 @@ select option {
   width: 40px;
   height: 40px;
   border-radius: 12px;
-  color: #9ca3af;
+  color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -957,10 +965,12 @@ select option {
 }
 
 @keyframes scan {
+
   0%,
   100% {
     top: -12%;
   }
+
   50% {
     top: 92%;
   }
@@ -977,10 +987,12 @@ select option {
 }
 
 @keyframes shake {
+
   20%,
   60% {
     transform: translateX(-7px);
   }
+
   40%,
   80% {
     transform: translateX(7px);
@@ -992,6 +1004,7 @@ select option {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .scan,
   .shake {
     animation: none;

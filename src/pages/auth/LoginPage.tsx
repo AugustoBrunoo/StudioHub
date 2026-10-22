@@ -136,7 +136,7 @@ export function LoginPage() {
             <h1 className="text-xl sm:text-2xl font-extrabold tracking-tight mb-1 sm:mb-1.5 text-white">
               Olá! <span className="gt">Novamente.</span>
             </h1>
-            <p className="card-sub text-gray-500 text-xs sm:text-sm">
+            <p className="card-sub text-white text-xs sm:text-sm">
               Bem-vindo de volta ao seu ecossistema.
             </p>
           </div>
@@ -144,11 +144,11 @@ export function LoginPage() {
           {/* Form */}
           <form id="loginForm" onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
             <div className="ig">
-              <label className="auth-lbl" htmlFor="email">
+              <label className="auth-lbl text-white" htmlFor="email">
                 E-mail
               </label>
               <div className="field relative">
-                <span className="ico absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none transition-colors">
+                <span className="ico absolute left-4 top-1/2 -translate-y-1/2 text-gray-300 pointer-events-none transition-colors">
                   <LandingIcon name="mail" />
                 </span>
                 <input
@@ -166,7 +166,7 @@ export function LoginPage() {
 
             <div className="ig">
               <div className="flex justify-between items-center mb-2 ml-1">
-                <label className="auth-lbl !m-0" htmlFor="passwordInput">
+                <label className="auth-lbl !m-0 text-white" htmlFor="passwordInput">
                   Senha
                 </label>
                 <a
@@ -178,7 +178,7 @@ export function LoginPage() {
                 </a>
               </div>
               <div className="field relative">
-                <span className="ico absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none transition-colors">
+                <span className="ico absolute left-4 top-1/2 -translate-y-1/2 text-gray-300 pointer-events-none transition-colors">
                   <LandingIcon name="lock" />
                 </span>
                 <input
@@ -195,7 +195,7 @@ export function LoginPage() {
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   aria-label={showPassword ? 'Ocultar senha' : 'Mostrar senha'}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition text-lg flex items-center justify-center p-1"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-300 hover:text-white transition text-lg flex items-center justify-center p-1"
                 >
                   <LandingIcon name={showPassword ? 'eyeoff' : 'eye'} />
                 </button>
@@ -212,7 +212,7 @@ export function LoginPage() {
               />
               <label
                 htmlFor="remember"
-                className="text-xs text-gray-500 font-medium cursor-pointer hover:text-gray-300 transition select-none"
+                className="text-xs text-white font-medium cursor-pointer hover:text-gray-200 transition select-none"
               >
                 Manter conectado
               </label>
@@ -234,16 +234,16 @@ export function LoginPage() {
               )}
             </button>
 
-            <p className="ig text-center text-xs text-gray-500">
+            <p className="ig text-center text-xs text-white">
               Ainda não tem conta?{' '}
-              <Link to="/planos" className="text-white font-semibold hover:text-[#d4af37] transition">
+              <Link to="/planos" className="text-[#f1c40f] font-semibold hover:underline transition">
                 Veja Planos
               </Link>
             </p>
           </form>
         </div>
 
-        <p className="rt text-center mt-4 sm:mt-5 text-[10px] text-gray-600 uppercase tracking-[.3em]">
+        <p className="rt text-center mt-4 sm:mt-5 text-[10px] text-white/80 uppercase tracking-[.3em]">
           StudioHub Engine &copy; {CURRENT_YEAR} • Noda Solutions
         </p>
       </main>

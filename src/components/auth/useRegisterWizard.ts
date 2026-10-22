@@ -301,30 +301,6 @@ export function useRegisterWizard() {
     }
   }, [curStep, wpp]);
 
-  // Magnetic buttons effect
-  useEffect(() => {
-    if (window.matchMedia('(hover: hover)').matches) {
-      const magButtons = document.querySelectorAll<HTMLElement>('.mag');
-      magButtons.forEach((el) => {
-        const x = gsap.quickTo(el, 'x', { duration: 0.5, ease: 'power3' });
-        const y = gsap.quickTo(el, 'y', { duration: 0.5, ease: 'power3' });
-
-        const onMove = (e: globalThis.MouseEvent) => {
-          const b = el.getBoundingClientRect();
-          x((e.clientX - b.left - b.width / 2) * 0.18);
-          y((e.clientY - b.top - b.height / 2) * 0.3);
-        };
-        const onLeave = () => {
-          x(0);
-          y(0);
-        };
-
-        el.addEventListener('mousemove', onMove);
-        el.addEventListener('mouseleave', onLeave);
-      });
-    }
-  }, [curStep]);
-
   // Initial mount entrance
   useEffect(() => {
     const card = cardRef.current;

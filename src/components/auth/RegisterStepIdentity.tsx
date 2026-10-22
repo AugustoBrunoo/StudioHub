@@ -34,10 +34,10 @@ export function RegisterStepIdentity({
           <span className="w-6 h-px bg-[#d4af37]" />
           Plano Solo · Passo 1 de 5
         </span>
-        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight leading-[1.1] mb-3">
+        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight leading-[1.1] mb-3 text-white">
           Bem-vindo ao <span className="gt">StudioHub</span>
         </h1>
-        <p className="text-gray-400 leading-relaxed text-sm sm:text-base">
+        <p className="text-white/85 leading-relaxed text-sm sm:text-base">
           Identidade e Conexão: esses dados personalizam a experiência do cliente final no WhatsApp.
         </p>
       </div>
@@ -99,10 +99,10 @@ export function RegisterStepIdentity({
 
         {/* Live Client Perspective Bubble */}
         <div className="f gl bubble rounded-2xl">
-          <p className="text-[10px] uppercase tracking-[.2em] text-gray-500 font-semibold mb-1.5">
+          <p className="text-[10px] uppercase tracking-[.2em] text-white/60 font-semibold mb-1.5">
             Como o cliente verá
           </p>
-          <p id="pv1">
+          <p id="pv1" className="text-white">
             Olá! Você está no WhatsApp do <b className="text-[#f1c40f]">{shop || 'Studio'}</b>, com o assistente de{' '}
             <b className="text-[#f1c40f]">{owner || 'você'}</b>.
           </p>
@@ -114,7 +114,7 @@ export function RegisterStepIdentity({
         <button
           type="button"
           onClick={onContinue}
-          className="btn btn-gold mag px-8 py-4 rounded-2xl nx flex items-center gap-2"
+          className="btn btn-gold px-8 py-4 rounded-2xl nx flex items-center gap-2"
         >
           <span>Continuar</span>
           <svg className="i w-4 h-4" viewBox="0 0 24 24" aria-hidden="true">

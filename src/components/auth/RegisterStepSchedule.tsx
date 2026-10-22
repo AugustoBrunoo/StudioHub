@@ -53,10 +53,10 @@ export function RegisterStepSchedule({
           <span className="w-6 h-px bg-[#d4af37]" />
           Passo 2 de 5
         </span>
-        <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight leading-[1.1] mb-3">
+        <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight leading-[1.1] mb-3 text-white">
           Como você <span className="gt">trabalha?</span>
         </h2>
-        <p className="text-gray-400 leading-relaxed text-sm sm:text-base">
+        <p className="text-white/85 leading-relaxed text-sm sm:text-base">
           Essa é a base para o assistente nunca marcar clientes de madrugada ou no seu horário de descanso.
         </p>
       </div>
@@ -115,7 +115,7 @@ export function RegisterStepSchedule({
         <div className="f gl rounded-2xl p-5">
           <div className="flex items-center justify-between gap-4">
             <div>
-              <p className="font-semibold text-sm sm:text-base">Você tem horário de almoço/pausa fixo?</p>
+              <p className="font-semibold text-sm sm:text-base text-white">Você tem horário de almoço/pausa fixo?</p>
               <p className="hint !m-0 !mt-1">Nesse intervalo o assistente nunca oferece horário.</p>
             </div>
             <button
@@ -131,9 +131,8 @@ export function RegisterStepSchedule({
 
           <div
             id="lunchBox"
-            className={`grid grid-cols-2 gap-4 mt-5 transition-opacity duration-300 ${
-              hasLunch ? 'opacity-100' : 'opacity-30 pointer-events-none'
-            }`}
+            className={`grid grid-cols-2 gap-4 mt-5 transition-opacity duration-300 ${hasLunch ? 'opacity-100' : 'opacity-30 pointer-events-none'
+              }`}
           >
             <div>
               <label className="lbl" htmlFor="ls">
@@ -186,10 +185,10 @@ export function RegisterStepSchedule({
 
         {/* Dynamic Schedule Summary */}
         <div className="f gl bubble rounded-2xl">
-          <p className="text-[10px] uppercase tracking-[.2em] text-gray-500 font-semibold mb-1.5">
+          <p className="text-[10px] uppercase tracking-[.2em] text-white/60 font-semibold mb-1.5">
             Resumo da sua agenda
           </p>
-          <p id="pv2">{daysSummary}</p>
+          <p id="pv2" className="text-white">{daysSummary}</p>
         </div>
       </div>
 
@@ -208,7 +207,7 @@ export function RegisterStepSchedule({
         <button
           type="button"
           onClick={onContinue}
-          className="btn btn-gold mag px-8 py-4 rounded-2xl nx flex items-center gap-2"
+          className="btn btn-gold px-8 py-4 rounded-2xl nx flex items-center gap-2"
         >
           <span>Continuar</span>
           <svg className="i w-4 h-4" viewBox="0 0 24 24" aria-hidden="true">

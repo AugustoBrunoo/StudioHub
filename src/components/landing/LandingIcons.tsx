@@ -212,10 +212,27 @@ export function LandingIcon({
   className?: string;
   style?: React.CSSProperties;
 }) {
-  const isFilled = name === 'whatsapp';
+  if (name === 'whatsapp') {
+    return (
+      <svg
+        className={`w-[1em] h-[1em] inline-block shrink-0 ${className}`}
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        stroke="none"
+        style={{
+          fill: 'currentColor',
+          stroke: 'none',
+          ...style,
+        }}
+      >
+        {IC.whatsapp}
+      </svg>
+    );
+  }
+
   return (
     <svg
-      className={`i ${isFilled ? '!fill-current !stroke-none' : ''} ${className}`}
+      className={`i ${className}`}
       viewBox="0 0 24 24"
       style={style}
     >

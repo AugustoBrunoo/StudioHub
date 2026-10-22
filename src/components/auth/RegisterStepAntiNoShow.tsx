@@ -33,10 +33,10 @@ export function RegisterStepAntiNoShow({
           <span className="w-6 h-px bg-[#d4af37]" />
           Passo 4 de 5
         </span>
-        <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight leading-[1.1] mb-3">
+        <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight leading-[1.1] mb-3 text-white">
           Automação <span className="gt">anti-falta.</span>
         </h2>
-        <p className="text-gray-400 leading-relaxed text-sm sm:text-base">
+        <p className="text-white/85 leading-relaxed text-sm sm:text-base">
           As regras do jogo: configurações finais para o assistente agir preventivamente.
         </p>
       </div>
@@ -61,10 +61,10 @@ export function RegisterStepAntiNoShow({
 
         {/* Live Reminder Bubble Preview */}
         <div className="f gl bubble rounded-2xl">
-          <p className="text-[10px] uppercase tracking-[.2em] text-gray-500 font-semibold mb-1.5">
+          <p className="text-[10px] uppercase tracking-[.2em] text-white/60 font-semibold mb-1.5">
             Exemplo de lembrete
           </p>
-          <p id="pv4">
+          <p id="pv4" className="text-white">
             Olá! Lembrete: seu horário no <b className="text-[#f1c40f]">{shop || 'Studio'}</b> é{' '}
             {reminderWindow}. Responda <b>CANCELAR</b> se precisar desmarcar.
           </p>
@@ -107,7 +107,7 @@ export function RegisterStepAntiNoShow({
         <button
           type="button"
           onClick={onContinue}
-          className="btn btn-gold mag px-8 py-4 rounded-2xl nx flex items-center gap-2"
+          className="btn btn-gold px-8 py-4 rounded-2xl nx flex items-center gap-2"
         >
           <span>Gerar QR Code</span>
           <svg className="i w-4 h-4" viewBox="0 0 24 24" aria-hidden="true">

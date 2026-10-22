@@ -30,10 +30,10 @@ export function RegisterStepServices({
           <span className="w-6 h-px bg-[#d4af37]" />
           Passo 3 de 5
         </span>
-        <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight leading-[1.1] mb-3">
+        <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight leading-[1.1] mb-3 text-white">
           O que você <span className="gt">vende?</span>
         </h2>
-        <p className="text-gray-400 leading-relaxed text-sm sm:text-base">
+        <p className="text-white/85 leading-relaxed text-sm sm:text-base">
           Quais serviços você oferece, quanto custam e quanto tempo leva cada um? O assistente usa a duração para não sobrepor clientes.
         </p>
       </div>
@@ -54,14 +54,14 @@ export function RegisterStepServices({
                 aria-label="Nome do serviço"
                 onChange={(e) => updateService(svc.id, { name: e.target.value })}
               />
-              <p className="text-[11px] text-gray-500 mt-1.5 ml-1 sb">
+              <p className="text-[11px] text-white/60 mt-1.5 ml-1 sb">
                 Ocupa {svc.duration / 15} bloco(s) de 15 min na agenda
               </p>
             </div>
 
             {/* Price with R$ Prefix */}
             <div className="relative">
-              <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-500 text-sm select-none">
+              <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-white/60 text-sm select-none">
                 R$
               </span>
               <input
@@ -119,7 +119,7 @@ export function RegisterStepServices({
         type="button"
         id="addSvc"
         onClick={addService}
-        className="btn w-full mt-4 py-4 rounded-2xl border border-dashed border-white/20 text-gray-300 hover:border-[#d4af37] hover:text-[#d4af37] hover:bg-[#d4af37]/5 flex items-center justify-center gap-2 transition-all duration-200"
+        className="btn w-full mt-4 py-4 rounded-2xl border border-dashed border-white/20 text-white hover:border-[#d4af37] hover:text-[#d4af37] hover:bg-[#d4af37]/5 flex items-center justify-center gap-2 transition-all duration-200"
       >
         <svg className="i text-lg w-5 h-5" viewBox="0 0 24 24" aria-hidden="true">
           <path d="M12 5v14M5 12h14" />
@@ -142,7 +142,7 @@ export function RegisterStepServices({
         <button
           type="button"
           onClick={onContinue}
-          className="btn btn-gold mag px-8 py-4 rounded-2xl nx flex items-center gap-2"
+          className="btn btn-gold px-8 py-4 rounded-2xl nx flex items-center gap-2"
         >
           <span>Continuar</span>
           <svg className="i w-4 h-4" viewBox="0 0 24 24" aria-hidden="true">

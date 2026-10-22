@@ -54,13 +54,12 @@ export function RegisterStepper({ curStep, onStepClick }: RegisterStepperProps) 
         {STEP_NAMES.map((name, idx) => (
           <span
             key={name}
-            className={`transition-colors duration-300 ${
-              idx === curStep
+            className={`transition-colors duration-300 ${idx === curStep
                 ? 'text-[#f1c40f]'
                 : idx < curStep
-                ? 'text-gray-300'
-                : 'text-gray-500'
-            }`}
+                  ? 'text-gray-300'
+                  : 'text-gray-500'
+              }`}
           >
             {name}
           </span>

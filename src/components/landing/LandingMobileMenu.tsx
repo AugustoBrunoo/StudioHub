@@ -116,9 +116,8 @@ export function LandingMobileMenu({ isOpen, onClose }: LandingMobileMenuProps) {
   return (
     <div
       id="menu"
-      className={`fixed inset-0 bg-[#0a0a0a]/95 backdrop-blur-2xl z-[95] lg:hidden flex flex-col items-center justify-center text-center p-6 sm:p-8 transition-all duration-500 ${
-        isOpen ? 'on pointer-events-auto' : 'pointer-events-none'
-      }`}
+      className={`fixed inset-0 bg-[#0a0a0a]/95 backdrop-blur-2xl z-[95] lg:hidden flex flex-col items-center justify-center text-center p-6 sm:p-8 transition-all duration-500 ${isOpen ? 'on pointer-events-auto' : 'pointer-events-none'
+        }`}
       aria-hidden={!isOpen}
     >
       <div className="flex flex-col gap-2 max-w-xs w-full">
@@ -129,30 +128,27 @@ export function LandingMobileMenu({ isOpen, onClose }: LandingMobileMenuProps) {
               key={item.id}
               href={item.href}
               onClick={(e) => handleNavClick(e, item.id)}
-              className={`group flex items-center gap-3.5 px-4 py-3 rounded-2xl transition-all duration-200 ${
-                isActive
-                  ? 'bg-[#d4af37]/15 border border-[#d4af37]/40 text-white shadow-[0_0_20px_rgba(212,175,55,0.12)]'
-                  : 'border border-transparent hover:border-white/10 hover:bg-white/5 active:scale-[0.98]'
-              }`}
+              className={`group flex items-center gap-3.5 px-4 py-3 rounded-2xl transition-all duration-200 ${isActive
+                ? 'bg-[#d4af37]/15 border border-[#d4af37]/40 text-white shadow-[0_0_20px_rgba(212,175,55,0.12)]'
+                : 'border border-transparent hover:border-white/10 hover:bg-white/5 active:scale-[0.98]'
+                }`}
             >
               {/* Static Indicator Dot (without ping animation) */}
               <div className="flex items-center justify-center w-4 h-4 shrink-0">
                 <span
-                  className={`rounded-full transition-all duration-200 ${
-                    isActive
-                      ? 'w-2 h-2 bg-gradient-to-tr from-[#d4af37] to-[#f1c40f] shadow-[0_0_8px_rgba(212,175,55,0.7)]'
-                      : 'w-1.5 h-1.5 bg-white/20 group-hover:bg-[#d4af37]/50'
-                  }`}
+                  className={`rounded-full transition-all duration-200 ${isActive
+                    ? 'w-2 h-2 bg-gradient-to-tr from-[#d4af37] to-[#f1c40f] shadow-[0_0_8px_rgba(212,175,55,0.7)]'
+                    : 'w-1.5 h-1.5 bg-white/20 group-hover:bg-[#d4af37]/50'
+                    }`}
                 />
               </div>
 
               {/* Label */}
               <span
-                className={`text-sm tracking-widest uppercase font-semibold transition-colors duration-200 ${
-                  isActive
-                    ? 'text-white font-bold'
-                    : 'text-gray-400 group-hover:text-white'
-                }`}
+                className={`text-sm tracking-widest uppercase font-semibold transition-colors duration-200 ${isActive
+                  ? 'text-white font-bold'
+                  : 'text-gray-400 group-hover:text-white'
+                  }`}
               >
                 {item.label}
               </span>
@@ -161,14 +157,6 @@ export function LandingMobileMenu({ isOpen, onClose }: LandingMobileMenuProps) {
         })}
 
         <div className="h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent my-3" />
-
-        <Link
-          to="/sobre"
-          onClick={onClose}
-          className="text-xs uppercase tracking-widest font-semibold text-gray-400 hover:text-white transition-colors py-2"
-        >
-          Sobre o StudioHub & Noda
-        </Link>
 
         <Link
           to="/login"

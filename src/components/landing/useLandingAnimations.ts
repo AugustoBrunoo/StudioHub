@@ -135,13 +135,25 @@ export function useLandingAnimations(containerRef: RefObject<HTMLDivElement | nu
         clearProps: 'opacity,y,transform',
       });
 
-      gsap.from('#rail', {
-        scrollTrigger: { trigger: '#steps', start: 'top 85%' },
-        scaleX: 0,
-        duration: 1.8,
-        ease: 'power3.inOut',
-        clearProps: 'transform',
-      });
+      if (document.querySelector('#rail')) {
+        gsap.from('#rail', {
+          scrollTrigger: { trigger: '#steps', start: 'top 85%' },
+          scaleX: 0,
+          duration: 1.8,
+          ease: 'power3.inOut',
+          clearProps: 'transform',
+        });
+      }
+
+      if (document.querySelector('#rail-v')) {
+        gsap.from('#rail-v', {
+          scrollTrigger: { trigger: '#steps', start: 'top 85%' },
+          scaleY: 0,
+          duration: 1.8,
+          ease: 'power3.inOut',
+          clearProps: 'transform',
+        });
+      }
 
       // Interactive chat messages reveal
       gsap.from('.msg', {

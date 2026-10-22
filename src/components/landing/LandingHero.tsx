@@ -4,12 +4,12 @@ export function LandingHero() {
   return (
     <header className="min-h-0 md:min-h-screen flex flex-col justify-start md:justify-center items-center text-center px-4 sm:px-6 pt-20 sm:pt-24 md:pt-28 pb-14 sm:pb-20 md:pb-16 relative">
       <div id="hero" className="flex flex-col items-center max-w-5xl w-full mt-2 sm:mt-4 md:mt-0">
-        <h1 className="text-3xl sm:text-5xl md:text-7xl lg:text-[6.5rem] font-extrabold tracking-[-0.035em] sm:tracking-[-0.045em] leading-[1.15] sm:leading-[1.02] mb-4 sm:mb-6 md:mb-8">
+        <h1 className="text-[clamp(2.1rem,9.2vw,2.75rem)] sm:text-6xl md:text-7xl lg:text-[6.5rem] font-extrabold tracking-[-0.035em] sm:tracking-[-0.045em] leading-[1.1] sm:leading-[1.02] mb-4 sm:mb-6 md:mb-8">
           <span className="line">
-            <span>Sua agenda no</span>
+            <span className="whitespace-nowrap">Sua agenda no</span>
           </span>
           <span className="line">
-            <span className="gt">piloto automático.</span>
+            <span className="gt whitespace-nowrap">piloto automático.</span>
           </span>
         </h1>
         <p className="hp max-w-2xl text-white text-sm sm:text-base md:text-xl leading-relaxed mb-6 sm:mb-8 md:mb-12 px-2">

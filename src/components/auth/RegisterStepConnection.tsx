@@ -39,7 +39,7 @@ export function RegisterStepConnection({
           <span className="w-6 h-px bg-[#d4af37]" />
           Passo 5 de 5
         </span>
-        <h2 id="t5" className="text-3xl sm:text-4xl font-extrabold tracking-tight leading-[1.1] mb-3">
+        <h2 id="t5" className="text-3xl sm:text-4xl font-extrabold tracking-tight leading-[1.1] mb-3 text-white">
           {isConnected ? (
             <>
               Tudo <span className="gt">pronto!</span>
@@ -50,7 +50,7 @@ export function RegisterStepConnection({
             </>
           )}
         </h2>
-        <p id="p5" className="text-gray-400 leading-relaxed max-w-md mx-auto text-sm sm:text-base">
+        <p id="p5" className="text-white/85 leading-relaxed max-w-md mx-auto text-sm sm:text-base">
           {isConnected ? (
             `O StudioHub de ${shop || 'seu estúdio'} já está atendendo no WhatsApp.`
           ) : (
@@ -82,9 +82,8 @@ export function RegisterStepConnection({
             <div
               id="ok"
               ref={okRef}
-              className={`absolute inset-0 bg-[#0a0a0a]/90 backdrop-blur flex items-center justify-center transition-opacity duration-500 ${
-                isConnected ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-              }`}
+              className={`absolute inset-0 bg-[#0a0a0a]/90 backdrop-blur flex items-center justify-center transition-opacity duration-500 ${isConnected ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+                }`}
             >
               <svg
                 width="96"
@@ -107,9 +106,8 @@ export function RegisterStepConnection({
         {/* Step Instructions */}
         <ol
           id="how"
-          className={`space-y-4 text-sm text-gray-300 max-w-[16rem] transition-opacity duration-500 ${
-            isConnected ? 'opacity-35' : 'opacity-100'
-          }`}
+          className={`space-y-4 text-sm text-white max-w-[16rem] transition-opacity duration-500 ${isConnected ? 'opacity-35' : 'opacity-100'
+            }`}
         >
           <li className="flex gap-3">
             <span className="w-6 h-6 rounded-full gl flex items-center justify-center text-[11px] font-bold text-[#d4af37] shrink-0">
@@ -133,7 +131,7 @@ export function RegisterStepConnection({
               Escolha <b className="text-white">Conectar um aparelho</b> e aponte para o código.
             </span>
           </li>
-          <li className="flex items-center gap-2 pt-1 text-xs text-gray-500" id="st">
+          <li className="flex items-center gap-2 pt-1 text-xs text-white/70" id="st">
             {isConnected ? (
               <>
                 <span className="w-2 h-2 rounded-full bg-green-500" />
