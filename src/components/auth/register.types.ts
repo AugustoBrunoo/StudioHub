@@ -5,6 +5,11 @@ export interface ServiceItem {
   duration: number; // in minutes
 }
 
+export interface DaySchedule {
+  open: string;
+  close: string;
+}
+
 export const DAYS_NAMES = [
   'Domingo',
   'Segunda',
@@ -25,6 +30,16 @@ export const DAYS_LABELS: Record<number, string> = {
   5: 'Sex',
   6: 'Sáb',
   0: 'Dom',
+};
+
+export const DAYS_FULL_NAMES: Record<number, string> = {
+  1: 'Segunda-feira',
+  2: 'Terça-feira',
+  3: 'Quarta-feira',
+  4: 'Quinta-feira',
+  5: 'Sexta-feira',
+  6: 'Sábado',
+  0: 'Domingo',
 };
 
 export const LEAD_OPTIONS = [

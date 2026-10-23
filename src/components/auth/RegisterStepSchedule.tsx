@@ -2,6 +2,7 @@ import { type MouseEvent } from 'react';
 import {
   DAYS_ORDER,
   DAYS_LABELS,
+  DAYS_FULL_NAMES,
   LEAD_OPTIONS,
 } from './register.types';
 
@@ -13,16 +14,11 @@ interface RegisterStepScheduleProps {
   setOpenTime: (time: string) => void;
   closeTime: string;
   setCloseTime: (time: string) => void;
-  hasCustomWeekend: boolean;
-  setHasCustomWeekend: (value: boolean | ((prev: boolean) => boolean)) => void;
-  saturdayOpen: string;
-  setSaturdayOpen: (time: string) => void;
-  saturdayClose: string;
-  setSaturdayClose: (time: string) => void;
-  sundayOpen: string;
-  setSundayOpen: (time: string) => void;
-  sundayClose: string;
-  setSundayClose: (time: string) => void;
+  hasCustomSchedule: boolean;
+  setHasCustomSchedule: (value: boolean | ((prev: boolean) => boolean)) => void;
+  dayHours: Record<number, { open: string; close: string }>;
+  updateDayHours: (day: number, field: 'open' | 'close', value: string) => void;
+  applyDefaultHoursToAll: () => void;
   hasLunch: boolean;
   setHasLunch: (value: boolean | ((prev: boolean) => boolean)) => void;
   lunchStart: string;
@@ -44,16 +40,11 @@ export function RegisterStepSchedule({
   setOpenTime,
   closeTime,
   setCloseTime,
-  hasCustomWeekend,
-  setHasCustomWeekend,
-  saturdayOpen,
-  setSaturdayOpen,
-  saturdayClose,
-  setSaturdayClose,
-  sundayOpen,
-  setSundayOpen,
-  sundayClose,
-  setSundayClose,
+  hasCustomSchedule,
+  setHasCustomSchedule,
+  dayHours,
+  updateDayHours,
+  applyDefaultHoursToAll,
   hasLunch,
   setHasLunch,
   lunchStart,
@@ -66,6 +57,9 @@ export function RegisterStepSchedule({
   onBack,
   onContinue,
 }: RegisterStepScheduleProps) {
+  const activeDays = DAYS_ORDER.filter((d) => selectedDays.has(d));
+  const inactiveDays = DAYS_ORDER.filter((d) => !selectedDays.has(d));
+
   return (
     <div>
       {/* Header */}
@@ -110,17 +104,15 @@ export function RegisterStepSchedule({
           </div>
         </div>
 
-        {/* Primary Schedule Hours (Weekdays or Standard) */}
+        {/* Standard Schedule Hours (Active when custom schedule is OFF, or acts as base) */}
         <div className="f">
           <div className="flex items-center justify-between mb-1.5">
             <label className="lbl !mb-0" htmlFor="open">
-              {hasCustomWeekend ? 'Horário nos dias de semana' : 'Horário de atendimento'}
+              {hasCustomSchedule ? 'Horário base de referência' : 'Horário de atendimento'}
             </label>
-            {hasCustomWeekend && (
-              <span className="text-[10px] text-[#f1c40f] font-semibold tracking-wider uppercase">
-                Seg a Sex
-              </span>
-            )}
+            <span className="text-[10px] text-white/50 font-medium">
+              {hasCustomSchedule ? 'Personalização ativa abaixo' : '09:00 às 18:00 pré-definido'}
+            </span>
           </div>
           <div className="grid grid-cols-2 gap-2.5 sm:gap-4">
             <div>
@@ -132,7 +124,7 @@ export function RegisterStepSchedule({
                 type="time"
                 value={openTime}
                 onChange={(e) => setOpenTime(e.target.value)}
-                className="inp gl"
+                className="inp gl font-mono"
               />
             </div>
             <div>
@@ -144,44 +136,35 @@ export function RegisterStepSchedule({
                 type="time"
                 value={closeTime}
                 onChange={(e) => setCloseTime(e.target.value)}
-                className="inp gl"
+                className="inp gl font-mono"
               />
             </div>
           </div>
         </div>
 
-        {/* Weekend Differentiated Hours Toggle Box (Dropdown Inteligente) */}
+        {/* Smart Custom Schedule Section (Dropdown Inteligente e Animado) */}
         <div className="f gl rounded-xl sm:rounded-2xl p-3.5 sm:p-5 transition-all duration-300">
           <div className="flex items-center justify-between gap-3 sm:gap-4">
             <div>
               <div className="flex items-center gap-2">
                 <p className="font-semibold text-xs sm:text-sm md:text-base text-white">
-                  Horário diferenciado no fim de semana?
+                  Horários diferenciados por dia?
                 </p>
-                <span className="hidden sm:inline-block text-[9px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-[#d4af37]/15 text-[#f1c40f] border border-[#d4af37]/30">
-                  Sáb / Dom
+                <span className="hidden sm:inline-block text-[9px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-[#d4af37]/15 text-[#f1c40f] border border-[#d4af37]/30">
+                  Inteligente
                 </span>
               </div>
               <p className="hint !m-0 !mt-0.5 sm:!mt-1 text-[11px] sm:text-xs">
-                Ajuste o expediente específico para sábado ou domingo.
+                Personalize horários de abertura e fechamento para qualquer dia da semana.
               </p>
             </div>
             <button
               type="button"
-              id="weekendSw"
-              onClick={() => {
-                setHasCustomWeekend((prev) => {
-                  const nextVal = !prev;
-                  // If enabling and neither Saturday nor Sunday is active, activate Saturday by default
-                  if (nextVal && !selectedDays.has(6) && !selectedDays.has(0)) {
-                    toggleDay(6);
-                  }
-                  return nextVal;
-                });
-              }}
-              className={`sw gl ${hasCustomWeekend ? 'on' : ''}`}
-              aria-label="Ativar horários diferenciados de fim de semana"
-              aria-checked={hasCustomWeekend}
+              id="customScheduleSw"
+              onClick={() => setHasCustomSchedule((prev) => !prev)}
+              className={`sw gl ${hasCustomSchedule ? 'on' : ''}`}
+              aria-label="Ativar horários diferenciados por dia"
+              aria-checked={hasCustomSchedule}
               role="switch"
             />
           </div>
@@ -189,112 +172,110 @@ export function RegisterStepSchedule({
           {/* Dropdown with smooth animated expansion */}
           <div
             className={`grid transition-[grid-template-rows,opacity] duration-300 ease-out ${
-              hasCustomWeekend ? 'grid-rows-[1fr] opacity-100 mt-3.5 sm:mt-4' : 'grid-rows-[0fr] opacity-0 pointer-events-none'
+              hasCustomSchedule
+                ? 'grid-rows-[1fr] opacity-100 mt-3.5 sm:mt-5'
+                : 'grid-rows-[0fr] opacity-0 pointer-events-none'
             }`}
           >
             <div className="overflow-hidden">
               <div className="pt-3.5 sm:pt-4 border-t border-white/10 space-y-3">
-                {/* Saturday Schedule Card */}
-                {selectedDays.has(6) ? (
-                  <div className="bg-white/[0.025] p-3 sm:p-3.5 rounded-xl border border-white/10">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-xs sm:text-sm font-bold text-white flex items-center gap-1.5">
-                        <span className="w-2 h-2 rounded-full bg-[#f1c40f] shadow-[0_0_8px_rgba(241,196,15,0.7)]" />
-                        Sábado
-                      </span>
-                      <span className="text-[10px] text-white/50 uppercase tracking-wider font-semibold">
-                        Expediente
-                      </span>
-                    </div>
-                    <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
-                      <div>
-                        <label className="lbl !text-[10px]" htmlFor="satOpen">
-                          Abertura
-                        </label>
-                        <input
-                          id="satOpen"
-                          type="time"
-                          value={saturdayOpen}
-                          onChange={(e) => setSaturdayOpen(e.target.value)}
-                          className="inp gl"
-                        />
-                      </div>
-                      <div>
-                        <label className="lbl !text-[10px]" htmlFor="satClose">
-                          Fechamento
-                        </label>
-                        <input
-                          id="satClose"
-                          type="time"
-                          value={saturdayClose}
-                          onChange={(e) => setSaturdayClose(e.target.value)}
-                          className="inp gl"
-                        />
-                      </div>
-                    </div>
+                {/* Header bar inside dropdown with quick action */}
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-2 text-xs text-white/70">
+                  <span className="text-[11px] text-white/60">
+                    Defina o expediente de cada dia ativo:
+                  </span>
+                  <button
+                    type="button"
+                    onClick={applyDefaultHoursToAll}
+                    className="text-[11px] font-semibold text-[#f1c40f] hover:underline transition-colors self-start sm:self-auto"
+                  >
+                    Redefinir todos para 09:00 - 18:00
+                  </button>
+                </div>
+
+                {/* List of active days */}
+                {activeDays.length > 0 ? (
+                  <div className="space-y-2.5">
+                    {activeDays.map((dayNum) => {
+                      const isWeekend = dayNum === 6 || dayNum === 0;
+                      const schedule = dayHours[dayNum] || { open: '09:00', close: '18:00' };
+                      return (
+                        <div
+                          key={dayNum}
+                          className="bg-white/[0.03] hover:bg-white/[0.05] p-3 sm:p-3.5 rounded-xl border border-white/10 transition-colors"
+                        >
+                          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-4">
+                            <div className="flex items-center gap-2">
+                              <span className="w-2 h-2 rounded-full bg-[#f1c40f] shadow-[0_0_8px_rgba(241,196,15,0.7)]" />
+                              <span className="text-xs sm:text-sm font-bold text-white">
+                                {DAYS_FULL_NAMES[dayNum]}
+                              </span>
+                              {isWeekend && (
+                                <span className="text-[9px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-[#d4af37]/15 text-[#f1c40f] border border-[#d4af37]/30">
+                                  Fim de semana
+                                </span>
+                              )}
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-2 sm:gap-3 items-center w-full sm:w-auto">
+                              <div className="flex items-center gap-1.5">
+                                <label
+                                  className="text-[10px] text-white/50 uppercase tracking-wider shrink-0"
+                                  htmlFor={`open-${dayNum}`}
+                                >
+                                  Abertura
+                                </label>
+                                <input
+                                  id={`open-${dayNum}`}
+                                  type="time"
+                                  value={schedule.open}
+                                  onChange={(e) => updateDayHours(dayNum, 'open', e.target.value)}
+                                  className="inp gl !py-1.5 !px-2.5 !text-xs !w-full sm:!w-24 text-center font-mono"
+                                  aria-label={`Horário de abertura para ${DAYS_FULL_NAMES[dayNum]}`}
+                                />
+                              </div>
+                              <div className="flex items-center gap-1.5">
+                                <label
+                                  className="text-[10px] text-white/50 uppercase tracking-wider shrink-0"
+                                  htmlFor={`close-${dayNum}`}
+                                >
+                                  Fechamento
+                                </label>
+                                <input
+                                  id={`close-${dayNum}`}
+                                  type="time"
+                                  value={schedule.close}
+                                  onChange={(e) => updateDayHours(dayNum, 'close', e.target.value)}
+                                  className="inp gl !py-1.5 !px-2.5 !text-xs !w-full sm:!w-24 text-center font-mono"
+                                  aria-label={`Horário de fechamento para ${DAYS_FULL_NAMES[dayNum]}`}
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
                   </div>
                 ) : (
-                  <div className="flex items-center justify-between p-2.5 sm:p-3 rounded-xl bg-white/[0.02] border border-dashed border-white/10 text-xs text-white/70">
-                    <span>Sábado não está ativo nos seus dias de atendimento.</span>
-                    <button
-                      type="button"
-                      onClick={() => toggleDay(6)}
-                      className="text-[11px] font-bold text-[#f1c40f] hover:underline shrink-0 ml-2"
-                    >
-                      + Ativar Sábado
-                    </button>
+                  <div className="p-3 rounded-xl bg-white/[0.02] border border-dashed border-white/10 text-xs text-white/70 text-center">
+                    Selecione ao menos um dia acima para configurar os horários.
                   </div>
                 )}
 
-                {/* Sunday Schedule Card */}
-                {selectedDays.has(0) ? (
-                  <div className="bg-white/[0.025] p-3 sm:p-3.5 rounded-xl border border-white/10">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-xs sm:text-sm font-bold text-white flex items-center gap-1.5">
-                        <span className="w-2 h-2 rounded-full bg-[#f1c40f] shadow-[0_0_8px_rgba(241,196,15,0.7)]" />
-                        Domingo
-                      </span>
-                      <span className="text-[10px] text-white/50 uppercase tracking-wider font-semibold">
-                        Expediente
-                      </span>
-                    </div>
-                    <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
-                      <div>
-                        <label className="lbl !text-[10px]" htmlFor="sunOpen">
-                          Abertura
-                        </label>
-                        <input
-                          id="sunOpen"
-                          type="time"
-                          value={sundayOpen}
-                          onChange={(e) => setSundayOpen(e.target.value)}
-                          className="inp gl"
-                        />
-                      </div>
-                      <div>
-                        <label className="lbl !text-[10px]" htmlFor="sunClose">
-                          Fechamento
-                        </label>
-                        <input
-                          id="sunClose"
-                          type="time"
-                          value={sundayClose}
-                          onChange={(e) => setSundayClose(e.target.value)}
-                          className="inp gl"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="flex items-center justify-between p-2.5 sm:p-3 rounded-xl bg-white/[0.02] border border-dashed border-white/10 text-xs text-white/70">
-                    <span>Domingo não está ativo nos seus dias de atendimento.</span>
-                    <button
-                      type="button"
-                      onClick={() => toggleDay(0)}
-                      className="text-[11px] font-bold text-[#f1c40f] hover:underline shrink-0 ml-2"
-                    >
-                      + Ativar Domingo
-                    </button>
+                {/* Inactive days bar (convenient 1-click activate) */}
+                {inactiveDays.length > 0 && (
+                  <div className="pt-2 border-t border-white/5 flex flex-wrap items-center gap-1.5 sm:gap-2 text-xs text-white/60">
+                    <span className="text-[11px] text-white/50">Dias desativados:</span>
+                    {inactiveDays.map((d) => (
+                      <button
+                        key={d}
+                        type="button"
+                        onClick={() => toggleDay(d)}
+                        className="px-2 py-1 rounded-lg bg-white/5 hover:bg-white/10 text-white/80 hover:text-[#f1c40f] border border-white/10 transition-colors flex items-center gap-1 text-[11px]"
+                      >
+                        <span>+ Ativar {DAYS_FULL_NAMES[d]}</span>
+                      </button>
+                    ))}
                   </div>
                 )}
               </div>
@@ -343,7 +324,7 @@ export function RegisterStepSchedule({
                       value={lunchStart}
                       onChange={(e) => setLunchStart(e.target.value)}
                       disabled={!hasLunch}
-                      className="inp gl"
+                      className="inp gl font-mono"
                     />
                   </div>
                   <div>
@@ -356,7 +337,7 @@ export function RegisterStepSchedule({
                       value={lunchEnd}
                       onChange={(e) => setLunchEnd(e.target.value)}
                       disabled={!hasLunch}
-                      className="inp gl"
+                      className="inp gl font-mono"
                     />
                   </div>
                 </div>

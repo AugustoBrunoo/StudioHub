@@ -2,11 +2,16 @@ import { useState, useRef, useEffect, useCallback, type MouseEvent } from 'react
 import gsap from 'gsap';
 import {
   type ServiceItem,
+  type DaySchedule,
   DAYS_NAMES,
   DAYS_ORDER,
+  DAYS_LABELS,
   formatMinutes,
   drawQRCode,
 } from './register.types';
+
+const DEFAULT_OPEN_TIME = '09:00';
+const DEFAULT_CLOSE_TIME = '18:00';
 
 export function useRegisterWizard() {
   // Wizard Step (0 to 4)
@@ -16,14 +21,19 @@ export function useRegisterWizard() {
   const [shop, setShop] = useState('');
   const [owner, setOwner] = useState('');
   const [wpp, setWpp] = useState('');
-  const [selectedDays, setSelectedDays] = useState<Set<number>>(new Set([2, 3, 4, 5, 6]));
-  const [openTime, setOpenTime] = useState('09:00');
-  const [closeTime, setCloseTime] = useState('19:00');
-  const [hasCustomWeekend, setHasCustomWeekend] = useState(false);
-  const [saturdayOpen, setSaturdayOpen] = useState('08:00');
-  const [saturdayClose, setSaturdayClose] = useState('17:00');
-  const [sundayOpen, setSundayOpen] = useState('09:00');
-  const [sundayClose, setSundayClose] = useState('14:00');
+  const [selectedDays, setSelectedDays] = useState<Set<number>>(new Set([1, 2, 3, 4, 5]));
+  const [openTime, setOpenTime] = useState(DEFAULT_OPEN_TIME);
+  const [closeTime, setCloseTime] = useState(DEFAULT_CLOSE_TIME);
+  const [hasCustomSchedule, setHasCustomSchedule] = useState(false);
+  const [dayHours, setDayHours] = useState<Record<number, DaySchedule>>({
+    1: { open: DEFAULT_OPEN_TIME, close: DEFAULT_CLOSE_TIME },
+    2: { open: DEFAULT_OPEN_TIME, close: DEFAULT_CLOSE_TIME },
+    3: { open: DEFAULT_OPEN_TIME, close: DEFAULT_CLOSE_TIME },
+    4: { open: DEFAULT_OPEN_TIME, close: DEFAULT_CLOSE_TIME },
+    5: { open: DEFAULT_OPEN_TIME, close: DEFAULT_CLOSE_TIME },
+    6: { open: DEFAULT_OPEN_TIME, close: DEFAULT_CLOSE_TIME },
+    0: { open: DEFAULT_OPEN_TIME, close: DEFAULT_CLOSE_TIME },
+  });
   const [hasLunch, setHasLunch] = useState(false);
   const [lunchStart, setLunchStart] = useState('12:00');
   const [lunchEnd, setLunchEnd] = useState('13:00');
@@ -83,6 +93,30 @@ export function useRegisterWizard() {
     }
   };
 
+  // Helper to update specific day opening/closing hours
+  const updateDayHours = (day: number, field: 'open' | 'close', val: string) => {
+    setDayHours((prev) => ({
+      ...prev,
+      [day]: {
+        ...(prev[day] || { open: openTime, close: closeTime }),
+        [field]: val,
+      },
+    }));
+  };
+
+  // Helper to reset all days to 09:00 - 18:00
+  const applyDefaultHoursToAll = () => {
+    setDayHours({
+      1: { open: DEFAULT_OPEN_TIME, close: DEFAULT_CLOSE_TIME },
+      2: { open: DEFAULT_OPEN_TIME, close: DEFAULT_CLOSE_TIME },
+      3: { open: DEFAULT_OPEN_TIME, close: DEFAULT_CLOSE_TIME },
+      4: { open: DEFAULT_OPEN_TIME, close: DEFAULT_CLOSE_TIME },
+      5: { open: DEFAULT_OPEN_TIME, close: DEFAULT_CLOSE_TIME },
+      6: { open: DEFAULT_OPEN_TIME, close: DEFAULT_CLOSE_TIME },
+      0: { open: DEFAULT_OPEN_TIME, close: DEFAULT_CLOSE_TIME },
+    });
+  };
+
   // Days summary text calculation
   const getDaysSummary = useCallback((): string => {
     const ds = DAYS_ORDER.filter((d) => selectedDays.has(d));
@@ -90,30 +124,43 @@ export function useRegisterWizard() {
 
     let t = '';
 
-    if (hasCustomWeekend && (selectedDays.has(6) || selectedDays.has(0))) {
-      const weekdays = ds.filter((d) => d !== 6 && d !== 0);
-      if (weekdays.length > 0) {
-        const idx = weekdays.map((d) => DAYS_ORDER.indexOf(d));
-        const seq = idx.every((v, i) => i === 0 || v === idx[i - 1] + 1);
-        const wStr =
-          seq && weekdays.length > 2
-            ? `${DAYS_NAMES[weekdays[0]]} a ${DAYS_NAMES[weekdays[weekdays.length - 1]]}`
-            : weekdays.map((d) => DAYS_NAMES[d].slice(0, 3)).join(', ');
-        t += `${wStr}, das ${openTime} às ${closeTime}. `;
+    if (hasCustomSchedule) {
+      // Group consecutive active days with matching opening and closing hours
+      const groups: { days: number[]; open: string; close: string }[] = [];
+      for (const d of ds) {
+        const h = dayHours[d] || { open: openTime, close: closeTime };
+        const lastGroup = groups[groups.length - 1];
+        if (lastGroup && lastGroup.open === h.open && lastGroup.close === h.close) {
+          lastGroup.days.push(d);
+        } else {
+          groups.push({ days: [d], open: h.open, close: h.close });
+        }
       }
-      if (selectedDays.has(6)) {
-        t += `Sáb, das ${saturdayOpen} às ${saturdayClose}. `;
-      }
-      if (selectedDays.has(0)) {
-        t += `Dom, das ${sundayOpen} às ${sundayClose}. `;
-      }
+
+      const summaryParts = groups.map((g) => {
+        let label = '';
+        if (g.days.length === 1) {
+          label = DAYS_NAMES[g.days[0]];
+        } else {
+          const idx = g.days.map((d) => DAYS_ORDER.indexOf(d));
+          const seq = idx.every((v, i) => i === 0 || v === idx[i - 1] + 1);
+          if (seq && g.days.length > 2) {
+            label = `${DAYS_NAMES[g.days[0]]} a ${DAYS_NAMES[g.days[g.days.length - 1]]}`;
+          } else {
+            label = g.days.map((d) => DAYS_LABELS[d]).join(', ');
+          }
+        }
+        return `${label}: das ${g.open} às ${g.close}`;
+      });
+
+      t += summaryParts.join('. ') + '. ';
     } else {
       const idx = ds.map((d) => DAYS_ORDER.indexOf(d));
       const seq = idx.every((v, i) => i === 0 || v === idx[i - 1] + 1);
       const daysStr =
         seq && ds.length > 2
           ? `${DAYS_NAMES[ds[0]]} a ${DAYS_NAMES[ds[ds.length - 1]]}`
-          : ds.map((d) => DAYS_NAMES[d].slice(0, 3)).join(', ');
+          : ds.map((d) => DAYS_LABELS[d]).join(', ');
       t += `${daysStr}, das ${openTime} às ${closeTime}. `;
     }
 
@@ -124,11 +171,8 @@ export function useRegisterWizard() {
     selectedDays,
     openTime,
     closeTime,
-    hasCustomWeekend,
-    saturdayOpen,
-    saturdayClose,
-    sundayOpen,
-    sundayClose,
+    hasCustomSchedule,
+    dayHours,
     hasLunch,
     lunchStart,
     lunchEnd,
@@ -214,7 +258,13 @@ export function useRegisterWizard() {
 
       if (stepIdx === 1) {
         const isDaysOk = selectedDays.size > 0;
-        const isTimeOk = openTime < closeTime;
+        let isTimeOk = openTime < closeTime;
+        if (hasCustomSchedule) {
+          isTimeOk = Array.from(selectedDays).every((d) => {
+            const dh = dayHours[d] || { open: openTime, close: closeTime };
+            return dh.open < dh.close;
+          });
+        }
         const isLunchOk = !hasLunch || lunchStart < lunchEnd;
         const ok = isDaysOk && isTimeOk && isLunchOk;
 
@@ -246,7 +296,20 @@ export function useRegisterWizard() {
 
       return true;
     },
-    [shop, owner, wpp, selectedDays, openTime, closeTime, hasLunch, lunchStart, lunchEnd, services]
+    [
+      shop,
+      owner,
+      wpp,
+      selectedDays,
+      openTime,
+      closeTime,
+      hasCustomSchedule,
+      dayHours,
+      hasLunch,
+      lunchStart,
+      lunchEnd,
+      services,
+    ]
   );
 
   // Step navigation
@@ -386,16 +449,11 @@ export function useRegisterWizard() {
     setOpenTime,
     closeTime,
     setCloseTime,
-    hasCustomWeekend,
-    setHasCustomWeekend,
-    saturdayOpen,
-    setSaturdayOpen,
-    saturdayClose,
-    setSaturdayClose,
-    sundayOpen,
-    setSundayOpen,
-    sundayClose,
-    setSundayClose,
+    hasCustomSchedule,
+    setHasCustomSchedule,
+    dayHours,
+    updateDayHours,
+    applyDefaultHoursToAll,
     hasLunch,
     setHasLunch,
     lunchStart,
