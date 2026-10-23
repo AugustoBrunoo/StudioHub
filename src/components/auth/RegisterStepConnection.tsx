@@ -1,5 +1,6 @@
-import { type RefObject } from 'react';
+import { useState, type RefObject } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Database, Code2, Copy, Check, ChevronDown, ChevronUp, Terminal } from 'lucide-react';
 
 interface RegisterStepConnectionProps {
   shop: string;
@@ -14,6 +15,8 @@ interface RegisterStepConnectionProps {
   goBtnRef: RefObject<HTMLAnchorElement | null>;
   handleSimulate: () => void;
   onBack: () => void;
+  databasePayload?: any;
+  buildDatabasePayload?: () => any;
 }
 
 export function RegisterStepConnection({
@@ -29,8 +32,22 @@ export function RegisterStepConnection({
   goBtnRef,
   handleSimulate,
   onBack,
+  databasePayload,
+  buildDatabasePayload,
 }: RegisterStepConnectionProps) {
   const navigate = useNavigate();
+  const [showJsonPreview, setShowJsonPreview] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  // Get payload (either generated after simulation, or live preview from wizard)
+  const currentPayload = databasePayload || (buildDatabasePayload ? buildDatabasePayload() : null);
+
+  const handleCopyJson = () => {
+    if (!currentPayload) return;
+    navigator.clipboard.writeText(JSON.stringify(currentPayload, null, 2));
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   return (
     <div>
@@ -52,10 +69,10 @@ export function RegisterStepConnection({
         </h2>
         <p id="p5" className="text-white/85 leading-relaxed max-w-md mx-auto text-xs sm:text-sm md:text-base">
           {isConnected ? (
-            `O StudioHub de ${shop || 'seu estúdio'} já está atendendo no WhatsApp.`
+            `O StudioHub de ${shop || 'seu estúdio'} já está conectado e pronto para operar no WhatsApp.`
           ) : (
             <>
-              Aponte o WhatsApp <b className="text-white">{wpp || 'cadastrado'}</b> para o QR Code e finalize.
+              Aponte o WhatsApp <b className="text-white">{wpp || 'cadastrado'}</b> para o QR Code e finalize o cadastro.
             </>
           )}
         </p>
@@ -82,8 +99,9 @@ export function RegisterStepConnection({
             <div
               id="ok"
               ref={okRef}
-              className={`absolute inset-0 bg-[#0a0a0a]/90 backdrop-blur flex items-center justify-center transition-opacity duration-500 ${isConnected ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-                }`}
+              className={`absolute inset-0 bg-[#0a0a0a]/90 backdrop-blur flex items-center justify-center transition-opacity duration-500 ${
+                isConnected ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+              }`}
             >
               <svg
                 width="80"
@@ -107,8 +125,9 @@ export function RegisterStepConnection({
         {/* Step Instructions */}
         <ol
           id="how"
-          className={`space-y-2.5 sm:space-y-4 text-xs sm:text-sm text-white max-w-full sm:max-w-[16rem] transition-opacity duration-500 ${isConnected ? 'opacity-35' : 'opacity-100'
-            }`}
+          className={`space-y-2.5 sm:space-y-4 text-xs sm:text-sm text-white max-w-full sm:max-w-[17rem] transition-opacity duration-500 ${
+            isConnected ? 'opacity-35' : 'opacity-100'
+          }`}
         >
           <li className="flex gap-2.5 sm:gap-3">
             <span className="w-5 h-5 sm:w-6 sm:h-6 rounded-full gl flex items-center justify-center text-[10px] sm:text-[11px] font-bold text-[#d4af37] shrink-0">
@@ -135,18 +154,92 @@ export function RegisterStepConnection({
           <li className="flex items-center gap-2 pt-1 text-xs text-white/70" id="st">
             {isConnected ? (
               <>
-                <span className="w-2 h-2 rounded-full bg-green-500" />
-                <span className="text-green-500 font-semibold">Conectado</span>
+                <span className="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.8)]" />
+                <span className="text-green-400 font-semibold">Conectado com sucesso</span>
               </>
             ) : (
               <>
                 <span className="w-2 h-2 rounded-full bg-[#f1c40f] animate-pulse" />
-                <span>Aguardando leitura...</span>
+                <span>Aguardando leitura do QR Code...</span>
               </>
             )}
           </li>
         </ol>
       </div>
+
+      {/* Database Payload Inspection Accordion */}
+      {currentPayload && (
+        <div className="mt-6 sm:mt-8 f gl rounded-xl sm:rounded-2xl border border-white/10 p-3.5 sm:p-4 transition-all">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+            <div className="flex items-center gap-2">
+              <div className="w-7 h-7 rounded-lg bg-[#d4af37]/15 border border-[#d4af37]/30 flex items-center justify-center text-[#f1c40f] shrink-0">
+                <Database className="w-3.5 h-3.5" />
+              </div>
+              <div>
+                <p className="text-xs sm:text-sm font-semibold text-white flex items-center gap-2">
+                  <span>Payload do Banco de Dados</span>
+                  <span className="text-[9px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+                    JSON Pronto
+                  </span>
+                </p>
+                <p className="text-[11px] text-white/50">
+                  {isConnected
+                    ? 'Dados impressos no console e rascunho limpo.'
+                    : 'Clique em Simular Conexão para logar no console e limpar o cache.'}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 self-start sm:self-auto">
+              <button
+                type="button"
+                onClick={() => setShowJsonPreview((prev) => !prev)}
+                className="px-2.5 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-white/80 hover:text-white border border-white/10 text-xs font-medium flex items-center gap-1.5 transition-colors"
+              >
+                <Code2 className="w-3.5 h-3.5 text-[#f1c40f]" />
+                <span>{showJsonPreview ? 'Ocultar JSON' : 'Ver JSON'}</span>
+                {showJsonPreview ? (
+                  <ChevronUp className="w-3.5 h-3.5 text-white/50" />
+                ) : (
+                  <ChevronDown className="w-3.5 h-3.5 text-white/50" />
+                )}
+              </button>
+            </div>
+          </div>
+
+          {/* Collapsible JSON Preview Area */}
+          {showJsonPreview && (
+            <div className="mt-3.5 pt-3.5 border-t border-white/10 relative animate-fadeIn">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-[11px] text-white/50 flex items-center gap-1.5 font-mono">
+                  <Terminal className="w-3 h-3 text-[#f1c40f]" />
+                  schema: v2.0.0 (Pronto para POST /api/register)
+                </span>
+                <button
+                  type="button"
+                  onClick={handleCopyJson}
+                  className="px-2.5 py-1 rounded-lg bg-[#d4af37]/20 hover:bg-[#d4af37]/30 text-[#f1c40f] border border-[#d4af37]/40 text-xs font-semibold flex items-center gap-1.5 transition-all shadow-sm"
+                >
+                  {copied ? (
+                    <>
+                      <Check className="w-3 h-3 text-emerald-400" />
+                      <span className="text-emerald-400">Copiado!</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-3 h-3" />
+                      <span>Copiar JSON</span>
+                    </>
+                  )}
+                </button>
+              </div>
+              <pre className="p-3 sm:p-4 rounded-xl bg-black/75 border border-white/10 text-[11px] font-mono text-emerald-300 overflow-x-auto max-h-72 leading-relaxed selection:bg-[#d4af37]/40">
+                {JSON.stringify(currentPayload, null, 2)}
+              </pre>
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Navigation & Action Buttons */}
       <div className="flex justify-between items-center gap-2.5 sm:gap-3 mt-6 sm:mt-9">
@@ -170,9 +263,10 @@ export function RegisterStepConnection({
               type="button"
               id="sim"
               onClick={handleSimulate}
-              className="btn btn-ghost px-3.5 sm:px-5 py-3 sm:py-4 rounded-xl sm:rounded-2xl text-xs sm:text-sm font-semibold"
+              className="btn btn-gold px-4 sm:px-6 py-3 sm:py-4 rounded-xl sm:rounded-2xl text-xs sm:text-sm font-bold shadow-lg flex items-center gap-2"
             >
-              Simular conexão
+              <span>Simular conexão</span>
+              <Terminal className="w-4 h-4" />
             </button>
           ) : (
             <a

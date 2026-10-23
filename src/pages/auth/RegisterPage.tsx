@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Seo } from '@/components/common/Seo';
 import {
   RegisterBackground,
@@ -7,11 +9,21 @@ import {
   RegisterStepServices,
   RegisterStepAntiNoShow,
   RegisterStepConnection,
+  RegisterExitModal,
   useRegisterWizard,
 } from '@/components/auth';
 
 export function RegisterPage() {
   const wizard = useRegisterWizard();
+  const { curStep } = wizard;
+  const navigate = useNavigate();
+  const [isExitModalOpen, setIsExitModalOpen] = useState(false);
+
+  const handleConfirmExit = () => {
+    wizard.resetForm();
+    setIsExitModalOpen(false);
+    navigate('/');
+  };
 
   return (
     <div className="relative min-h-screen text-[#f5f5f5] overflow-x-hidden w-full selection:bg-[#d4af37]/30 selection:text-white">
@@ -28,9 +40,10 @@ export function RegisterPage() {
       <div className="relative z-10 w-full flex flex-col items-center">
         {/* Navigation Header with Centered Steps & Actions */}
         <RegisterNavbar
-          curStep={wizard.curStep}
+          curStep={curStep}
           onStepClick={wizard.goToStep}
           onBackStep={wizard.prevStep}
+          onExit={() => setIsExitModalOpen(true)}
         />
 
         {/* Main Wizard Area */}
@@ -42,7 +55,7 @@ export function RegisterPage() {
               className="lg p-4 sm:p-7 md:p-10 step text-white rounded-2xl sm:rounded-[2rem]"
             >
               {/* Passo 1: Identidade */}
-              {wizard.curStep === 0 && (
+              {curStep === 0 && (
                 <RegisterStepIdentity
                   shop={wizard.shop}
                   setShop={wizard.setShop}
@@ -56,11 +69,12 @@ export function RegisterPage() {
                   handleWppChange={wizard.handleWppChange}
                   wppBad={wizard.wppBad}
                   onContinue={wizard.nextStep}
+                  onCancel={() => setIsExitModalOpen(true)}
                 />
               )}
 
               {/* Passo 2: Horários */}
-              {wizard.curStep === 1 && (
+              {curStep === 1 && (
                 <RegisterStepSchedule
                   selectedDays={wizard.selectedDays}
                   toggleDay={wizard.toggleDay}
@@ -89,7 +103,7 @@ export function RegisterPage() {
               )}
 
               {/* Passo 3: Serviços */}
-              {wizard.curStep === 2 && (
+              {curStep === 2 && (
                 <RegisterStepServices
                   services={wizard.services}
                   servicesBad={wizard.servicesBad}
@@ -102,7 +116,7 @@ export function RegisterPage() {
               )}
 
               {/* Passo 4: Anti-falta */}
-              {wizard.curStep === 3 && (
+              {curStep === 3 && (
                 <RegisterStepAntiNoShow
                   shop={wizard.shop}
                   reminderTime={wizard.reminderTime}
@@ -115,7 +129,7 @@ export function RegisterPage() {
               )}
 
               {/* Passo 5: Conexão */}
-              {wizard.curStep === 4 && (
+              {curStep === 4 && (
                 <RegisterStepConnection
                   shop={wizard.shop}
                   wpp={wizard.wpp}
@@ -129,6 +143,8 @@ export function RegisterPage() {
                   goBtnRef={wizard.goBtnRef}
                   handleSimulate={wizard.handleSimulate}
                   onBack={wizard.prevStep}
+                  databasePayload={wizard.databasePayload}
+                  buildDatabasePayload={wizard.buildDatabasePayload}
                 />
               )}
             </div>
@@ -139,6 +155,13 @@ export function RegisterPage() {
           </p>
         </main>
       </div>
+
+      {/* Confirmation Exit Modal */}
+      <RegisterExitModal
+        isOpen={isExitModalOpen}
+        onClose={() => setIsExitModalOpen(false)}
+        onConfirmExit={handleConfirmExit}
+      />
     </div>
   );
 }

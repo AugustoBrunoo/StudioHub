@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { StudioHubLogo } from '@/components/landing/LandingIcons';
 import { STEP_NAMES } from './register.types';
@@ -7,22 +7,35 @@ interface RegisterNavbarProps {
   curStep?: number;
   onStepClick?: (stepIndex: number) => void;
   onBackStep?: () => void;
+  onExit?: () => void;
 }
 
 export function RegisterNavbar({
   curStep = 0,
   onStepClick,
   onBackStep,
+  onExit,
 }: RegisterNavbarProps) {
   const navigate = useNavigate();
 
   const handleBack = () => {
     if (curStep > 0 && onBackStep) {
       onBackStep();
+    } else if (onExit) {
+      onExit();
     } else if (window.history.length > 1) {
       navigate(-1);
     } else {
-      navigate('/planos');
+      navigate('/');
+    }
+  };
+
+  const handleLogoClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (onExit) {
+      onExit();
+    } else {
+      navigate('/');
     }
   };
 
@@ -38,15 +51,16 @@ export function RegisterNavbar({
       >
 
         {/* Brand Logo (Left) */}
-        <Link
-          to="/"
-          className="flex items-center gap-2 sm:gap-2.5 shrink-0 group select-none"
+        <button
+          type="button"
+          onClick={handleLogoClick}
+          className="flex items-center gap-2 sm:gap-2.5 shrink-0 group select-none text-left cursor-pointer bg-transparent border-0 p-0"
           title="Ir para a página inicial"
         >
           <span className="logo-box !w-7 !h-7 sm:!w-8 sm:!h-8 !rounded-lg group-hover:scale-105 transition-transform">
             <StudioHubLogo id="reg-logo" />
           </span>
-        </Link>
+        </button>
 
         {/* Stepper Center (Aligned & Centered) */}
         {/* Desktop view (sm and up): Connected interactive step dots */}

@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import gsap from 'gsap';
 import { Seo } from '@/components/common/Seo';
 import { useAuth } from '@/hooks/useAuth';
@@ -24,6 +25,7 @@ const INITIAL_QUEUE: Appointment[] = [
 
 export function DashboardOverviewPage() {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const pageContainerRef = useRef<HTMLDivElement | null>(null);
   const toastRef = useRef<DashboardToastHandle | null>(null);
 
@@ -181,9 +183,7 @@ export function DashboardOverviewPage() {
               agendados={stats.ag}
               atendidos={stats.at}
               faltas={stats.fa}
-              onViewSchedule={() =>
-                handleShowToast('Agenda detalhada do estúdio aberta')
-              }
+              onViewSchedule={() => navigate('/dashboard/agenda')}
             />
 
             {/* Widget 3: Ações Rápidas */}

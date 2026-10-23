@@ -11,6 +11,7 @@ interface RegisterStepIdentityProps {
   handleWppChange: (val: string) => void;
   wppBad: boolean;
   onContinue: () => void;
+  onCancel?: () => void;
 }
 
 export function RegisterStepIdentity({
@@ -26,6 +27,7 @@ export function RegisterStepIdentity({
   handleWppChange,
   wppBad,
   onContinue,
+  onCancel,
 }: RegisterStepIdentityProps) {
   return (
     <div>
@@ -110,11 +112,22 @@ export function RegisterStepIdentity({
       </div>
 
       {/* Navigation Buttons */}
-      <div className="flex justify-end mt-6 sm:mt-9">
+      <div className="flex justify-between items-center gap-3 mt-6 sm:mt-9">
+        {onCancel ? (
+          <button
+            type="button"
+            onClick={onCancel}
+            className="text-xs text-white/50 hover:text-white/80 underline-offset-4 hover:underline transition-colors py-2 px-1"
+          >
+            Cancelar e sair
+          </button>
+        ) : (
+          <div />
+        )}
         <button
           type="button"
           onClick={onContinue}
-          className="btn btn-gold w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl nx flex items-center justify-center gap-2 text-sm sm:text-base"
+          className="btn btn-gold w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl nx flex items-center justify-center gap-2 text-sm sm:text-base font-semibold"
         >
           <span>Continuar</span>
           <svg className="i w-4 h-4" viewBox="0 0 24 24" aria-hidden="true">

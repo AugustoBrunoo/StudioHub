@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { StudioHubLogo } from '@/components/landing/LandingIcons';
 import { DashboardIcon } from './DashboardIcons';
 import { useAuth } from '@/hooks/useAuth';
@@ -11,6 +11,10 @@ interface DashboardNavProps {
 export function DashboardNav({ onShowToast }: DashboardNavProps) {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const isPainel = location.pathname === '/dashboard' || location.pathname === '/dashboard/';
+  const isAgenda = location.pathname.startsWith('/dashboard/agenda') || location.pathname.startsWith('/dashboard/agendamentos');
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -100,6 +104,30 @@ export function DashboardNav({ onShowToast }: DashboardNavProps) {
         </span>
       </Link>
 
+      {/* Center Nav: Painel / Agenda */}
+      <nav className="hidden md:flex items-center gap-2 text-sm font-semibold">
+        <Link
+          to="/dashboard"
+          className={`px-4 py-2 rounded-full transition ${
+            isPainel
+              ? 'text-[#f1c40f] bg-[#d4af37]/10 border border-[#d4af37]/25'
+              : 'text-gray-400 hover:text-white'
+          }`}
+        >
+          Painel
+        </Link>
+        <Link
+          to="/dashboard/agenda"
+          className={`px-4 py-2 rounded-full transition ${
+            isAgenda
+              ? 'text-[#f1c40f] bg-[#d4af37]/10 border border-[#d4af37]/25'
+              : 'text-gray-400 hover:text-white'
+          }`}
+        >
+          Agenda
+        </Link>
+      </nav>
+
       {/* User Avatar & Menu */}
       <div className="relative">
         <button
@@ -137,6 +165,28 @@ export function DashboardNav({ onShowToast }: DashboardNavProps) {
             <span className="inline-block mt-2 text-[10px] font-bold uppercase tracking-[.16em] px-2 py-1 rounded-md text-[#d4af37] bg-[#d4af37]/10 border border-[#d4af37]/25">
               Plano Solo
             </span>
+          </div>
+
+          <div className="md:hidden">
+            <Link
+              to="/dashboard"
+              onClick={() => setIsDropdownOpen(false)}
+              className="mi"
+              role="menuitem"
+            >
+              <DashboardIcon name="grid" className="text-lg text-gray-400" />
+              Painel
+            </Link>
+            <Link
+              to="/dashboard/agenda"
+              onClick={() => setIsDropdownOpen(false)}
+              className="mi"
+              role="menuitem"
+            >
+              <DashboardIcon name="cal" className="text-lg text-gray-400" />
+              Agenda
+            </Link>
+            <div className="h-px bg-white/10 my-1.5" />
           </div>
 
           <Link

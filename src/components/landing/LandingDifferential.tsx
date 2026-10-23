@@ -42,7 +42,7 @@ export function LandingDifferential() {
           <div className="space-y-6 sm:space-y-8">
             {points.map((p) => (
               <div key={p.step} className="flex gap-3.5 sm:gap-5 items-start">
-                <div className="shrink-0 w-8 h-8 sm:w-10 sm:h-10 rounded-full btn-gold flex items-center justify-center font-bold text-xs sm:text-base mt-0.5">
+                <div className="shrink-0 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-[#d4af37] to-[#f1c40f] text-[#0a0a0a] shadow-md shadow-[#d4af37]/30 flex items-center justify-center font-bold text-xs sm:text-base mt-0.5">
                   {p.step}
                 </div>
                 <div>
@@ -87,7 +87,7 @@ export function LandingDifferential() {
               </div>
 
               {/* Message 2 (Outgoing) */}
-              <div className="msg btn-gold p-3 sm:p-4 rounded-2xl sm:rounded-3xl rounded-tr-none max-w-[90%] sm:max-w-[80%] font-semibold self-end shadow-md">
+              <div className="msg bg-gradient-to-r from-[#d4af37] to-[#f1c40f] text-[#0a0a0a] p-3 sm:p-4 rounded-2xl sm:rounded-3xl rounded-tr-none max-w-[90%] sm:max-w-[80%] font-semibold self-end shadow-md shadow-[#d4af37]/20">
                 <p className="text-xs sm:text-sm">
                   Sem problemas! Pode mudar para a Quarta-feira, fica bom pra mim também.
                 </p>

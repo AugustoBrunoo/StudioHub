@@ -17,7 +17,19 @@ export type DashboardIconName =
   | 'userx'
   | 'plus'
   | 'lock'
-  | 'coffee';
+  | 'coffee'
+  | 'cl'
+  | 'cr'
+  | 'pulse'
+  | 'coin'
+  | 'spark'
+  | 'search'
+  | 'chat'
+  | 'edit'
+  | 'phone'
+  | 'undo'
+  | 'trash'
+  | 'grid';
 
 const ICON_PATHS: Record<DashboardIconName, React.ReactNode> = {
   chev: <path d="M6 9l6 6 6-6" />,
@@ -101,6 +113,55 @@ const ICON_PATHS: Record<DashboardIconName, React.ReactNode> = {
   coffee: (
     <>
       <path d="M4 8h12v6a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5zM16 10h2a2 2 0 0 1 0 4h-2M7 3v2M11 3v2" />
+    </>
+  ),
+  cl: <path d="M15 6l-6 6 6 6" />,
+  cr: <path d="M9 6l6 6-6 6" />,
+  pulse: <path d="M3 12h4l3-8 4 16 3-8h4" />,
+  coin: (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M14.5 9a2.5 2 0 0 0-2.5-1.5c-1.5 0-2.5.8-2.5 2s1 1.7 2.5 2 2.5.8 2.5 2-1 2-2.5 2a2.7 2 0 0 1-2.7-1.5M12 6v1.5M12 16.5V18" />
+    </>
+  ),
+  spark: (
+    <>
+      <path d="M12 3l1.8 4.7 4.7 1.8-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8zM19 15l.7 1.8 1.8.7-1.8.7L19 20l-.7-1.8-1.8-.7 1.8-.7z" />
+    </>
+  ),
+  search: (
+    <>
+      <circle cx="11" cy="11" r="7" />
+      <path d="M20 20l-3.5-3.5" />
+    </>
+  ),
+  chat: <path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z" />,
+  edit: (
+    <>
+      <path d="M4 20h4L19 9l-4-4L4 16zM13.5 6.5l4 4" />
+    </>
+  ),
+  phone: (
+    <>
+      <path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z" />
+    </>
+  ),
+  undo: (
+    <>
+      <path d="M9 14L4 9l5-5M4 9h10a6 6 0 0 1 0 12h-3" />
+    </>
+  ),
+  trash: (
+    <>
+      <path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3" />
+    </>
+  ),
+  grid: (
+    <>
+      <rect x="3" y="3" width="7" height="7" rx="2" />
+      <rect x="14" y="3" width="7" height="7" rx="2" />
+      <rect x="3" y="14" width="7" height="7" rx="2" />
+      <rect x="14" y="14" width="7" height="7" rx="2" />
     </>
   ),
 };

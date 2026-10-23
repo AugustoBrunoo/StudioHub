@@ -7,4 +7,5 @@ export * from './RegisterStepSchedule';
 export * from './RegisterStepServices';
 export * from './RegisterStepAntiNoShow';
 export * from './RegisterStepConnection';
+export * from './RegisterExitModal';
 export * from './useRegisterWizard';

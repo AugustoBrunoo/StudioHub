@@ -15,7 +15,7 @@ import { RegisterPage } from '@/pages/auth/RegisterPage';
 // Dashboard Pages
 import { DashboardOverviewPage } from '@/pages/dashboard/DashboardOverviewPage';
 import { StudiosPage } from '@/pages/dashboard/StudiosPage';
-import { BookingsPage } from '@/pages/dashboard/BookingsPage';
+import { AgendaPage } from '@/pages/dashboard/AgendaPage';
 import { UsersManagementPage } from '@/pages/dashboard/UsersManagementPage';
 import { SettingsPage } from '@/pages/dashboard/SettingsPage';
 
@@ -87,8 +87,12 @@ export const router = createBrowserRouter([
         element: <StudiosPage />,
       },
       {
+        path: 'agenda',
+        element: <AgendaPage />,
+      },
+      {
         path: 'agendamentos',
-        element: <BookingsPage />,
+        element: <AgendaPage />,
       },
       {
         path: 'usuarios',

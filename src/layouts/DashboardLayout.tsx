@@ -4,9 +4,13 @@ import { DashboardBackground } from '@/components/dashboard/DashboardBackground'
 
 export function DashboardLayout() {
   const location = useLocation();
-  const isOverview = location.pathname === '/dashboard' || location.pathname === '/dashboard/';
+  const isFullLayoutPage =
+    location.pathname === '/dashboard' ||
+    location.pathname === '/dashboard/' ||
+    location.pathname.startsWith('/dashboard/agenda') ||
+    location.pathname.startsWith('/dashboard/agendamentos');
 
-  if (isOverview) {
+  if (isFullLayoutPage) {
     return <Outlet />;
   }
 
