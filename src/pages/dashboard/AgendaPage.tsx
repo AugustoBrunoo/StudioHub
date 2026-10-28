@@ -1,12 +1,7 @@
-import { useEffect, useRef, useCallback } from 'react';
+import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { Seo } from '@/components/common/Seo';
-import { DashboardBackground } from '@/components/dashboard/DashboardBackground';
-import { DashboardNav } from '@/components/dashboard/DashboardNav';
-import {
-  DashboardToast,
-  type DashboardToastHandle,
-} from '@/components/dashboard/DashboardToast';
+import { useDashboardToast } from '@/layouts/DashboardLayout';
 import {
   useAgendaState,
   AgendaHeader,
@@ -20,13 +15,10 @@ import {
 } from '@/components/agenda';
 
 export function AgendaPage() {
-  const toastRef = useRef<DashboardToastHandle | null>(null);
+  const handleShowToast = useDashboardToast();
+  const pageContainerRef = useRef<HTMLDivElement | null>(null);
   const hoursBtnRef = useRef<HTMLButtonElement | null>(null);
   const hoursPopRef = useRef<HTMLDivElement | null>(null);
-
-  const handleShowToast = useCallback((msg: string) => {
-    toastRef.current?.show(msg);
-  }, []);
 
   // Hook managing all agenda state, mock db, calculations, and handlers
   const agenda = useAgendaState();
@@ -36,14 +28,18 @@ export function AgendaPage() {
     const ctx = gsap.context(() => {
       gsap
         .timeline({ defaults: { ease: 'power4.out' } })
-        .from('.rise', {
-          y: 36,
-          opacity: 0,
-          duration: 0.8,
-          stagger: 0.08,
-          clearProps: 'opacity,transform',
-        }, 0.1);
-    });
+        .from(
+          '.rise',
+          {
+            y: 36,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.08,
+            clearProps: 'opacity,transform',
+          },
+          0.1
+        );
+    }, pageContainerRef);
     return () => ctx.revert();
   }, []);
 
@@ -76,14 +72,11 @@ export function AgendaPage() {
   }, [agenda]);
 
   return (
-    <div className="min-h-screen min-h-[100dvh] w-full bg-[#0a0a0a] text-[#f5f5f5] selection:bg-[#d4af37]/30 selection:text-white relative overflow-x-hidden">
+    <div ref={pageContainerRef} className="w-full">
       <Seo
         title="StudioHub | Agenda do Estúdio"
         description="Gerenciamento de agenda, horários e atendimentos em tempo real com o StudioHub."
       />
-
-      <DashboardBackground />
-      <DashboardNav onShowToast={handleShowToast} />
 
       <main className="max-w-7xl mx-auto px-5 sm:px-8 pt-28 pb-20 relative z-10">
         {/* Title, Popover & Action Buttons */}
@@ -197,9 +190,6 @@ export function AgendaPage() {
           agenda.setFormError(null);
         }}
       />
-
-      {/* Floating Pill Toast Notification */}
-      <DashboardToast ref={toastRef} />
     </div>
   );
 }

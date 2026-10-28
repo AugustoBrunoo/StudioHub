@@ -3,8 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import gsap from 'gsap';
 import { Seo } from '@/components/common/Seo';
 import { useAuth } from '@/hooks/useAuth';
-import { DashboardBackground } from '@/components/dashboard/DashboardBackground';
-import { DashboardNav } from '@/components/dashboard/DashboardNav';
+import { useDashboardToast } from '@/layouts/DashboardLayout';
 import {
   FocusAppointmentCard,
   type Appointment,
@@ -12,10 +11,6 @@ import {
 import { AutomationCard } from '@/components/dashboard/AutomationCard';
 import { DailyKpiCard } from '@/components/dashboard/DailyKpiCard';
 import { QuickActionsCard } from '@/components/dashboard/QuickActionsCard';
-import {
-  DashboardToast,
-  type DashboardToastHandle,
-} from '@/components/dashboard/DashboardToast';
 
 const INITIAL_QUEUE: Appointment[] = [
   { id: '1', n: 'Marcelo Andrade', s: 'Corte + Barba', t: '14:00', e: '– 14:45' },
@@ -26,8 +21,8 @@ const INITIAL_QUEUE: Appointment[] = [
 export function DashboardOverviewPage() {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const handleShowToast = useDashboardToast();
   const pageContainerRef = useRef<HTMLDivElement | null>(null);
-  const toastRef = useRef<DashboardToastHandle | null>(null);
 
   // Queue and Stats State
   const [queue, setQueue] = useState<Appointment[]>(INITIAL_QUEUE);
@@ -52,11 +47,6 @@ export function DashboardOverviewPage() {
   });
   const firstName = user?.name?.split(' ')[0] || 'João';
 
-  // Toast handler
-  const handleShowToast = (msg: string) => {
-    toastRef.current?.show(msg);
-  };
-
   // Countdown clock every second
   useEffect(() => {
     const updateCountdown = () => {
@@ -72,23 +62,22 @@ export function DashboardOverviewPage() {
     return () => clearInterval(interval);
   }, [eta, queue.length]);
 
-  // Entrance animations via GSAP
+  // Entrance animations via GSAP (Navbar animation is handled at DashboardLayout on initial enter)
   useEffect(() => {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
 
-      tl.from('#nav', { y: -60, opacity: 0, duration: 1 })
-        .from('#hello > *', { y: 20, opacity: 0, duration: 1, stagger: 0.1 }, 0.2)
+      tl.from('#hello > *', { y: 20, opacity: 0, duration: 0.9, stagger: 0.1 }, 0.05)
         .from(
           '.rise',
           {
-            y: 60,
+            y: 50,
             opacity: 0,
-            duration: 1.1,
-            stagger: 0.12,
+            duration: 1,
+            stagger: 0.1,
             clearProps: 'opacity,transform',
           },
-          0.4
+          0.2
         );
     }, pageContainerRef);
 
@@ -120,21 +109,12 @@ export function DashboardOverviewPage() {
   };
 
   return (
-    <div
-      ref={pageContainerRef}
-      className="min-h-screen min-h-[100dvh] w-full relative bg-[#0a0a0a] text-[#f5f5f5] overflow-x-hidden selection:bg-[#d4af37]/30 selection:text-white"
-    >
+    <div ref={pageContainerRef} className="w-full">
       <Seo
         title="StudioHub | Painel"
         description="Painel operacional do StudioHub. Acompanhe seus atendimentos, métricas em tempo real e automações com elegância e eficiência."
         canonicalUrl="https://studiohub.nodasolucoes.dev/dashboard"
       />
-
-      {/* Golden Glowing Drift Background */}
-      <DashboardBackground />
-
-      {/* Fixed Header */}
-      <DashboardNav onShowToast={handleShowToast} />
 
       {/* Main Dashboard Content */}
       <main className="max-w-6xl mx-auto px-5 sm:px-8 pt-28 pb-16 relative z-10">
@@ -144,7 +124,7 @@ export function DashboardOverviewPage() {
           className="mb-9 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2"
         >
           <div>
-            <p className="tag mb-2 capitalize" id="date">
+            <p className="tag !text-white text-[11px] font-bold tracking-[0.2em] mb-2 uppercase" id="date">
               {dateString}
             </p>
             <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">
@@ -152,7 +132,9 @@ export function DashboardOverviewPage() {
               <span className="gt">{firstName}.</span>
             </h1>
           </div>
-          <p className="text-gray-500 text-sm">Seu dia, num relance.</p>
+          <p className="text-xs sm:text-sm font-extrabold tracking-tight text-gray-300 sm:self-end pb-1">
+            Seu dia, <span className="text-white">num relance.</span>
+          </p>
         </div>
 
         {/* Widgets Grid */}
@@ -195,9 +177,6 @@ export function DashboardOverviewPage() {
           </div>
         </div>
       </main>
-
-      {/* Floating Pill Toast */}
-      <DashboardToast ref={toastRef} />
     </div>
   );
 }
