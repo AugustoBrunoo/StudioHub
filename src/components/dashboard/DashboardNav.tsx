@@ -95,9 +95,9 @@ export function DashboardNav({ onShowToast }: DashboardNavProps) {
   return (
     <header
       id="nav"
-      className="fixed top-0 inset-x-0 z-[100] px-5 sm:px-8 lg:px-10 py-3.5 flex justify-between items-center transition-all duration-500"
+      className="fixed top-0 inset-x-0 z-[100] px-3.5 sm:px-8 lg:px-10 py-2.5 sm:py-3.5 flex justify-between items-center transition-all duration-500"
       style={{
-        paddingTop: 'calc(0.875rem + env(safe-area-inset-top, 0px))',
+        paddingTop: 'calc(0.75rem + env(safe-area-inset-top, 0px))',
         background: isScrolled ? 'rgba(10, 10, 10, 0.65)' : 'transparent',
         backdropFilter: isScrolled ? 'blur(16px)' : 'none',
         WebkitBackdropFilter: isScrolled ? 'blur(16px)' : 'none',
@@ -107,11 +107,11 @@ export function DashboardNav({ onShowToast }: DashboardNavProps) {
       }}
     >
       {/* Brand */}
-      <Link to="/dashboard" className="flex items-center gap-3 group">
-        <span className="logo-box">
+      <Link to="/dashboard" className="flex items-center gap-2.5 sm:gap-3 group">
+        <span className="logo-box !w-8 !h-8 sm:!w-[34px] sm:!h-[34px]">
           <StudioHubLogo id="dash-logo" />
         </span>
-        <span className="text-xl font-extrabold tracking-tighter text-white">
+        <span className="text-lg sm:text-xl font-extrabold tracking-tighter text-white">
           STUDIO<span className="gt">HUB</span>
         </span>
       </Link>
@@ -154,11 +154,11 @@ export function DashboardNav({ onShowToast }: DashboardNavProps) {
           ref={avatarBtnRef}
           id="av"
           onClick={() => setIsDropdownOpen((prev) => !prev)}
-          className="flex items-center gap-2.5 pl-1.5 pr-3.5 py-1.5 rounded-full border border-white/10 bg-[#141414]/90 backdrop-blur-md hover:border-[#d4af37]/60 hover:bg-[#1a1a1a] shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_4px_16px_rgba(0,0,0,0.4)] transition-all duration-300 cursor-pointer"
+          className="flex items-center gap-2 sm:gap-2.5 pl-1 pr-2.5 sm:pl-1.5 sm:pr-3.5 py-1 sm:py-1.5 rounded-full border border-white/10 bg-[#141414]/90 backdrop-blur-md hover:border-[#d4af37]/60 hover:bg-[#1a1a1a] shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_4px_16px_rgba(0,0,0,0.4)] transition-all duration-300 cursor-pointer"
           aria-haspopup="true"
           aria-expanded={isDropdownOpen}
         >
-          <span className="w-8 h-8 rounded-full bg-gradient-to-br from-[#d4af37] to-[#f1c40f] text-black font-extrabold text-xs flex items-center justify-center shadow-[0_0_14px_rgba(212,175,55,0.4)]">
+          <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-[#d4af37] to-[#f1c40f] text-black font-extrabold text-xs flex items-center justify-center shadow-[0_0_14px_rgba(212,175,55,0.4)]">
             {initial}
           </span>
           <span className="hidden sm:inline text-xs font-semibold text-gray-200">
@@ -177,7 +177,7 @@ export function DashboardNav({ onShowToast }: DashboardNavProps) {
         <div
           ref={dropdownRef}
           id="dd"
-          className={`absolute right-0 mt-3 w-64 p-2 rounded-2xl border border-white/10 bg-[#111]/90 backdrop-blur-xl shadow-[0_30px_70px_-20px_rgba(0,0,0,0.9)] z-50 ${
+          className={`absolute right-0 mt-3 w-56 sm:w-64 max-w-[calc(100vw-1.5rem)] p-2 rounded-2xl border border-white/10 bg-[#111]/95 backdrop-blur-xl shadow-[0_30px_70px_-20px_rgba(0,0,0,0.9)] z-50 ${
             isDropdownOpen ? 'on' : ''
           }`}
           role="menu"

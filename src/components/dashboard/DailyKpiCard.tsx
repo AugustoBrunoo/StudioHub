@@ -54,39 +54,41 @@ export function DailyKpiCard({
   }, [agendados, atendidos, faltas]);
 
   return (
-    <article className="card w-full rise p-6 sm:p-7">
-      <div className="flex items-center justify-between mb-5">
-        <span className="tag">Raio-X do dia</span>
+    <article className="card w-full rise p-3.5 sm:p-4 lg:p-5 flex flex-col justify-between">
+      <div className="flex items-center justify-between gap-2 mb-3 sm:mb-4">
+        <span className="tag text-[10px] sm:text-[11px] tracking-[0.14em] sm:tracking-[0.2em] font-bold uppercase">
+          Raio-X do dia
+        </span>
         <button
           type="button"
           onClick={onViewSchedule}
-          className="pill cursor-pointer"
+          className="pill cursor-pointer !py-1 !px-2.5 text-[10.5px] sm:text-xs"
         >
-          Ver agenda
-          <span className="pill-ic">
+          <span>Ver agenda</span>
+          <span className="pill-ic !w-5 !h-5 !text-xs">
             <DashboardIcon name="arr" />
           </span>
         </button>
       </div>
 
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-3 gap-1.5 sm:gap-2 lg:gap-3">
         {/* Agendados */}
         <div
           onClick={onViewSchedule}
-          className="kpi cursor-pointer group"
+          className="kpi cursor-pointer group !p-1.5 sm:!p-2.5 lg:!p-3 text-center sm:text-left flex flex-col items-center sm:items-start rounded-xl"
           role="button"
           tabIndex={0}
         >
-          <DashboardIcon name="cal" className="text-xl text-[#d4af37] mb-4" />
+          <DashboardIcon name="cal" className="text-base text-[#d4af37] mb-1 sm:mb-1.5" />
           <p
             ref={kARef}
             id="kA"
             data-v="0"
-            className="text-4xl sm:text-5xl font-extrabold tracking-tighter tabular-nums text-white"
+            className="text-2xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight tabular-nums text-white"
           >
             0
           </p>
-          <p className="text-[11px] text-gray-500 font-semibold uppercase tracking-[.14em] mt-1.5">
+          <p className="text-[8.5px] sm:text-[9px] lg:text-[10.5px] text-gray-400 font-bold uppercase tracking-tight sm:tracking-normal mt-0.5 sm:mt-1 truncate max-w-full">
             Agendados
           </p>
         </div>
@@ -94,20 +96,20 @@ export function DailyKpiCard({
         {/* Atendidos */}
         <div
           onClick={onViewSchedule}
-          className="kpi cursor-pointer group"
+          className="kpi cursor-pointer group !p-1.5 sm:!p-2.5 lg:!p-3 text-center sm:text-left flex flex-col items-center sm:items-start rounded-xl"
           role="button"
           tabIndex={0}
         >
-          <DashboardIcon name="done" className="text-xl text-green-400 mb-4" />
+          <DashboardIcon name="done" className="text-base text-green-400 mb-1 sm:mb-1.5" />
           <p
             ref={kTRef}
             id="kT"
             data-v="0"
-            className="text-4xl sm:text-5xl font-extrabold tracking-tighter tabular-nums text-white"
+            className="text-2xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight tabular-nums text-white"
           >
             0
           </p>
-          <p className="text-[11px] text-gray-500 font-semibold uppercase tracking-[.14em] mt-1.5">
+          <p className="text-[8.5px] sm:text-[9px] lg:text-[10.5px] text-gray-400 font-bold uppercase tracking-tight sm:tracking-normal mt-0.5 sm:mt-1 truncate max-w-full">
             Atendidos
           </p>
         </div>
@@ -115,30 +117,30 @@ export function DailyKpiCard({
         {/* Faltas */}
         <div
           onClick={onViewSchedule}
-          className="kpi cursor-pointer group"
+          className="kpi cursor-pointer group !p-1.5 sm:!p-2.5 lg:!p-3 text-center sm:text-left flex flex-col items-center sm:items-start rounded-xl"
           role="button"
           tabIndex={0}
         >
-          <DashboardIcon name="userx" className="text-xl text-red-400 mb-4" />
+          <DashboardIcon name="userx" className="text-base text-red-400 mb-1 sm:mb-1.5" />
           <p
             ref={kFRef}
             id="kF"
             data-v="0"
-            className="text-4xl sm:text-5xl font-extrabold tracking-tighter tabular-nums text-white"
+            className="text-2xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight tabular-nums text-white"
           >
             0
           </p>
-          <p className="text-[11px] text-gray-500 font-semibold uppercase tracking-[.14em] mt-1.5">
+          <p className="text-[8.5px] sm:text-[9px] lg:text-[10.5px] text-gray-400 font-bold uppercase tracking-tight sm:tracking-normal mt-0.5 sm:mt-1 truncate max-w-full">
             Faltas
           </p>
         </div>
       </div>
 
       {/* Progress */}
-      <div className="mt-5">
-        <div className="flex justify-between text-xs text-gray-500 mb-2">
-          <span>Progresso do dia</span>
-          <span id="pt" className="tabular-nums text-white/90 font-medium">
+      <div className="mt-3 sm:mt-3.5">
+        <div className="flex justify-between text-xs text-gray-400 mb-1">
+          <span className="text-[10.5px] sm:text-xs">Progresso do dia</span>
+          <span id="pt" className="tabular-nums text-white/90 font-medium text-[10.5px] sm:text-xs">
             {atendidos} de {agendados}
           </span>
         </div>

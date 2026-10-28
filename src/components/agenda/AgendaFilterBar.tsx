@@ -23,33 +23,37 @@ export function AgendaFilterBar({
   onSelectFilter,
 }: AgendaFilterBarProps) {
   return (
-    <div className="flex flex-col md:flex-row md:items-center gap-3 mb-5">
+    <div className="flex flex-col md:flex-row md:items-center gap-3 mb-4 sm:mb-5">
       {/* Search Input */}
-      <div className="relative md:w-72">
+      <div className="relative w-full md:w-72">
         <DashboardIcon
           name="search"
           className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 text-lg pointer-events-none"
         />
         <input
           id="q"
-          type="text"
+          type="search"
           value={searchQuery}
           onChange={(e) => onSearchChange(e.target.value.toLowerCase())}
           className="inp"
           style={{ paddingLeft: '2.75rem' }}
           placeholder="Buscar cliente ou serviço"
+          enterKeyHint="search"
         />
       </div>
 
       {/* Filter Chips */}
-      <div className="flex gap-2 overflow-x-auto pb-1 -mb-1" id="chips">
+      <div
+        className="no-scrollbar flex gap-2 overflow-x-auto pb-1 -mb-1 -mx-4 px-4 sm:mx-0 sm:px-0 snap-x"
+        id="chips"
+      >
         {FILTER_OPTIONS.map((opt) => (
           <button
             key={opt.id}
             type="button"
             data-f={opt.id}
             onClick={() => onSelectFilter(opt.id)}
-            className={`chip cursor-pointer ${activeFilter === opt.id ? 'on' : ''}`}
+            className={`chip shrink-0 snap-start cursor-pointer ${activeFilter === opt.id ? 'on' : ''}`}
           >
             {opt.label}
           </button>

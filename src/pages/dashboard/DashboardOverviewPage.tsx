@@ -117,30 +117,33 @@ export function DashboardOverviewPage() {
       />
 
       {/* Main Dashboard Content */}
-      <main className="max-w-6xl mx-auto px-5 sm:px-8 pt-28 pb-16 relative z-10">
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 lg:pt-24 pb-6 sm:pb-8 lg:pb-10 relative z-10 w-full overflow-hidden">
         {/* Hello Greeting Header */}
         <div
           id="hello"
-          className="mb-9 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2"
+          className="mb-3.5 sm:mb-5 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-1.5 sm:gap-2"
         >
           <div>
-            <p className="tag !text-white text-[11px] font-bold tracking-[0.2em] mb-2 uppercase" id="date">
+            <p
+              className="tag !text-[#d4af37] text-[10px] sm:text-[11px] font-bold tracking-[0.16em] sm:tracking-[0.2em] mb-1 uppercase"
+              id="date"
+            >
               {dateString}
             </p>
-            <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">
+            <h1 className="text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight">
               <span id="greet">{greeting}</span>,{' '}
               <span className="gt">{firstName}.</span>
             </h1>
           </div>
-          <p className="text-xs sm:text-sm font-extrabold tracking-tight text-gray-300 sm:self-end pb-1">
+          <p className="text-xs sm:text-sm font-semibold tracking-tight text-gray-400 sm:self-end pb-0.5">
             Seu dia, <span className="text-white">num relance.</span>
           </p>
         </div>
 
         {/* Widgets Grid */}
-        <div className="grid lg:grid-cols-12 gap-6">
+        <div className="grid md:grid-cols-12 gap-3.5 sm:gap-4 lg:gap-6 w-full items-start">
           {/* Left Column (col-span-7) */}
-          <div className="lg:col-span-7 flex flex-col gap-6">
+          <div className="md:col-span-7 flex flex-col gap-4 lg:gap-6 w-full min-w-0">
             {/* Widget 1: Focus Card */}
             <FocusAppointmentCard
               currentAppointment={queue[0] || null}
@@ -159,7 +162,7 @@ export function DashboardOverviewPage() {
           </div>
 
           {/* Right Column (col-span-5) */}
-          <div className="lg:col-span-5 flex flex-col gap-6">
+          <div className="md:col-span-5 flex flex-col gap-4 lg:gap-6 w-full min-w-0">
             {/* Widget 2: Raio-X do dia */}
             <DailyKpiCard
               agendados={stats.ag}

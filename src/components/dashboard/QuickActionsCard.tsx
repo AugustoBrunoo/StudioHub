@@ -38,34 +38,40 @@ export function QuickActionsCard({
   };
 
   return (
-    <article className="card w-full rise p-6 sm:p-7 flex-1 flex flex-col">
-      <div className="mb-5">
-        <span className="tag">Ações rápidas</span>
+    <article className="card w-full rise p-3.5 sm:p-4 lg:p-5 flex-1 flex flex-col justify-between">
+      <div className="mb-3 sm:mb-4">
+        <span className="tag text-[10px] sm:text-[11px] tracking-[0.14em] sm:tracking-[0.2em] font-bold uppercase">
+          Ações rápidas
+        </span>
       </div>
 
-      <div className="grid grid-cols-3 gap-3 flex-1 min-h-[120px]">
+      <div className="grid grid-cols-3 gap-2 sm:gap-2.5 lg:gap-3 flex-1">
         {/* Novo Encaixe */}
         <button
           type="button"
           onClick={handleEncaixe}
-          className="act"
+          className="act !p-2 sm:!p-3 !gap-1.5 text-center rounded-xl cursor-pointer"
         >
-          <span className="ibox">
+          <span className="ibox !w-8 !h-8 sm:!w-9 sm:!h-9 !text-sm">
             <DashboardIcon name="plus" />
           </span>
-          <span>Novo Encaixe</span>
+          <span className="text-[10px] sm:text-[11px] font-semibold leading-tight line-clamp-2">
+            Novo Encaixe
+          </span>
         </button>
 
         {/* Bloquear Horário */}
         <button
           type="button"
           onClick={handleBloquear}
-          className="act"
+          className="act !p-2 sm:!p-3 !gap-1.5 text-center rounded-xl cursor-pointer"
         >
-          <span className="ibox">
+          <span className="ibox !w-8 !h-8 sm:!w-9 sm:!h-9 !text-sm">
             <DashboardIcon name="lock" />
           </span>
-          <span>Bloquear Horário</span>
+          <span className="text-[10px] sm:text-[11px] font-semibold leading-tight line-clamp-2">
+            Bloquear Horário
+          </span>
         </button>
 
         {/* Pausa */}
@@ -73,12 +79,14 @@ export function QuickActionsCard({
           type="button"
           id="pause"
           onClick={handlePause}
-          className={`act ${isPaused ? 'on' : ''}`}
+          className={`act !p-2 sm:!p-3 !gap-1.5 text-center rounded-xl cursor-pointer ${isPaused ? 'on' : ''}`}
         >
-          <span className="ibox">
+          <span className="ibox !w-8 !h-8 sm:!w-9 sm:!h-9 !text-sm">
             <DashboardIcon name="coffee" />
           </span>
-          <span id="pauseT">{isPaused ? 'Em pausa' : 'Pausa'}</span>
+          <span id="pauseT" className="text-[10px] sm:text-[11px] font-semibold leading-tight line-clamp-2">
+            {isPaused ? 'Em pausa' : 'Pausa'}
+          </span>
         </button>
       </div>
     </article>

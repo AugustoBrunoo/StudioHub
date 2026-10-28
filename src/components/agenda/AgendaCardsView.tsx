@@ -86,7 +86,7 @@ export function AgendaCardsView({
   }
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3">
+    <div className="grid grid-cols-1 min-[360px]:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2.5 sm:gap-3">
       {items.map((item, idx) => {
         if (item.t === 'p') {
           return (

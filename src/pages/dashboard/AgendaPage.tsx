@@ -78,7 +78,7 @@ export function AgendaPage() {
         description="Gerenciamento de agenda, horários e atendimentos em tempo real com o StudioHub."
       />
 
-      <main className="max-w-7xl mx-auto px-5 sm:px-8 pt-28 pb-20 relative z-10">
+      <main className="max-w-7xl mx-auto px-4 sm:px-8 pt-24 sm:pt-28 pb-16 sm:pb-20 relative z-10">
         {/* Title, Popover & Action Buttons */}
         <AgendaHeader
           isHoursPopOpen={agenda.isHoursPopOpen}

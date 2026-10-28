@@ -21,25 +21,27 @@ export function AgendaHeader({
   hoursPopRef,
 }: AgendaHeaderProps) {
   return (
-    <div className="rise flex flex-col sm:flex-row sm:items-end sm:justify-between gap-5 mb-8">
+    <div className="rise flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 sm:gap-5 mb-6 sm:mb-8">
       <div>
-        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">
+        <h1 className="text-[1.85rem] leading-tight sm:text-4xl font-extrabold tracking-tight">
           Sua <span className="gt">agenda.</span>
         </h1>
       </div>
 
-      <div className="relative flex flex-wrap items-center gap-3 self-start sm:self-auto">
+      <div className="relative grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-2.5 sm:gap-3 w-full sm:w-auto">
         {/* Meus Horários Button */}
         <button
           ref={hoursBtnRef}
           id="hrsBtn"
           type="button"
           onClick={onToggleHoursPop}
-          className="btn btn-ghost px-5 py-4 rounded-2xl cursor-pointer"
+          className="btn btn-ghost px-3 sm:px-5 py-3.5 sm:py-4 rounded-2xl text-sm sm:text-base cursor-pointer"
           aria-haspopup="true"
+          aria-expanded={isHoursPopOpen}
         >
-          <DashboardIcon name="clock" className="text-lg" />
-          Meus horários
+          <DashboardIcon name="clock" className="text-base sm:text-lg" />
+          <span className="sm:hidden">Horários</span>
+          <span className="hidden sm:inline">Meus horários</span>
         </button>
 
         {/* Novo Agendamento Button */}
@@ -47,17 +49,18 @@ export function AgendaHeader({
           id="newBtn"
           type="button"
           onClick={onOpenNewAppointment}
-          className="btn btn-gold px-7 py-4 rounded-2xl cursor-pointer"
+          className="btn btn-gold px-3 sm:px-7 py-3.5 sm:py-4 rounded-2xl text-sm sm:text-base cursor-pointer"
         >
-          <DashboardIcon name="plus" className="text-lg" />
-          Novo agendamento
+          <DashboardIcon name="plus" className="text-base sm:text-lg" />
+          <span className="sm:hidden">Agendar</span>
+          <span className="hidden sm:inline">Novo agendamento</span>
         </button>
 
         {/* Popover Meus Horários */}
         <div
           ref={hoursPopRef}
           id="pop"
-          className={`absolute right-0 top-full mt-3 z-50 w-[22rem] max-w-[calc(100vw-2.5rem)] p-5 rounded-3xl border border-white/10 bg-[#0f0f0f]/95 backdrop-blur-xl shadow-[0_30px_70px_-20px_rgba(0,0,0,0.9)] ${
+          className={`absolute left-0 right-0 sm:left-auto top-full mt-3 z-50 sm:w-[22rem] max-w-full sm:max-w-[calc(100vw-2.5rem)] p-4 sm:p-5 rounded-3xl border border-white/10 bg-[#0f0f0f]/95 backdrop-blur-xl shadow-[0_30px_70px_-20px_rgba(0,0,0,0.9)] ${
             isHoursPopOpen ? 'on' : ''
           }`}
         >

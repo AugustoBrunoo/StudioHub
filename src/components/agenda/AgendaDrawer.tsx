@@ -30,11 +30,20 @@ export function AgendaDrawer({
       <div id="ov" onClick={onClose} className={isOpen ? 'on' : ''} />
 
       {/* Slide-over Drawer */}
-      <aside id="dr" className={isOpen ? 'on' : ''} aria-hidden={!isOpen}>
+      <aside
+        id="dr"
+        className={isOpen ? 'on' : ''}
+        aria-hidden={!isOpen}
+        role="dialog"
+        aria-modal="true"
+      >
+        {/* Bottom-sheet grab handle (mobile only) */}
+        <div className="sm:hidden mx-auto mb-4 h-1 w-10 rounded-full bg-white/20" />
+
         {a && (
           <div>
             {/* Drawer Header */}
-            <div className="flex items-center justify-between mb-7">
+            <div className="flex items-center justify-between mb-5 sm:mb-7">
               <span
                 className="badge"
                 style={{ ['--c' as string]: STATUS_MAP[a.status].c }}
@@ -52,12 +61,12 @@ export function AgendaDrawer({
             </div>
 
             {/* Client Info */}
-            <div className="flex items-center gap-4 mb-7">
-              <div className="av2 !w-16 !h-16 !rounded-3xl !text-xl">
+            <div className="flex items-center gap-4 mb-5 sm:mb-7">
+              <div className="av2 !w-14 !h-14 sm:!w-16 sm:!h-16 !rounded-3xl !text-lg sm:!text-xl">
                 {ini(a.client)}
               </div>
               <div className="min-w-0">
-                <h2 className="text-2xl font-extrabold tracking-tight truncate text-white">
+                <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight truncate text-white">
                   {a.client}
                 </h2>
                 <p className="text-sm text-gray-400">{a.phone}</p>
@@ -65,9 +74,9 @@ export function AgendaDrawer({
             </div>
 
             {/* Time Card */}
-            <div className="card p-5 mb-5">
+            <div className="card p-4 sm:p-5 mb-4 sm:mb-5">
               <div className="flex items-baseline gap-2 mb-1">
-                <span className="text-4xl font-extrabold tracking-tight tabular-nums text-white">
+                <span className="text-3xl sm:text-4xl font-extrabold tracking-tight tabular-nums text-white">
                   {hm(a.start)}
                 </span>
                 <span className="text-xl text-gray-500 font-semibold tabular-nums">

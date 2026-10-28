@@ -49,15 +49,20 @@ export function AgendaModal({
       {/* Modal Dialog */}
       <div
         id="md"
-        className={`card p-7 sm:p-8 ${isOpen ? 'on' : ''}`}
+        className={`card p-5 sm:p-8 ${isOpen ? 'on' : ''}`}
         aria-hidden={!isOpen}
+        role="dialog"
+        aria-modal="true"
       >
-        <div className="flex items-start justify-between mb-6">
+        {/* Bottom-sheet grab handle (mobile only) */}
+        <div className="sm:hidden mx-auto -mt-1 mb-4 h-1 w-10 rounded-full bg-white/20" />
+
+        <div className="flex items-start justify-between mb-5 sm:mb-6">
           <div>
             <p className="tag mb-1.5 text-[#d4af37]">
               {isEdit ? 'Remarcar' : 'Novo'}
             </p>
-            <h2 className="text-2xl font-extrabold tracking-tight text-white">
+            <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight text-white">
               {isEdit ? 'Remarcar agendamento' : 'Novo agendamento'}
             </h2>
           </div>
@@ -71,7 +76,7 @@ export function AgendaModal({
           </button>
         </div>
 
-        <div className="space-y-5">
+        <div className="space-y-4 sm:space-y-5">
           {/* Cliente Name */}
           <div>
             <label className="lbl" htmlFor="fC">
@@ -127,7 +132,7 @@ export function AgendaModal({
           </div>
 
           {/* Data e Horário */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-3 sm:gap-4">
             <div>
               <label className="lbl" htmlFor="fD">
                 Data
@@ -188,20 +193,23 @@ export function AgendaModal({
         </div>
 
         {/* Modal Buttons */}
-        <div className="flex gap-3 mt-7">
+        <div className="flex gap-2.5 sm:gap-3 mt-6 sm:mt-7">
           <button
             type="button"
             onClick={onClose}
-            className="btn btn-ghost flex-1 py-4 rounded-2xl cursor-pointer"
+            className="btn btn-ghost flex-1 py-3.5 sm:py-4 rounded-2xl text-sm sm:text-base cursor-pointer"
           >
             Cancelar
           </button>
           <button
             type="button"
             onClick={onSave}
-            className="btn btn-gold flex-[1.4] py-4 rounded-2xl cursor-pointer"
+            className="btn btn-gold flex-[1.4] py-3.5 sm:py-4 rounded-2xl text-sm sm:text-base cursor-pointer"
           >
-            {isEdit ? 'Salvar novo horário' : 'Salvar agendamento'}
+            <span className="sm:hidden">{isEdit ? 'Salvar horário' : 'Salvar'}</span>
+            <span className="hidden sm:inline">
+              {isEdit ? 'Salvar novo horário' : 'Salvar agendamento'}
+            </span>
           </button>
         </div>
       </div>

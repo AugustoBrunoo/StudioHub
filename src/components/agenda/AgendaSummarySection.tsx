@@ -50,7 +50,7 @@ export function AgendaSummarySection({
       <p className="tag mb-4">Resumo do dia</p>
 
       {/* KPI Cards Grid */}
-      <div className="grid grid-cols-3 gap-3 mb-4">
+      <div className="grid grid-cols-3 gap-2 sm:gap-3 mb-4">
         {/* KPI Agendados */}
         <button
           type="button"
@@ -58,7 +58,7 @@ export function AgendaSummarySection({
           className={`card kpi cursor-pointer ${filter === 'todos' ? 'sel' : ''}`}
           data-f="todos"
         >
-          <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center justify-between mb-2.5 sm:mb-3">
             <span className="ibox text-[#d4af37] !border-[#d4af37]/25 !bg-[#d4af37]/10">
               <DashboardIcon name="cal" />
             </span>
@@ -68,12 +68,12 @@ export function AgendaSummarySection({
           </div>
           <p
             ref={kARef}
-            className="text-3xl font-extrabold tracking-tighter tabular-nums text-white"
+            className="text-2xl sm:text-3xl font-extrabold tracking-tighter tabular-nums text-white"
             id="kA"
           >
             0
           </p>
-          <p className="text-[11px] text-gray-500 font-semibold uppercase tracking-[.14em] mt-1.5">
+          <p className="text-[9px] sm:text-[11px] text-gray-500 font-semibold uppercase tracking-[.06em] sm:tracking-[.14em] mt-1 sm:mt-1.5 truncate">
             Agendados
           </p>
         </button>
@@ -85,7 +85,7 @@ export function AgendaSummarySection({
           className={`card kpi cursor-pointer ${filter === 'atendidos' ? 'sel' : ''}`}
           data-f="atendidos"
         >
-          <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center justify-between mb-2.5 sm:mb-3">
             <span className="ibox text-green-400 !border-green-400/25 !bg-green-400/10">
               <DashboardIcon name="done" />
             </span>
@@ -95,12 +95,12 @@ export function AgendaSummarySection({
           </div>
           <p
             ref={kTRef}
-            className="text-3xl font-extrabold tracking-tighter tabular-nums text-white"
+            className="text-2xl sm:text-3xl font-extrabold tracking-tighter tabular-nums text-white"
             id="kT"
           >
             0
           </p>
-          <p className="text-[11px] text-gray-500 font-semibold uppercase tracking-[.14em] mt-1.5">
+          <p className="text-[9px] sm:text-[11px] text-gray-500 font-semibold uppercase tracking-[.06em] sm:tracking-[.14em] mt-1 sm:mt-1.5 truncate">
             Atendidos
           </p>
         </button>
@@ -112,7 +112,7 @@ export function AgendaSummarySection({
           className={`card kpi cursor-pointer ${filter === 'faltas' ? 'sel' : ''}`}
           data-f="faltas"
         >
-          <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center justify-between mb-2.5 sm:mb-3">
             <span className="ibox text-red-400 !border-red-400/25 !bg-red-400/10">
               <DashboardIcon name="userx" />
             </span>
@@ -122,62 +122,62 @@ export function AgendaSummarySection({
           </div>
           <p
             ref={kFRef}
-            className="text-3xl font-extrabold tracking-tighter tabular-nums text-white"
+            className="text-2xl sm:text-3xl font-extrabold tracking-tighter tabular-nums text-white"
             id="kF"
           >
             0
           </p>
-          <p className="text-[11px] text-gray-500 font-semibold uppercase tracking-[.14em] mt-1.5">
+          <p className="text-[9px] sm:text-[11px] text-gray-500 font-semibold uppercase tracking-[.06em] sm:tracking-[.14em] mt-1 sm:mt-1.5 truncate">
             Faltas
           </p>
         </button>
       </div>
 
       {/* Insights Row */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:divide-x divide-white/10 pt-4 border-t border-white/10">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-3 gap-y-4 sm:gap-4 lg:divide-x divide-white/10 pt-4 border-t border-white/10">
         <div className="flex items-center gap-3">
-          <DashboardIcon name="pulse" className="text-xl text-[#d4af37]" />
+          <DashboardIcon name="pulse" className="text-lg sm:text-xl text-[#d4af37] shrink-0" />
           <div>
-            <p className="text-lg font-extrabold tabular-nums text-white">
+            <p className="text-base sm:text-lg font-extrabold tabular-nums text-white leading-tight">
               {insights.ocupacao}
             </p>
-            <p className="text-[11px] text-gray-500 uppercase tracking-[.12em] font-semibold">
+            <p className="text-[10px] sm:text-[11px] text-gray-500 uppercase tracking-[.08em] sm:tracking-[.12em] font-semibold leading-snug">
               Ocupação
             </p>
           </div>
         </div>
 
         <div className="flex items-center gap-3 lg:pl-5">
-          <DashboardIcon name="coin" className="text-xl text-[#d4af37]" />
+          <DashboardIcon name="coin" className="text-lg sm:text-xl text-[#d4af37] shrink-0" />
           <div>
-            <p className="text-lg font-extrabold tabular-nums text-white">
+            <p className="text-base sm:text-lg font-extrabold tabular-nums text-white leading-tight">
               {insights.receita}
             </p>
-            <p className="text-[11px] text-gray-500 uppercase tracking-[.12em] font-semibold">
+            <p className="text-[10px] sm:text-[11px] text-gray-500 uppercase tracking-[.08em] sm:tracking-[.12em] font-semibold leading-snug">
               Receita prevista
             </p>
           </div>
         </div>
 
         <div className="flex items-center gap-3 lg:pl-5">
-          <DashboardIcon name="clock" className="text-xl text-[#d4af37]" />
+          <DashboardIcon name="clock" className="text-lg sm:text-xl text-[#d4af37] shrink-0" />
           <div>
-            <p className="text-lg font-extrabold tabular-nums text-white">
+            <p className="text-base sm:text-lg font-extrabold tabular-nums text-white leading-tight">
               {insights.tempoLivre}
             </p>
-            <p className="text-[11px] text-gray-500 uppercase tracking-[.12em] font-semibold">
+            <p className="text-[10px] sm:text-[11px] text-gray-500 uppercase tracking-[.08em] sm:tracking-[.12em] font-semibold leading-snug">
               Tempo livre
             </p>
           </div>
         </div>
 
         <div className="flex items-center gap-3 lg:pl-5">
-          <DashboardIcon name="spark" className="text-xl text-[#d4af37]" />
+          <DashboardIcon name="spark" className="text-lg sm:text-xl text-[#d4af37] shrink-0" />
           <div>
-            <p className="text-lg font-extrabold tabular-nums text-white">
+            <p className="text-base sm:text-lg font-extrabold tabular-nums text-white leading-tight">
               {insights.proximoLivre}
             </p>
-            <p className="text-[11px] text-gray-500 uppercase tracking-[.12em] font-semibold">
+            <p className="text-[10px] sm:text-[11px] text-gray-500 uppercase tracking-[.08em] sm:tracking-[.12em] font-semibold leading-snug">
               Próximo horário livre
             </p>
           </div>

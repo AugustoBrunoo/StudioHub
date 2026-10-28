@@ -48,8 +48,8 @@ export function AgendaGridView({
 
   return (
     <div className="card overflow-hidden">
-      <div className="overflow-x-auto">
-        <div style={{ minWidth: isWk ? '860px' : '0' }}>
+      <div className="overflow-x-auto overscroll-x-contain">
+        <div style={{ minWidth: isWk ? '720px' : '0' }}>
           {/* Week column header */}
           {isWk && (
             <div className="flex border-b border-white/10">
