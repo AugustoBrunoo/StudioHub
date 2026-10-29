@@ -23,7 +23,7 @@ export function AgendaFilterBar({
   onSelectFilter,
 }: AgendaFilterBarProps) {
   return (
-    <div className="flex flex-col md:flex-row md:items-center gap-3 mb-4 sm:mb-5">
+    <div className="flex flex-col md:flex-row md:items-center gap-3 mb-4 sm:mb-5 mt-1 sm:mt-1.5">
       {/* Search Input */}
       <div className="relative w-full md:w-72">
         <DashboardIcon
@@ -44,7 +44,7 @@ export function AgendaFilterBar({
 
       {/* Filter Chips */}
       <div
-        className="no-scrollbar flex gap-2 overflow-x-auto pb-1 -mb-1 -mx-4 px-4 sm:mx-0 sm:px-0 snap-x"
+        className="no-scrollbar flex items-center gap-2 overflow-x-auto py-2 -my-2 -mx-4 px-4 sm:mx-0 sm:px-0 snap-x"
         id="chips"
       >
         {FILTER_OPTIONS.map((opt) => (
@@ -53,7 +53,7 @@ export function AgendaFilterBar({
             type="button"
             data-f={opt.id}
             onClick={() => onSelectFilter(opt.id)}
-            className={`chip shrink-0 snap-start cursor-pointer ${activeFilter === opt.id ? 'on' : ''}`}
+            className={`chip shrink-0 snap-start cursor-pointer transition-all duration-200 ${activeFilter === opt.id ? 'on' : ''}`}
           >
             {opt.label}
           </button>

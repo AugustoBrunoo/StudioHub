@@ -1,6 +1,5 @@
-import { useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { DashboardIcon } from '@/components/dashboard/DashboardIcons';
+import { AgendaKpiCard } from './AgendaKpiCard';
+import { AgendaInsightItem } from './AgendaInsightItem';
 import type { AgendaStats, AgendaInsights, FilterMode } from './types';
 
 interface AgendaSummarySectionProps {
@@ -16,172 +15,123 @@ export function AgendaSummarySection({
   filter,
   onSelectFilter,
 }: AgendaSummarySectionProps) {
-  const kARef = useRef<HTMLParagraphElement | null>(null);
-  const kTRef = useRef<HTMLParagraphElement | null>(null);
-  const kFRef = useRef<HTMLParagraphElement | null>(null);
+  const atPercent = stats.tot > 0 ? `${Math.round((stats.at / stats.tot) * 100)}%` : '0%';
+  const faPercent = stats.tot > 0 ? `${Math.round((stats.fa / stats.tot) * 100)}%` : '0%';
 
-  // Animated KPI numbers with GSAP
-  useEffect(() => {
-    const animNumber = (el: HTMLParagraphElement | null, targetVal: number) => {
-      if (!el) return;
-      const cur = parseFloat(el.getAttribute('data-v') || '0');
-      const obj = { v: cur };
-      gsap.to(obj, {
-        v: targetVal,
-        duration: 0.8,
-        ease: 'power3.out',
-        onUpdate: () => {
-          el.textContent = String(Math.round(obj.v));
-          el.setAttribute('data-v', String(obj.v));
-        },
-        onComplete: () => {
-          el.setAttribute('data-v', String(targetVal));
-        },
-      });
-    };
+  const kpiCards = [
+    {
+      id: 'todos' as FilterMode,
+      label: 'Agendados',
+      value: stats.tot,
+      badge: 'no dia',
+      icon: 'cal' as const,
+      isSelected: filter === 'todos',
+      onClick: () => onSelectFilter('todos'),
+      htmlId: 'kA',
+    },
+    {
+      id: 'atendidos' as FilterMode,
+      label: 'Atendidos',
+      value: stats.at,
+      badge: atPercent,
+      icon: 'done' as const,
+      isSelected: filter === 'atendidos',
+      onClick: () => onSelectFilter(filter === 'atendidos' ? 'todos' : 'atendidos'),
+      htmlId: 'kT',
+    },
+    {
+      id: 'faltas' as FilterMode,
+      label: 'Faltas',
+      value: stats.fa,
+      badge: faPercent,
+      icon: 'userx' as const,
+      isSelected: filter === 'faltas',
+      onClick: () => onSelectFilter(filter === 'faltas' ? 'todos' : 'faltas'),
+      htmlId: 'kF',
+    },
+  ];
 
-    animNumber(kARef.current, stats.tot);
-    animNumber(kTRef.current, stats.at);
-    animNumber(kFRef.current, stats.fa);
-  }, [stats]);
+  const insightItems = [
+    {
+      icon: 'pulse' as const,
+      label: 'Ocupação',
+      value: insights.ocupacao,
+      className: '',
+    },
+    {
+      icon: 'coin' as const,
+      label: 'Receita prevista',
+      value: insights.receita,
+      className: 'lg:pl-5',
+    },
+    {
+      icon: 'clock' as const,
+      label: 'Tempo livre',
+      value: insights.tempoLivre,
+      className: 'lg:pl-5',
+    },
+    {
+      icon: 'spark' as const,
+      label: 'Próximo horário livre',
+      value: insights.proximoLivre,
+      className: 'lg:pl-5',
+    },
+  ];
 
   return (
-    <section className="pnl rise mb-5">
-      <p className="tag mb-4">Resumo do dia</p>
+    <section className="pnl rise mb-5 relative overflow-hidden">
+      {/* Subtle ambient lighting accent */}
+      <div
+        className="absolute -top-20 -right-20 w-72 h-72 bg-[#d4af37]/[0.035] rounded-full blur-3xl pointer-events-none"
+        aria-hidden="true"
+      />
+
+      {/* Header */}
+      <div className="flex items-center justify-between mb-4 sm:mb-5">
+        <p className="tag !mb-0 flex-1">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#d4af37] shadow-[0_0_8px_#d4af37] inline-block shrink-0" />
+          <span>Resumo do dia</span>
+        </p>
+        {filter !== 'todos' && (
+          <button
+            type="button"
+            onClick={() => onSelectFilter('todos')}
+            className="shrink-0 ml-3 text-[10px] sm:text-[11px] font-semibold text-[#d4af37] hover:text-[#f1c40f] transition-colors uppercase tracking-wider cursor-pointer"
+          >
+            Ver todos
+          </button>
+        )}
+      </div>
 
       {/* KPI Cards Grid */}
-      <div className="grid grid-cols-3 gap-2 sm:gap-3 mb-4">
-        {/* KPI Agendados */}
-        <button
-          type="button"
-          onClick={() => onSelectFilter(filter === 'todos' ? 'todos' : 'todos')}
-          className={`card kpi cursor-pointer ${filter === 'todos' ? 'sel' : ''}`}
-          data-f="todos"
-        >
-          <div className="flex items-center justify-between mb-2.5 sm:mb-3">
-            <span className="ibox text-[#d4af37] !border-[#d4af37]/25 !bg-[#d4af37]/10">
-              <DashboardIcon name="cal" />
-            </span>
-            <span className="hidden sm:block text-[10px] text-gray-600 font-semibold uppercase tracking-[.14em]">
-              no dia
-            </span>
-          </div>
-          <p
-            ref={kARef}
-            className="text-2xl sm:text-3xl font-extrabold tracking-tighter tabular-nums text-white"
-            id="kA"
-          >
-            0
-          </p>
-          <p className="text-[9px] sm:text-[11px] text-gray-500 font-semibold uppercase tracking-[.06em] sm:tracking-[.14em] mt-1 sm:mt-1.5 truncate">
-            Agendados
-          </p>
-        </button>
-
-        {/* KPI Atendidos */}
-        <button
-          type="button"
-          onClick={() => onSelectFilter(filter === 'atendidos' ? 'todos' : 'atendidos')}
-          className={`card kpi cursor-pointer ${filter === 'atendidos' ? 'sel' : ''}`}
-          data-f="atendidos"
-        >
-          <div className="flex items-center justify-between mb-2.5 sm:mb-3">
-            <span className="ibox text-green-400 !border-green-400/25 !bg-green-400/10">
-              <DashboardIcon name="done" />
-            </span>
-            <span className="hidden sm:block text-[10px] text-gray-600 font-semibold uppercase tracking-[.14em]">
-              {stats.tot ? Math.round((stats.at / stats.tot) * 100) + '%' : ''}
-            </span>
-          </div>
-          <p
-            ref={kTRef}
-            className="text-2xl sm:text-3xl font-extrabold tracking-tighter tabular-nums text-white"
-            id="kT"
-          >
-            0
-          </p>
-          <p className="text-[9px] sm:text-[11px] text-gray-500 font-semibold uppercase tracking-[.06em] sm:tracking-[.14em] mt-1 sm:mt-1.5 truncate">
-            Atendidos
-          </p>
-        </button>
-
-        {/* KPI Faltas */}
-        <button
-          type="button"
-          onClick={() => onSelectFilter(filter === 'faltas' ? 'todos' : 'faltas')}
-          className={`card kpi cursor-pointer ${filter === 'faltas' ? 'sel' : ''}`}
-          data-f="faltas"
-        >
-          <div className="flex items-center justify-between mb-2.5 sm:mb-3">
-            <span className="ibox text-red-400 !border-red-400/25 !bg-red-400/10">
-              <DashboardIcon name="userx" />
-            </span>
-            <span className="hidden sm:block text-[10px] text-gray-600 font-semibold uppercase tracking-[.14em]">
-              {stats.tot ? Math.round((stats.fa / stats.tot) * 100) + '%' : ''}
-            </span>
-          </div>
-          <p
-            ref={kFRef}
-            className="text-2xl sm:text-3xl font-extrabold tracking-tighter tabular-nums text-white"
-            id="kF"
-          >
-            0
-          </p>
-          <p className="text-[9px] sm:text-[11px] text-gray-500 font-semibold uppercase tracking-[.06em] sm:tracking-[.14em] mt-1 sm:mt-1.5 truncate">
-            Faltas
-          </p>
-        </button>
+      <div className="grid grid-cols-3 gap-2 sm:gap-3.5 mb-4 sm:mb-5">
+        {kpiCards.map((card) => (
+          <AgendaKpiCard
+            key={card.id}
+            id={card.id}
+            label={card.label}
+            value={card.value}
+            badge={card.badge}
+            icon={card.icon}
+            isSelected={card.isSelected}
+            onClick={card.onClick}
+            dataFilter={card.id}
+            htmlId={card.htmlId}
+          />
+        ))}
       </div>
 
       {/* Insights Row */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-3 gap-y-4 sm:gap-4 lg:divide-x divide-white/10 pt-4 border-t border-white/10">
-        <div className="flex items-center gap-3">
-          <DashboardIcon name="pulse" className="text-lg sm:text-xl text-[#d4af37] shrink-0" />
-          <div>
-            <p className="text-base sm:text-lg font-extrabold tabular-nums text-white leading-tight">
-              {insights.ocupacao}
-            </p>
-            <p className="text-[10px] sm:text-[11px] text-gray-500 uppercase tracking-[.08em] sm:tracking-[.12em] font-semibold leading-snug">
-              Ocupação
-            </p>
-          </div>
-        </div>
-
-        <div className="flex items-center gap-3 lg:pl-5">
-          <DashboardIcon name="coin" className="text-lg sm:text-xl text-[#d4af37] shrink-0" />
-          <div>
-            <p className="text-base sm:text-lg font-extrabold tabular-nums text-white leading-tight">
-              {insights.receita}
-            </p>
-            <p className="text-[10px] sm:text-[11px] text-gray-500 uppercase tracking-[.08em] sm:tracking-[.12em] font-semibold leading-snug">
-              Receita prevista
-            </p>
-          </div>
-        </div>
-
-        <div className="flex items-center gap-3 lg:pl-5">
-          <DashboardIcon name="clock" className="text-lg sm:text-xl text-[#d4af37] shrink-0" />
-          <div>
-            <p className="text-base sm:text-lg font-extrabold tabular-nums text-white leading-tight">
-              {insights.tempoLivre}
-            </p>
-            <p className="text-[10px] sm:text-[11px] text-gray-500 uppercase tracking-[.08em] sm:tracking-[.12em] font-semibold leading-snug">
-              Tempo livre
-            </p>
-          </div>
-        </div>
-
-        <div className="flex items-center gap-3 lg:pl-5">
-          <DashboardIcon name="spark" className="text-lg sm:text-xl text-[#d4af37] shrink-0" />
-          <div>
-            <p className="text-base sm:text-lg font-extrabold tabular-nums text-white leading-tight">
-              {insights.proximoLivre}
-            </p>
-            <p className="text-[10px] sm:text-[11px] text-gray-500 uppercase tracking-[.08em] sm:tracking-[.12em] font-semibold leading-snug">
-              Próximo horário livre
-            </p>
-          </div>
-        </div>
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:divide-x lg:divide-white/[0.08] pt-4 sm:pt-5 border-t border-white/[0.08]">
+        {insightItems.map((item, index) => (
+          <AgendaInsightItem
+            key={index}
+            icon={item.icon}
+            label={item.label}
+            value={item.value}
+            className={item.className}
+          />
+        ))}
       </div>
     </section>
   );

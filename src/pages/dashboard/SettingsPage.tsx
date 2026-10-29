@@ -1,115 +1,144 @@
-import React, { useState } from 'react';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
-import { Input } from '@/components/ui/Input';
+import { useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import gsap from 'gsap';
+import { Seo } from '@/components/common/Seo';
 import { useAuth } from '@/hooks/useAuth';
-import { Bell, Lock, Building, Check, Sparkles } from 'lucide-react';
+import { useDashboardToast } from '@/layouts/DashboardLayout';
+import {
+  SettingsNavigationCard,
+  SettingsSessionCard,
+  type SettingsNavigationCardProps,
+} from '@/components/settings';
+import {
+  User,
+  Building2,
+  ShieldCheck,
+  CreditCard,
+} from 'lucide-react';
+
+interface SettingsCardConfig extends SettingsNavigationCardProps {
+  id: string;
+}
 
 export function SettingsPage() {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+  const showToast = useDashboardToast();
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
-  const [name, setName] = useState(user?.name || '');
-  const [email, setEmail] = useState(user?.email || '');
-  const [studioName, setStudioName] = useState(user?.studioName || 'StudioHub Central');
-  const [saved, setSaved] = useState(false);
+  const displayName = user?.name?.replace(/\s*\(.*?\)\s*/g, '') || 'João Mendes';
+  const displayStudio = user?.studioName || 'Studio Navalha de Ouro';
 
-  const handleSave = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSaved(true);
-    setTimeout(() => setSaved(false), 2500);
+  const initials =
+    displayName
+      .split(' ')
+      .filter(Boolean)
+      .map((part) => part[0])
+      .slice(0, 2)
+      .join('')
+      .toUpperCase() || 'SH';
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap
+        .timeline({ defaults: { ease: 'power4.out' } })
+        .from(
+          '.rise',
+          {
+            y: 34,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.08,
+            clearProps: 'opacity,transform',
+          },
+          0.05
+        );
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  const handleLogout = () => {
+    showToast('Sessão encerrada com segurança.');
+    logout();
+    navigate('/login');
   };
 
+  const settingsCards: SettingsCardConfig[] = [
+    {
+      id: 'perfil',
+      to: '/dashboard/configuracoes/perfil',
+      title: 'Perfil do Profissional',
+      subtitle: 'Identidade & Contatos Pessoais',
+      description:
+        'Gerencie seu nome, apelido usado pelo assistente nas conversas de WhatsApp, especialidade, e-mail de acesso e telefone para avisos.',
+      icon: User,
+      ctaLabel: 'Gerenciar perfil',
+    },
+    {
+      id: 'estudio',
+      to: '/dashboard/configuracoes/estudio',
+      title: 'Dados do Estúdio & Expediente',
+      subtitle: 'Operação, Horários & Robô WhatsApp',
+      description:
+        'Configure o nome comercial da barbearia/estúdio, endereço enviado aos clientes, número controlado pelo robô, dias de funcionamento e pausa de almoço.',
+      icon: Building2,
+      ctaLabel: 'Configurar estúdio',
+    },
+    {
+      id: 'notificacoes',
+      to: '/dashboard/configuracoes/notificacoes',
+      title: 'Notificações & Segurança',
+      subtitle: 'Automação Anti-Falta & Proteção 2FA',
+      description:
+        'Defina quando receber alertas no seu celular, antecedência dos lembretes anti-falta para clientes, verificação em duas etapas e senha de acesso.',
+      icon: ShieldCheck,
+      ctaLabel: 'Ajustar alertas e senha',
+    },
+    {
+      id: 'faturamento',
+      to: '/dashboard/configuracoes/faturamento',
+      title: 'Faturamento & Mensalidade / Plano',
+      subtitle: 'Assinatura, Cartão/Pix & Recibos',
+      description:
+        'Consulte seu plano atual, compare opções de upgrade (Premium e Hub Master), gerencie sua forma de pagamento e baixe notas ou recibos mensais.',
+      icon: CreditCard,
+      ctaLabel: 'Ver plano e faturas',
+    },
+  ];
+
   return (
-    <div className="space-y-6 max-w-4xl">
-      <div className="pb-2 border-b border-slate-800">
-        <h1 className="text-2xl font-bold text-white tracking-tight">Configurações da Conta & Estúdio</h1>
-        <p className="text-xs text-slate-400 mt-1">
-          Ajuste suas preferências de perfil, notificações e dados operacionais.
-        </p>
-      </div>
+    <div ref={containerRef} className="w-full">
+      <Seo
+        title="StudioHub | Configurações da Conta & Estúdio"
+        description="Central de configurações do StudioHub. Acesse seu perfil, dados do estúdio, notificações, segurança e faturamento."
+      />
 
-      <form onSubmit={handleSave} className="space-y-6">
-        {/* Profile Card */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-base flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-emerald-400" />
-              Perfil do Usuário
-            </CardTitle>
-            <CardDescription>Informações públicas e dados de contato</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <Input
-                label="Nome Completo"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-              <Input
-                label="Email Principal"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-          </CardContent>
-        </Card>
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28 pb-16 sm:pb-24 relative z-10">
+        {/* Top Header */}
+        <header className="rise flex flex-col lg:flex-row lg:items-end lg:justify-between gap-5 pb-6 mb-7 border-b border-white/[0.08]">
+          <div>
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-white">
+              Configurações
+            </h1>
+          </div>
+        </header>
 
-        {/* Studio Info Card */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-base flex items-center gap-2">
-              <Building className="w-4 h-4 text-purple-400" />
-              Dados do Estúdio / Produtora
-            </CardTitle>
-            <CardDescription>Nome exibido para clientes nos comprovantes e agendamentos</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <Input
-                label="Nome Comercial do Estúdio"
-                value={studioName}
-                onChange={(e) => setStudioName(e.target.value)}
-              />
-              <Input
-                label="Telefone / WhatsApp Comercial"
-                placeholder="(11) 99999-9999"
-                defaultValue="(11) 98765-4321"
-              />
-            </div>
-          </CardContent>
-        </Card>
+        {/* 4 Clean Navigation Cards Grid */}
+        <section
+          aria-label="Categorias de Configuração"
+          className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 mb-7"
+        >
+          {settingsCards.map((card) => (
+            <SettingsNavigationCard key={card.id} {...card} />
+          ))}
+        </section>
 
-        {/* Notifications & Security */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-base flex items-center gap-2">
-              <Bell className="w-4 h-4 text-blue-400" />
-              Notificações & Segurança
-            </CardTitle>
-            <CardDescription>Como e quando você deseja ser notificado</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <label className="flex items-center gap-3 text-xs text-slate-300 p-2 rounded-lg bg-slate-950/40 border border-slate-800/80 cursor-pointer">
-              <input type="checkbox" defaultChecked className="rounded border-slate-700 bg-slate-800 text-emerald-500 focus:ring-emerald-500" />
-              <span>Receber alertas no WhatsApp a cada novo agendamento confirmado</span>
-            </label>
-            <label className="flex items-center gap-3 text-xs text-slate-300 p-2 rounded-lg bg-slate-950/40 border border-slate-800/80 cursor-pointer">
-              <input type="checkbox" defaultChecked className="rounded border-slate-700 bg-slate-800 text-emerald-500 focus:ring-emerald-500" />
-              <span>Relatório financeiro semanal resumido por email</span>
-            </label>
-          </CardContent>
-          <CardFooter className="flex justify-between items-center">
-            <span className="text-xs text-slate-500 flex items-center gap-1.5">
-              <Lock className="w-3.5 h-3.5" />
-              Sessão criptografada
-            </span>
-            <Button type="submit" variant="primary" leftIcon={saved ? <Check className="w-4 h-4" /> : undefined}>
-              {saved ? 'Salvo com sucesso!' : 'Salvar Alterações'}
-            </Button>
-          </CardFooter>
-        </Card>
-      </form>
+        {/* Dedicated Logout / Session Card */}
+        <SettingsSessionCard onLogout={handleLogout} />
+      </main>
     </div>
   );
 }
+
+export default SettingsPage;

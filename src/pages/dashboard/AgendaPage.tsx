@@ -58,7 +58,13 @@ export function AgendaPage() {
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        agenda.setIsHoursPopOpen(false);
+        if (agenda.activeDrawerId) {
+          agenda.setActiveDrawerId(null);
+        } else if (agenda.modalState.isOpen) {
+          agenda.closeModal();
+        } else if (agenda.isHoursPopOpen) {
+          agenda.setIsHoursPopOpen(false);
+        }
       }
     };
 
@@ -70,6 +76,21 @@ export function AgendaPage() {
       document.removeEventListener('keydown', handleKeyDown);
     };
   }, [agenda]);
+
+  // Lock body scroll while drawer or modal is open, and guarantee it unlocks when closed
+  useEffect(() => {
+    const isOverlayOpen = !!agenda.activeDrawerId || agenda.modalState.isOpen;
+
+    if (isOverlayOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [agenda.activeDrawerId, agenda.modalState.isOpen]);
 
   return (
     <div ref={pageContainerRef} className="w-full">
@@ -116,7 +137,7 @@ export function AgendaPage() {
 
         {/* Section 3: Appointments List & Views */}
         <section className="pnl rise mb-8">
-          <p className="tag mb-4">Atendimentos</p>
+          <p className="tag mb-4 sm:mb-5">Atendimentos</p>
 
           <AgendaFilterBar
             searchQuery={agenda.searchQuery}

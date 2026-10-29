@@ -18,6 +18,10 @@ import { StudiosPage } from '@/pages/dashboard/StudiosPage';
 import { AgendaPage } from '@/pages/dashboard/AgendaPage';
 import { UsersManagementPage } from '@/pages/dashboard/UsersManagementPage';
 import { SettingsPage } from '@/pages/dashboard/SettingsPage';
+import { SettingsProfilePage } from '@/pages/dashboard/SettingsProfilePage';
+import { SettingsStudioPage } from '@/pages/dashboard/SettingsStudioPage';
+import { SettingsNotificationsPage } from '@/pages/dashboard/SettingsNotificationsPage';
+import { SettingsBillingPage } from '@/pages/dashboard/SettingsBillingPage';
 
 // Error Pages
 import { NotFoundPage } from '@/pages/errors/NotFoundPage';
@@ -105,6 +109,22 @@ export const router = createBrowserRouter([
       {
         path: 'configuracoes',
         element: <SettingsPage />,
+      },
+      {
+        path: 'configuracoes/perfil',
+        element: <SettingsProfilePage />,
+      },
+      {
+        path: 'configuracoes/estudio',
+        element: <SettingsStudioPage />,
+      },
+      {
+        path: 'configuracoes/notificacoes',
+        element: <SettingsNotificationsPage />,
+      },
+      {
+        path: 'configuracoes/faturamento',
+        element: <SettingsBillingPage />,
       },
     ],
   },

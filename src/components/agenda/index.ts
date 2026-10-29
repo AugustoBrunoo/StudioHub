@@ -4,6 +4,8 @@ export * from './AgendaHeader';
 export * from './AgendaPeriodSection';
 export * from './AgendaWeekStrip';
 export * from './AgendaSummarySection';
+export * from './AgendaKpiCard';
+export * from './AgendaInsightItem';
 export * from './AgendaFilterBar';
 export * from './AgendaCardsView';
 export * from './AgendaAppointmentCard';

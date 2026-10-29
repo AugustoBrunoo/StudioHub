@@ -28,7 +28,8 @@ export function DashboardLayout() {
     location.pathname === '/dashboard' ||
     location.pathname === '/dashboard/' ||
     location.pathname.startsWith('/dashboard/agenda') ||
-    location.pathname.startsWith('/dashboard/agendamentos');
+    location.pathname.startsWith('/dashboard/agendamentos') ||
+    location.pathname.startsWith('/dashboard/configuracoes');
 
   return (
     <div className="min-h-screen min-h-[100dvh] w-full bg-[#0a0a0a] text-[#f5f5f5] selection:bg-[#d4af37]/30 selection:text-white relative overflow-x-hidden">

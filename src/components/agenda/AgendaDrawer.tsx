@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { DashboardIcon } from '@/components/dashboard/DashboardIcons';
 import {
   type AppointmentItem,
@@ -24,6 +25,23 @@ export function AgendaDrawer({
   onSetStatus,
   onReschedule,
 }: AgendaDrawerProps) {
+  // Close on Escape key while drawer is open
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isOpen, onClose]);
+
   return (
     <>
       {/* Overlay Backdrop */}
@@ -45,15 +63,27 @@ export function AgendaDrawer({
             {/* Drawer Header */}
             <div className="flex items-center justify-between mb-5 sm:mb-7">
               <span
-                className="badge"
-                style={{ ['--c' as string]: STATUS_MAP[a.status].c }}
+                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider border shadow-xs"
+                style={{
+                  color: STATUS_MAP[a.status].c,
+                  backgroundColor: `${STATUS_MAP[a.status].c}18`,
+                  borderColor: `${STATUS_MAP[a.status].c}40`,
+                }}
               >
+                <span
+                  className="w-1.5 h-1.5 rounded-full shrink-0"
+                  style={{
+                    backgroundColor: STATUS_MAP[a.status].c,
+                    boxShadow: `0 0 8px ${STATUS_MAP[a.status].c}`,
+                  }}
+                  aria-hidden="true"
+                />
                 {STATUS_MAP[a.status].l}
               </span>
               <button
                 type="button"
                 onClick={onClose}
-                className="nb !w-9 !h-9 cursor-pointer"
+                className="nb !w-9 !h-9 cursor-pointer text-gray-400 hover:text-white transition-colors"
                 aria-label="Fechar"
               >
                 <DashboardIcon name="x" />
